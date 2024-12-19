@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Sign-Up</title>
+    <link rel="stylesheet" href="styles/signup.css">
+</head>
+<body>
+    <div class="background-container">
+        <div class="container">
+            <div class="logo-container">
+                <img src="images/IMG_6583.png" alt="Logo" class="logo">
+                <p>Welcome to RenovaCalc!</p>
+                <p>Here you can easily calculate your renovation costs based on area, size, and more.</p>
+            </div>
+            <div class="form-container sign-up-continer">
+                <form id="customerSignupForm">
+                    <div class="avatar-logo">
+                        <img src="images/avatar-logo.jpg" alt="Avatar Logo" class="avatar">
+                    </div>
+                    <h2>Customer Sign Up</h2>
+                    <input type="text" placeholder="Username" id="signupUsername" required>
+                    <input type="email" placeholder="Email" id="signupEmail" required>
+                    <input type="password" placeholder="Password" id="signupPassword" required>
+                    <!-- Gender Selection -->
+                    <div class="gender-selection">
+                        <label for="gender" class="form-label">Gender:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="male" name="gender" value="Male" required>
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="female" name="gender" value="Female" required>
+                            <label for="female">Female</label>
+                        </div>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                    <p><a href="login.html">Already have an account?</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('customerSignupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            // שולף מידע שהמשתמש הזין
+            const username = document.getElementById('signupUsername').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            localStorage.setItem('gender',gender);
+            
+            // שליחת בקשה HTTP 
+            const response = await fetch('/api/auth/signup/customer', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password, gender })
+            });
+            // אם ההרשמה הצליחה אז מעביר אותו לדף הזה
+            if (response.ok) {
+
+
+                alert('Customer account created successfully!');
+                window.location.href = 'login.html';
+            } else {
+                const error = await response.json();
+                alert('Error: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
