@@ -38,3 +38,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );
+
+const userRoutes = require('./routes/auth'); // המסלולים שלך
+app.use('/api', userRoutes); // הוספת הנתיב הבסיסי
