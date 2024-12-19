@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    background: url('../images/b3.jpg') center/cover no-repeat; 
+    background-attachment: fixed; 
+    color: #333;
+    
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 8px 8px 8px;
+}
+
+ 
+.logo img {
+       
+    width: 120px;
+    height: auto;
+    }
+    
+
+
+    nav {
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        padding: 20px; 
+        background-color: #ffffff; 
+    }
+    
+    nav a {
+        text-decoration: none; 
+        color: rgb(0, 0, 0); 
+        margin: 0 15px; 
+        font-size: 1.1rem; 
+        padding: 10px 20px; 
+        border-radius: 5px; 
+        transition: all 0.3s ease; 
+    }
+    
+    nav a:hover {
+        background-color: #007BFF; 
+        color: white; 
+        transform: scale(1.1); 
+    }
+    
+    nav .btn {
+        background-color: #333; 
+        border: 2px solid #007BFF; 
+        color: #007BFF; 
+    }
+    
+    nav .btn:hover {
+        background-color: #007BFF; 
+        color: white; 
+    }
+    
+header .btn {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.hero {
+    background: url('background-image.jpg') center/cover no-repeat;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #000000;
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-content .btn {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 20px;
+}
+
+.feature-card {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    text-align: center;
+    max-width: 300px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+footer .socials a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #fff;
+}
