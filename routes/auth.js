@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer'); //מאפשרת שליחת מיילים
 const bcrypt = require('bcryptjs'); // הצפנת סיסמאות
 const jwt = require('jsonwebtoken'); // משמש ליצירת עבור אימות משתמשים
 const User = require('../models/user'); // מודל המשתמש המייצג את המבנה של המשתמשים בבסיס הנתונים
+const { verifyToken} = require('./authMiddleware');
 
 
 // יוצר אובייקט שמאפשר להגדיר מסלולים בצורה מאורגנת ונפרדת מהקובץ הראשי
@@ -163,7 +164,37 @@ router.post('/reset-password', async (req, res) => {
     }
 });
 
+// מסלול לעדכון פרטי המשתמש (שם או אימייל)
+router.put('/update', verifyToken, async (req, res) => {
+    const { field, value } = req.body; // השדה והערך החדש
+    const allowedFields = ['username', 'email']; // שדות מותרים לעדכון
 
+    try {
+        // בדיקה אם השדה חוקי
+        if (!allowedFields.includes(field)) {
+            return res.status(400).json({ message: 'Invalid field for update' });
+        }
+
+        // מציאת המשתמש על פי הטוקן
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // עדכון השדה המתאים
+        user[field] = value;
+        await user.save();
+
+        res.status(200).json({ 
+            message: `${field} updated successfully`,
+            updatedField: field,
+            updatedValue: value
+        });
+    } catch (error) {
+        console.error('Error updating user details:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 
 
 

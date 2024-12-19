@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles/customer-profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="images/IMG_6583.png" alt="RenovaCalc Logo">
+        </div>
+        <div class="header-content">
+            <nav>
+                <a href="homepage-customer.html">Home</a>
+                <a href="products.html">My Products</a>
+                <a href="aboutus.html">About Us</a>
+            </nav>
+        
+        <div class="profile-menu">
+            <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" />
+            <div class="sub-menu-wrap" id="subMenu">
+              <div class="sub-menu">
+                <div class="user-info">
+                  <img src="images/avatar-logo.jpg" />
+                  <p><strong>Username:</strong> <span id="username"></span></p>
+                </div>
+                <hr />
+                <a href="customer-profile.html" class="sub-menu-link">
+                  <img src="images/profile images/profile.png" />
+                  <p>Edit Profile</p>
+                  <span>></span>
+                </a>
+                <a href="" class="sub-menu-link">
+                  <img src="images/profile images/setting.png" />
+                  <p>Settings</p>
+                  <span>></span>
+                </a>
+                <a href="" class="sub-menu-link">
+                  <img src="images/profile images/help.png" />
+                  <p>help</p>
+                  <span>></span>
+                </a>
+                <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                  <img src="images/profile images/logout.png" />
+                  <p>Logout</p>
+                  <span>></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+    </header>
+    
+
+    <!-- Main Content -->
+    <main>
+        <section class="profile-container">
+            <h1>My Profile</h1>
+            <div class="profile-card">
+                <p><strong>Username:</strong> <span id="username1"></span><button class="edit-btn" onclick="showEditBox('username')">edit</button></p>
+                <p><strong>Email:</strong> <span id="email"></span><button class="edit-btn" onclick="showEditBox('email')">edit</button></p>
+                <p>
+                  <strong>Password: ********</strong>
+                  <a class="edit-btn" href="reset-password.html">edit</a>
+              </p>                <p><strong>Account Type:</strong> <span id="accountType"></span></p>
+              <p><strong>Gender: </strong><span id="gender"></span></p>
+
+            </div>
+            
+
+            <div id="edit-box" class="edit-box hidden">
+              <h2>Update <span id="edit-field-name"></span></h2>
+              <input type="text" id="edit-input" placeholder="Enter new value">
+              <button onclick="updateField()">Save</button>
+          </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
+    </footer>
+
+    <!-- Script Section -->
+    <script>
+        // קבלת פרטי המשתמש מה-Local Storage
+        const username = localStorage.getItem('username') || "Guest";
+        const username1 = localStorage.getItem('username') || "Guest";
+        const accountType = localStorage.getItem('accountType') || "Contractor";
+        const email = localStorage.getItem('Useremail') || "Not Available"; // שליפת המייל
+        const gender = localStorage.getItem('gender');
+
+
+
+
+
+
+        // הצגת הנתונים בדף
+        document.getElementById('gender').innerText=gender;
+        document.getElementById('username').innerText = username;
+        document.getElementById('username1').innerText = username1;
+        document.getElementById('accountType').innerText = accountType;
+        document.getElementById('email').innerText = email;
+
+        let currentField = '';
+
+function showEditBox(field) {
+    currentField = field;
+    document.getElementById('edit-box').classList.remove('hidden'); // הצגת תיבת העריכה
+
+    const fieldNameMap = { username: 'Username', email: 'Email', password: 'Password' };
+    document.getElementById('edit-field-name').innerText = fieldNameMap[field];
+
+    if (field !== 'password') {
+        const currentValue = document.getElementById(
+            field === 'username' ? 'username' : 'email'
+        ).innerText;
+        document.getElementById('edit-input').value = currentValue;
+    } else {
+        document.getElementById('edit-input').value = ''; // השאר סיסמה ריקה
+    }
+}
+
+async function updateField() {
+    const newValue = document.getElementById('edit-input').value;
+
+    try {
+        const response = await fetch('/api/update', {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}` // טוקן אימות
+            },
+            body: JSON.stringify({ field: currentField, value: newValue })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert(`${currentField} updated successfully!`);
+            if (currentField === 'username') {
+                document.getElementById('username').innerText = newValue;
+                localStorage.setItem('username', newValue); // עדכון LocalStorage
+
+            } else if (currentField === 'email') {
+                document.getElementById('email').innerText = newValue;
+                localStorage.setItem('Useremail', newValue); // עדכון LocalStorage
+
+            }
+            document.getElementById('edit-box').classList.add('hidden'); // הסתרת המלבן
+        } else {
+            alert(result.message || 'Failed to update field');
+        }
+    } catch (error) {
+        console.error('Error updating field:', error);
+        alert('An error occurred. Please try again.');
+    }
+}
+
+
+        // פונקציית Logout
+        function logout() {
+            localStorage.clear(); // ניקוי כל הנתונים מה-Local Storage
+            alert('You have been logged out.');
+            window.location.href = 'login.html'; // הפנייה לדף ההתחברות
+        }
+        let subMenu = document.getElementById("subMenu");
+        function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+        
+}
+
+
+    </script>
+
+    
+  
+
+</body>
+</html>
