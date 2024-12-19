@@ -14,13 +14,5 @@ const verifyToken = (req, res, next) => {
     }
 };
 
-// Middleware לבדיקה האם המשתמש Admin
 
-const verifyAdmin = (req, res, next) => {
-    if (req.user.accountType !== 'Admin') {
-        return res.status(403).json({ message: 'Access denied. Admins only' });
-    }
-    next();
-};
-
-module.exports = { verifyToken, verifyAdmin };
+module.exports = { verifyToken };
