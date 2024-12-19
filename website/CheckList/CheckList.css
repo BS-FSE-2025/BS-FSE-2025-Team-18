@@ -1,0 +1,87 @@
+header img{
+    width:100px;
+}
+header{
+    display: flex;
+    align-items: center;
+}
+hr{
+    width: 100%;
+    color: #333;
+    border: 3px solid #131747;
+    border-radius: 50%;
+
+}
+
+body {
+    
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-table{
+    border-collapse: collapse;
+    table-layout: fixed;
+    border-spacing: 0;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+.content-table thead tr{
+   
+    background-color:#009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+    
+}
+
+
+.content-table th,
+.content-table td{
+    padding: 12px 15px;
+}
+.content-table tbody tr{
+    border-bottom: 1px solid #dddddd;
+}
+.content-table tbody tr:nth-of-type(even){
+    background-color: #f3f3f3;
+}
+.content-table tbody tr:nth-of-type(odd){
+    background-color: #dedcdc;
+}
+.content-table tbody tr:last-of-type{
+    border-bottom: 2px solid #009879;
+}
+.content-table tbody button{
+    font-size: 1rem;
+    background-color: #be0c0c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#addbtn{
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #009879;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>livingroom</title>
+    <link rel="stylesheet" href="CheckList.css" />
+  </head>
+  <body>
+    <header>
+      <img src="../images/IMG_6583.png" alt="Logo" />
+      <h1>living-room CheckList</h1>
+      
+    </header>
+    <hr />
+    <main>
+      <table id="CheckTable" class="content-table">
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>TODO</th>
+            <th>Checkbox</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+
+        <tbody id="checklist">
+          <tr>
+            <td>1</td>
+            <td>
+              <label for="item1">item 1</label>
+            </td>
+            <td>
+              <input id="item1" type="checkbox" />
+            </td>
+            <td>
+              <textarea
+                name="add note!"
+                id="item1"
+                placeholder="add note!"
+              ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>
+              <label for="item2">item 2</label>
+            </td>
+            <td>
+              <input id="item2" type="checkbox" />
+            </td>
+            <td>
+              <textarea
+                name="add note!"
+                id="item2"
+                placeholder="add note!"
+              ></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="addbtn">Add item</button>
+    </main>
+  </body>
+  <script defer src="../scripts/Checklist.js"></script>
+</html>
