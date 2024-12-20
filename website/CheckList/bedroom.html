@@ -11,72 +11,30 @@
       <img src="../images/IMG_6583.png" alt="Logo" width="100" />
       <h1>Bedroom CheckList</h1>
       <hr />
+      <nav>
+        <a href="../homepage-customer.html">Home!</a>
+        <a href="CheckList.html">Return</a>
+      </nav>
     </header>
 
     <main>
-      <table id="CheckTable" class="content-table">
-        <thead>
-          <tr>
-            <th>Number</th>
-            <th>TODO</th>
-            <th>Checkbox</th>
-            
-          </tr>
-        </thead>
-        <tbody id="checklist">
-          <tr>
-            <td>1</td>
-            <td>
-              <label for="item1">Replace Curtains</label>
-            </td>
-            <td>
-              <input id="item1" type="checkbox" />
-            </td>
-            
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>
-              <label for="item2">Change Rug</label>
-            </td>
-            <td>
-              <input id="item2" type="checkbox" />
-            </td>
-          
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>
-              <label for="item1">deco</label>
-            </td>
-            <td>
-              <input id="item3" type="checkbox" />
-            </td>
-           
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>
-              <label for="item4">New Lighting</label>
-            </td>
-            <td>
-              <input id="item4" type="checkbox" />
-            </td>
-            
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>
-              <label for="item5">Wall Clock</label>
-            </td>
-            <td>
-              <input id="item5" type="checkbox" />
-            </td>
-        
-          </tr>
-        </tbody>
-      </table>
+     
+      <form id="checklist-form">
+        <label>
+          <input type="checkbox" name="tasks[]" value="Bed Sheets" />
+          Bed Sheets
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" name="tasks[]" value="Curtains" />
+          Curtains
+        </label>
+        <br />
+        <button type="submit">Save Checklist</button>
+      </form>
+      
 
+      
       <!-- <button id="addbtn">Add item</button> -->
     </main>
   </body>

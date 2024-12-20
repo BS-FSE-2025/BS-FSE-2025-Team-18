@@ -1,87 +1,117 @@
-header img{
-    width:100px;
-}
-header{
-    display: flex;
-    align-items: center;
-}
-hr{
-    width: 100%;
-    color: #333;
-    border: 3px solid #131747;
-    border-radius: 50%;
-
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 body {
-    
-    margin: 0;
-    font-family: 'Nunito', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+  background-image: url('../images/b3.jpg');
+  background-size: cover;  
+  background-attachment: fixed; 
+  background-position: center; 
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  color: #333;
 }
 
-main{
+.logo img {
+    height: 100px;
+}
+
+header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    background-color: #fff;
+    padding: 20px 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.content-table{
-    border-collapse: collapse;
-    table-layout: fixed;
-    border-spacing: 0;
-    margin: 25px 0;
-    font-size: 0.9em;
-    min-width: 400px;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-}
-.content-table thead tr{
-   
-    background-color:#009879;
-    color: #ffffff;
-    text-align: left;
-    font-weight: bold;
-    
+header img {
+  height: 50px;
 }
 
+header h1 {
+  font-size: 2rem;
+}
 
-.content-table th,
-.content-table td{
-    padding: 12px 15px;
+/* Navigation Bar */
+nav {
+  margin: 20px 0;
+  text-align: center;
 }
-.content-table tbody tr{
-    border-bottom: 1px solid #dddddd;
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
 }
-.content-table tbody tr:nth-of-type(even){
-    background-color: #f3f3f3;
+
+nav a:hover {
+    color: #054d99;
 }
-.content-table tbody tr:nth-of-type(odd){
-    background-color: #dedcdc;
+
+/* Checklist Container */
+main {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
-.content-table tbody tr:last-of-type{
-    border-bottom: 2px solid #009879;
+
+/* Checklist Items */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
-.content-table tbody button{
+
+form label {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+form input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+/* Buttons */
+button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  backbackground-color: #075cb6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  nav a {
     font-size: 1rem;
-    background-color: #be0c0c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-#addbtn{
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #009879;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+  }
 
-
+  main {
+    padding: 15px;
+  }
+}

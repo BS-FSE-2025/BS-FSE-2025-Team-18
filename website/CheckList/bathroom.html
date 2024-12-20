@@ -10,72 +10,34 @@
     <header>
       <img src="../images/IMG_6583.png" alt="Logo" />
       <h1>Bathroom CheckList</h1>
+      <nav>
+        <a href="../homepage-customer.html">Home!</a>
+        <a href="CheckList.html">Return</a>
+      </nav>
     </header>
     <hr />
     <main>
-      <table id="CheckTable" class="content-table">
-        <thead>
-          <tr>
-            <th>Number</th>
-            <th>TODO</th>
-            <th>Checkbox</th>
-            
-          </tr>
-        </thead>
-        <tbody id="checklist">
-          <tr>
-            <td>1</td>
-            <td>
-              <label for="item1">Shower Upgrade</label>
-            </td>
-            <td>
-              <input id="item1" type="checkbox" />
-            </td>
-          
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>
-              <label for="item2">Tile replacing</label>
-            </td>
-            <td>
-              <input id="item2" type="checkbox" />
-            </td>
-         
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>
-              <label for="item3">Fresh Coat of Paint</label>
-            </td>
-            <td>
-              <input id="item3" type="checkbox" />
-            </td>
-          
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>
-              <label for="item4">Shower Curtain</label>
-            </td>
-            <td>
-              <input id="item4" type="checkbox" />
-            </td>
-          
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>
-              <label for="item5">New Mirror</label>
-            </td>
-            <td>
-              <input id="item5" type="checkbox" />
-            </td>
-            
-          </tr>
-        </tbody>
-      </table>
-      <!-- <button id="addbtn">Add item</button> -->
+     
+
+
+
+      <form id="checklist-form">
+        <label>
+          <input type="checkbox" name="tasks[]" value="Toilet Paper" />
+          Toilet Paper
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" name="tasks[]" value="Shampoo" />
+          Shampoo
+        </label>
+        <br />
+        <button type="submit">Save Checklist</button>
+      </form>
+
+
+
+
     </main>
   </body>
   <script defer src="../scripts/Checklist.js"></script>
