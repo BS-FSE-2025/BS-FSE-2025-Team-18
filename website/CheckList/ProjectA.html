@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project A Checklist</title>
+    <link rel="stylesheet" href="ContractorCheckList.css">
+  </head>
+  <body>
+    <header>
+      <img src="../images/IMG_6583.png" alt="Logo" width="100" />
+      <h1>Project A Checklist</h1>
+      <hr />
+      <nav>
+        <a href="../homepage-contractor.html">Home!</a>
+        <a href="CheckListContractor.html">Return</a>
+      </nav>
+    </header>
+
+    <main>
+      <form id="contractor-checklist-form">
+        <label>
+          <input type="checkbox" name="tasks[]" value="Foundation Work" />
+          Foundation Work
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" name="tasks[]" value="Electrical Installation" />
+          Electrical Installation
+        </label>
+        <br />
+        <label>
+          <input type="checkbox" name="tasks[]" value="Plumbing" />
+          Plumbing
+        </label>
+        <br />
+        <button type="submit">Save Checklist</button>
+      </form>
+    </main>
+  </body>
+  <script defer src="../scripts/ContractorChecklist.js"></script>
+</html>
