@@ -8,7 +8,7 @@ beforeEach(() => {
 test('updateField updates the field successfully', async () => {
     document.body.innerHTML = `
         <input id="edit-input" value="newUsername" />
-        <div id="username"></div>
+        // <div id="username"><div>
     `;
     const currentField = 'username';
     localStorage.setItem('token', 'dummy-token');
