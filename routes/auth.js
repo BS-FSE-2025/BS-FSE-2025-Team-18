@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer'); //מאפשרת שליחת מיילים
 const bcrypt = require('bcryptjs'); // הצפנת סיסמאות
 const jwt = require('jsonwebtoken'); // משמש ליצירת עבור אימות משתמשים
 const User = require('../models/user'); // מודל המשתמש המייצג את המבנה של המשתמשים בבסיס הנתונים
-const { verifyToken} = require('./authMiddleware');
+const { verifyToken, verifyAdmin } = require('./authMiddleware');
 
 
 // יוצר אובייקט שמאפשר להגדיר מסלולים בצורה מאורגנת ונפרדת מהקובץ הראשי

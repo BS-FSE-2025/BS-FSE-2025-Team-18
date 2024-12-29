@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contractor Homepage</title>
+    <link rel="stylesheet" href="../styles/homepage-Admin.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="../images/IMG_6583.png" alt="LOGO" />
+      </div>
+
+      <div class="header-content">
+        <nav class="buttons">
+          <a href="Admin.html" >Home</a>
+          <a href="UsersList.html" >Users</a>
+          <a href="WebsiteStats.html" >Website Stats</a>
+          <a href="EditCatalog.html" >Edit Catalog</a>
+        </nav>
+
+         <div class="profile-menu">
+          <img src="../images/avatar-logo.jpg"  onclick="toggleMenu()" />
+          <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+              <div class="user-info">
+                <img src="../images/avatar-logo.jpg" />
+                <h2><span id="username2"></span></h2>
+              </div>
+              <hr />
+              <a href="" class="sub-menu-link">
+                <img src="../images/profile images/profile.png" />
+                <p>Edit Profile</p>
+                <span>></span>
+              </a>
+              <a href="" class="sub-menu-link">
+                <img src="../images/profile images/setting.png" />
+                <p>Settings</p>
+                <span>></span>
+              </a>
+              <a href="" class="sub-menu-link">
+                <img src="../images/profile images/help.png" />
+                <p>help</p>
+                <span>></span>
+              </a>
+              <a href="../main_page.html" class="sub-menu-link" onclick="logout()">
+                <img src="../images/profile images/logout.png" />
+                <p>Logout</p>
+                <span>></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="welcome-user">
+      <h1>Welcome, <span id="username"></span></h1>
+    </section>
+
+    <main>
+      <section class="welcome-section">
+        <h2>Manage The Website</h2>
+        <p>Lets start:</p>
+        <p>Choose a card to direct you to that page.</p>
+      </section>
+
+      <section class="features" id="feature">
+
+        <div class="feature-card" id="card1">
+          <h3>Show Users!</h3>
+          <p>Show a table of all of the users that use the website</p>
+        </div>
+        <div class="feature-card" id="card2">
+          <h3>Website Stats</h3>
+          <p>Show Website stats, number of users, number of products</p>
+        </div>
+        <div class="feature-card" id="card3">
+          <h3>Edit Catalog</h3>
+          <p>
+            Remove, add and modify products that are in the Catalog.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
+    </footer>
+    <script defer src="../scripts/homepage-Admin.js"></script>
+  </body>
+</html>
