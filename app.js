@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const path = require("path");
 const authRoutes = require("./routes/auth"); // חיבור לנתיבי האימות
+const cors = require("cors");
 
 
 
@@ -41,6 +42,14 @@ app.listen(PORT, () =>
 
 const userRoutes = require('./routes/auth'); // המסלולים שלך
 app.use('/api', userRoutes); // הוספת הנתיב הבסיסי
+
+const catalogRoutes = require("./routes/catalog");
+app.use("/api/catalog", catalogRoutes); // Add catalog routes
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
+
+
 
 app.post('/api/save-checklist', async (req, res) => {
   const { userId, tasks } = req.body;

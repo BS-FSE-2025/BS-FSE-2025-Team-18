@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
@@ -10,7 +9,6 @@ a {
     text-decoration: none;
 }
 
-/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -27,27 +25,24 @@ header .logo img {
 
 
 .profile-menu {
-    position: relative; /* This ensures the dropdown is positioned relative to this container */
+    position: relative; 
 }
 
-/* Submenu dropdown */
 .sub-menu-wrap {
     position: absolute;
-    top: 100%;  /* Places the dropdown directly below the profile icon */
-    right: 0;   /* Aligns the dropdown to the right of the profile icon */
+    top: 100%;  
+    right: 0;
     width: 320px;
     max-height: 0px;
     overflow: hidden;
     transition: max-height 0.5s ease;
-    z-index: 100; /* Makes sure the dropdown appears above other elements */
+    z-index: 100; 
 }
 
-/* When the menu is open, we increase the max-height to reveal the dropdown */
 .sub-menu-wrap.open-menu {
-    max-height: 500px; /* Adjust the value based on the height of the dropdown */
+    max-height: 500px; 
 }
 
-/* General styles for the dropdown */
 .sub-menu {
     background: #fff;
     padding: 20px;
@@ -106,20 +101,12 @@ header .logo img {
     font-weight: 600;
 }
 
-/* Profile icon styling */
 .profile-menu img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     cursor: pointer;
 }
-
-
-
-
-
-
-
 
 .header-content {
     display: flex;
@@ -159,7 +146,6 @@ header .btn:hover {
     background-color: #007BFF;
 }
 
-/* Welcome User Section */
 .welcome-user {
     text-align: center;
     margin: 20px 0;
@@ -170,7 +156,6 @@ header .btn:hover {
     color: #333;
 }
 
-/* Main Section */
 main {
     text-align: center;
     padding: 40px 20px;
@@ -208,7 +193,6 @@ main {
     margin-bottom: 10px;
 }
 
-/* Footer */
 footer {
     background-color: #ffffff;
     text-align: center;
@@ -216,4 +200,5 @@ footer {
     font-size: 0.9rem;
     color: #333;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-}
+} 
+
