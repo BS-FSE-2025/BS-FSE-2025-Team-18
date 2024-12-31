@@ -40,10 +40,12 @@ header nav a {
     color: #000000;
     font-weight: 600;
     transition: color 0.3s ease;
+    text-transform: uppercase;
 }
 
 header nav a.active, header nav a:hover {
     color: #007BFF;
+    border-bottom: 2px solid #007BFF;
 }
 
 /* Profile Menu */
@@ -56,17 +58,21 @@ header nav a.active, header nav a:hover {
     height: 50px;
     border-radius: 50%;
     cursor: pointer;
+    border: 2px solid #007BFF;
 }
 
 .sub-menu-wrap {
     position: absolute;
     top: 100%;
     right: 0;
-    width: 320px;
-    max-height: 0px;
+    width: 300px;
+    max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease;
     z-index: 100;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 .sub-menu-wrap.open-menu {
@@ -74,54 +80,62 @@ header nav a.active, header nav a:hover {
 }
 
 .sub-menu {
-    background: #fff;
-    padding: 20px;
-    margin: 10px;
+    padding: 15px;
 }
 
 .user-info {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .user-info img {
-    width: 60px;
+    width: 50px;
     border-radius: 50%;
-    margin-right: 15px;
+    margin-right: 10px;
+    border: 2px solid #007BFF;
 }
 
 .sub-menu-link {
     display: flex;
     align-items: center;
+    padding: 10px;
+    border-radius: 5px;
     text-decoration: none;
     color: #525252;
-    margin: 12px 0;
+    margin: 8px 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.sub-menu-link:hover p {
-    font-weight: 600;
+.sub-menu-link:hover {
+    background-color: #007BFF;
+    color: #ffffff;
 }
 
 /* Welcome Section */
 .welcome-user {
     text-align: center;
-    margin: 20px 0;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 10px 10px;
 }
 
 .welcome-user h1 {
     font-size: 2.5rem;
-    color: #333;
+    margin-bottom: 10px;
 }
 
 .welcome-user p {
-    font-size: 1rem;
-    color: #555;
+    font-size: 1.2rem;
+    margin-top: 5px;
 }
 
 /* Add Item Form */
 #add-item {
     background-color: #ffffff;
-    padding: 20px;
+    padding: 25px;
     border-radius: 10px;
     margin: 40px auto;
     max-width: 600px;
@@ -129,22 +143,36 @@ header nav a.active, header nav a:hover {
 }
 
 #add-item h2 {
+    font-size: 1.8rem;
     margin-bottom: 20px;
+    color: #007BFF;
+    text-align: center;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
 }
 
-#add-item input, #add-item textarea, #add-item select, #add-item button {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
+#add-item input, 
+#add-item textarea, 
+#add-item select {
     width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
 }
 
 #add-item button {
-    background-color: #007BFF;
-    color: white;
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
     font-weight: bold;
+    color: #ffffff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #add-item button:hover {
@@ -154,27 +182,93 @@ header nav a.active, header nav a:hover {
 /* Catalog Section */
 #catalog {
     margin: 40px auto;
-    max-width: 1000px;
+    max-width: 800px;
     text-align: center;
 }
 
+/* Catalog Category */
 .catalog-category {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
+/* Catalog Items Container */
+.catalog-category .category-items {
+    display: flex; /* Arrange items in a line */
+    flex-wrap: wrap; /* Wrap items if they overflow */
+    justify-content: flex-start; /* Align items to the left */
+    gap: 20px; /* Add space between items */
+    padding: 10px;
+    border: 1px solid #ddd; /* Optional: Add a border around the section */
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Individual Catalog Item */
 .catalog-item {
+    flex: 1 1 calc(33.33% - 20px); /* Allow up to 3 items per row */
+    max-width: calc(30% - 20px); /* Adjust width to fit 3 items in a row */
     background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 20px;
-    margin: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
 }
 
+/* Catalog Item Image */
 .catalog-item img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
+    height: 150px; /* Fixed height for consistency */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 5px;
     margin-bottom: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Hover Effects */
+.catalog-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Catalog Item Details */
+.catalog-item h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.catalog-item p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+/* Delete Button */
+.catalog-item button {
+    padding: 8px 12px;
+    background-color: red;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.catalog-item button:hover {
+    background-color: darkred;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff;
+    color: #555;
+    font-size: 0.9rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
 }

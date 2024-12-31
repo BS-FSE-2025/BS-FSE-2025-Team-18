@@ -109,19 +109,17 @@
 
 // Add a new item with an image
 async function addItem(event) {
-    event.preventDefault(); // Prevent default form submission behavior
-    console.log("Add Item button clicked!"); // Debug log
+    event.preventDefault();
+    console.log("Add Item button clicked!");
 
-
-    // Get input values from the form
     const name = document.getElementById("item-name").value;
     const description = document.getElementById("item-description").value;
     const price = parseFloat(document.getElementById("item-price").value);
     const category = document.getElementById("item-category").value;
-    const image = document.getElementById("item-image").files[0]; // Get the uploaded file
-    console.log("Image:", image); // Debug log
+    const image = document.getElementById("item-image").files[0];
 
-    // Create a FormData object to send as multipart/form-data
+    console.log({ name, description, price, category, image });
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
@@ -130,23 +128,26 @@ async function addItem(event) {
     formData.append("image", image);
 
     try {
-        // Make the POST request to the server to add the item
-        const response = await fetch(API_URL, {
+        const response = await fetch("http://localhost:3000/api/catalog", {
             method: "POST",
             body: formData,
         });
 
         if (!response.ok) {
-            throw new Error("Failed to add item.");
+            const error = await response.json();
+            console.error("Error from server:", error);
+            throw new Error(error.error || "Failed to add item.");
         }
 
-        // Clear the form and refresh the catalog display
+        console.log("Item successfully added!");
         document.getElementById("add-item-form").reset();
         displayCatalog();
     } catch (error) {
         console.error("Error adding item:", error);
+        alert("Failed to add item. Please check the console for more details.");
     }
 }
+
 
 // Fetch all catalog items from the server
 async function fetchCatalog() {

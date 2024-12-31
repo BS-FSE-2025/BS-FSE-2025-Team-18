@@ -15,21 +15,21 @@ router.get("/", async (req, res) => {
 });
 
 // Add a new item
-router.post("/", async (req, res) => {
-  try {
-    const { name, description, pricePerMeter, category } = req.body;
+// router.post("/", async (req, res) => {
+//   try {
+//     const { name, description, pricePerMeter, category } = req.body;
 
-    if (!name || !description || !pricePerMeter || !category) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
+//     if (!name || !description || !pricePerMeter || !category) {
+//       return res.status(400).json({ error: "All fields are required" });
+//     }
 
-    const newItem = new CatalogItem({ name, description, pricePerMeter, category });
-    await newItem.save();
-    res.status(201).json(newItem);
-  } catch (error) {
-    res.status(500).json({ error: "Error adding catalog item" });
-  }
-});
+//     const newItem = new CatalogItem({ name, description, pricePerMeter, category });
+//     await newItem.save();
+//     res.status(201).json(newItem);
+//   } catch (error) {
+//     res.status(500).json({ error: "Error adding catalog item" });
+//   }
+// });
 
 // Delete an item
 router.delete("/:id", async (req, res) => {
@@ -58,6 +58,8 @@ const upload = multer({ storage });
 
 // Add a new catalog item with an image
 router.post("/", upload.single("image"), async (req, res) => {
+    console.log("Request Body:", req.body);
+    console.log("Uploaded File:", req.file);
     try {
         const { name, description, pricePerMeter, category } = req.body;
         const image = req.file ? `/uploads/${req.file.filename}` : null;
