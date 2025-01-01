@@ -15,14 +15,14 @@ router.post('/', async (req, res) => {
 
 // Get all projects
 router.get('/', async (req, res) => {
-  try {
-    const projects = await Project.find();
-    res.json(projects);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
+    try {
+      const projects = await Project.find().populate('products.productId');
+      res.json(projects);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  
 // Update a project
 router.put('/:id', async (req, res) => {
   try {

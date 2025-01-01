@@ -145,6 +145,17 @@ header .btn {
 header .btn:hover {
     background-color: #007BFF;
 }
+footer {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+    color: #333;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+} 
+
+        
+/* Welcome Section */
 .welcome-user {
     text-align: center;
     padding: 20px;
@@ -153,6 +164,7 @@ header .btn:hover {
     margin-bottom: 20px;
 }
 
+/* Add Project Section */
 .add-project {
     max-width: 500px;
     margin: 20px auto;
@@ -195,84 +207,93 @@ header .btn:hover {
     background: #0056b3;
 }
 
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
+/* Project List */
+#project-list {
+    max-width: 900px;
+    margin: 20px auto;
 }
 
+/* Project Card */
 .project-card {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    background: #ffffff;
 }
 
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.project-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
-
-.project-card-content {
+.project-summary {
+    cursor: pointer;
     padding: 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s ease;
 }
 
-.project-card h3 {
+.project-summary:hover {
+    background: #e9ecef;
+}
+
+.project-summary h3 {
+    margin: 0;
+    color: #007BFF;
+}
+
+.project-summary p {
+    margin: 5px 0;
+}
+
+/* Project Details */
+.project-details {
+    padding: 15px;
+    background: #ffffff;
+    display: none; /* Hidden by default */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.project-details h4 {
     margin-bottom: 10px;
     color: #007BFF;
 }
 
-.project-card p {
-    margin: 5px 0;
-    font-size: 0.9rem;
-    color: #6c757d;
-}
-
+/* Project Actions */
 .project-actions {
     display: flex;
-    justify-content: space-between;
-    padding: 10px 15px;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px;
     border-top: 1px solid #ddd;
     background: #f8f9fa;
 }
 
 .project-actions button {
-    margin: 0;
     padding: 8px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9rem;
+    color: #fff;
 }
 
 .project-actions .edit-project {
     background: #FFC107;
-    color: #ffffff;
 }
 
 .project-actions .delete-project {
     background: #DC3545;
-    color: #ffffff;
 }
 
-.project-actions .add-products {
-    background: #28A745;
-    color: #ffffff;
+.project-actions button:hover {
+    opacity: 0.9;
 }
 
-footer {
-    text-align: center;
-    padding: 10px;
-    background: #007BFF;
-    color: #ffffff;
-    margin-top: 20px;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
