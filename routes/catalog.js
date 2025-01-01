@@ -14,22 +14,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Add a new item
-// router.post("/", async (req, res) => {
-//   try {
-//     const { name, description, pricePerMeter, category } = req.body;
-
-//     if (!name || !description || !pricePerMeter || !category) {
-//       return res.status(400).json({ error: "All fields are required" });
-//     }
-
-//     const newItem = new CatalogItem({ name, description, pricePerMeter, category });
-//     await newItem.save();
-//     res.status(201).json(newItem);
-//   } catch (error) {
-//     res.status(500).json({ error: "Error adding catalog item" });
-//   }
-// });
 
 // Delete an item
 router.delete("/:id", async (req, res) => {

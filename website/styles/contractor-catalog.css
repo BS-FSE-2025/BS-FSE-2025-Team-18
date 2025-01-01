@@ -1,0 +1,100 @@
+/* Catalog Category */
+.catalog-category {
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.catalog-category h3 {
+    font-size: 1.8rem;
+    color: #007BFF;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 5px;
+}
+
+/* Category Items Container */
+.category-items {
+    display: flex; /* Arrange items in a row */
+    flex-wrap: wrap; /* Wrap items to the next line if needed */
+    gap: 20px; /* Add space between items */
+    justify-content: flex-start; /* Align items to the left */
+}
+
+/* Catalog Item */
+.catalog-item {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Distribute space between items */
+    align-items: center; /* Center-align items */
+    flex: 1 1 calc(25% - 20px); /* 4 items per row */
+    max-width: calc(25% - 20px);
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.catalog-item img {
+    width: 100%;
+    height: 150px; /* Consistent image height */
+    object-fit: cover; /* Ensure aspect ratio is maintained */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.catalog-item h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.catalog-item p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.catalog-item input[type="number"] {
+    width: 80px; /* Set the width relative to the container */
+    padding: 8px; /* Adjust padding for better usability */
+    margin: 1px 0; /* Add spacing around the input */
+    border: 10px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.catalog-item input[type="number"]:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.catalog-item button {
+    width: calc(80%); /* Match the button width to the input field */
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Add spacing above the button */
+}
+
+.catalog-item button:hover {
+    background-color: #0056b3;
+}
+
+.cart-message {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 5px;
+    color: green;
+    display: none; /* Hide message by default */
+}
+
