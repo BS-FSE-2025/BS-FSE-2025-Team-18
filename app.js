@@ -47,6 +47,8 @@ const catalogRoutes = require("./routes/catalog");
 app.use("/api/catalog", catalogRoutes); // Add catalog routes
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+const projectRoutes = require("./routes/projects"); // חיבור לנתיב projects
+app.use("/api/projects", projectRoutes); // הוספת הנתיב
 
 
 

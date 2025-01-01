@@ -97,7 +97,7 @@ function displayCart() {
             <img src="${item.image}" alt="${item.name}" />
             <h3>${item.name}</h3>
             <p>Size: ${item.size} m²</p>
-            <p>Price: $${item.totalPrice.toFixed(2)}</p>
+            <p>,Price: ${item.totalPrice.toFixed(2)}$</p>
             <button onclick="removeItem(${index})">Remove</button>
         `;
 
@@ -130,6 +130,27 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("checkout-button").addEventListener("click", checkout);
 });
 
+    
+const username = localStorage.getItem('username');
+           const username2 = localStorage.getItem('username');
+          if(username){
+              document.getElementById("username").innerText = username;
+          }
+         
+
+
+
+
+        function logout() {
+          localStorage.clear();
+          alert('You have been logged out.');
+            window.location.href = 'main_page.html';
+        }
+        let subMenu = document.getElementById("subMenu");
+        function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+        
+        }
     </script>
 </body>
 </html>
