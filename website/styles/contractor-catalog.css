@@ -14,20 +14,20 @@
 
 /* Category Items Container */
 .category-items {
-    display: flex; /* Arrange items in a row */
-    flex-wrap: wrap; /* Wrap items to the next line if needed */
-    gap: 20px; /* Add space between items */
-    justify-content: flex-start; /* Align items to the left */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between; /* מרווח שווה בין כרטיסים */
 }
+
 
 /* Catalog Item */
 .catalog-item {
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: space-between; /* Distribute space between items */
-    align-items: center; /* Center-align items */
-    flex: 1 1 calc(25% - 20px); /* 4 items per row */
-    max-width: calc(25% - 20px);
+    flex-direction: column;
+    align-items: center;
+    width: calc(25% - 20px); /* 4 כרטיסים בשורה */
+    max-width: 300px;
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -58,10 +58,11 @@
 }
 
 .catalog-item input[type="number"] {
-    width: 80px; /* Set the width relative to the container */
-    padding: 8px; /* Adjust padding for better usability */
-    margin: 1px 0; /* Add spacing around the input */
-    border: 10px solid #ddd;
+    width: 100%; /* שימוש ברוחב מלא של האלמנט ההורה */
+    max-width: 200px; /* הגבלת הרוחב למקסימום מתאים */
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
     box-sizing: border-box;
@@ -69,12 +70,13 @@
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 .catalog-item input[type="number"]:focus {
     border-color: #007BFF;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 .catalog-item button {
-    width: calc(80%); /* Match the button width to the input field */
+    width: 90%; /* זהה ל-input */
     padding: 10px;
     background-color: #007BFF;
     color: white;
@@ -83,7 +85,7 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 10px; /* Add spacing above the button */
+    margin-top: 10px;
 }
 
 .catalog-item button:hover {
