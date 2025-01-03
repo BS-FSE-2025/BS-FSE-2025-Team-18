@@ -51,60 +51,6 @@ app.use("/api/projects", projectRoutes); // הוספת הנתיב
 
 
 
-
-app.post('/api/save-checklist', async (req, res) => {
-  const { userId, tasks } = req.body;
-
-  console.log('Request received:', { userId, tasks }); // Debug log
-
-  if (!userId || !tasks) {
-    console.error('Validation Error: Missing userId or tasks');
-    return res.status(400).send('User ID and tasks are required');
-  }
-
-  try {
-    const user = await User.findByIdAndUpdate(
-      userId,
-      { tasks: tasks || [] }, // Update the tasks field
-      { new: true } // Return the updated document
-    );
-
-    if (!user) {
-      console.error('User not found');
-      return res.status(404).send('User not found');
-    }
-
-    console.log('Checklist updated for user:', user);
-    res.status(200).send('Checklist saved successfully');
-  } catch (error) {
-    console.error('Error saving checklist:', error.message); // Log the exact error
-    res.status(500).send('Error saving checklist');
-  }
-});
-
-app.get('/api/get-checklist/:userId', async (req, res) => {
-  const { userId } = req.params;
-
-  console.log('Fetching checklist for userId:', userId); // Debug log
-
-  try {
-    const user = await User.findById(userId);
-    if (!user) {
-      console.error('User not found');
-      return res.status(404).send('User not found');
-    }
-
-    console.log('Checklist fetched:', user.tasks); // Debug log
-    res.status(200).json(user.tasks);
-  } catch (error) {
-    console.error('Error fetching checklist:', error); // Log the exact error
-    res.status(500).send('Error fetching checklist');
-  }
-});
-
-
-
-
 //for UsersList in the admin page.
 // Endpoint to fetch all users
 app.get("/api/users", async (req, res) => {

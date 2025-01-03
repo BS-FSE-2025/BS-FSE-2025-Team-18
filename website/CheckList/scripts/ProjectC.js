@@ -1,5 +1,4 @@
-
-document.getElementById('checklist-form').addEventListener('submit', (e) => {
+document.getElementById('contractor-checklist-form').addEventListener('submit', (e) => {
     e.preventDefault();
   
     const formData = new FormData(e.target);
@@ -24,3 +23,4 @@ document.getElementById('checklist-form').addEventListener('submit', (e) => {
       }
     });
   });
+

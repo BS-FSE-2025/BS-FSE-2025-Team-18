@@ -1,4 +1,3 @@
-
 document.getElementById('checklist-form').addEventListener('submit', (e) => {
     e.preventDefault();
   
@@ -24,3 +23,4 @@ document.getElementById('checklist-form').addEventListener('submit', (e) => {
       }
     });
   });
+
