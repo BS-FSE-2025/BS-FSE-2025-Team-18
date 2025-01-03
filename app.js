@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const authRoutes = require("./routes/auth"); // חיבור לנתיבי האימות
 const cors = require("cors");
-
+const User = require("./models/user");
 
 
 dotenv.config();
@@ -103,19 +103,38 @@ app.get('/api/get-checklist/:userId', async (req, res) => {
     res.status(500).send('Error fetching checklist');
   }
 });
-app.put('/api/projects/:projectId/addProductToProject', async (req, res) => {
-  const { projectId } = req.params;
-  const { productId, productName, productImage, quantity } = req.body;
 
+
+
+
+
+//for UsersList in the admin page.
+// Endpoint to fetch all users
+app.get("/api/users", async (req, res) => {
   try {
-      const project = await Project.findById(projectId);
-      if (!project) return res.status(404).send("Project not found");
-
-      project.products.push({ productId, productName, productImage, quantity });
-      await project.save();
-
-      res.send("Product added to project successfully");
+    const users = await User.find(); // Fetch all users from MongoDB
+    res.json(users); // Send the users as a JSON response
   } catch (error) {
-      res.status(500).send("Failed to add product to project");
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+
+// Route to serve the Users List page
+app.get("/users", (req, res) => {
+  res.sendFile(path.join(__dirname, "website", "UsersList.html")); // Ensure the path to the HTML file is correct
+});
+
+app.delete("/api/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (!deletedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Failed to delete user" });
   }
 });
