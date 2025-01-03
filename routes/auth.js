@@ -77,10 +77,14 @@ router.post('/login', async (req, res) => {
         }
 
         
-        // אם הסיסמה נכונה 
+        //////////////////////// אם הסיסמה נכונה 
         console.log('Generating JWT token...');
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
+        const token = jwt.sign(
+            { id: user._id, email: user.email, accountType: user.accountType },  // Include email here
+            process.env.JWT_SECRET, 
+            { expiresIn: '1h' }
+          );
+          
        
         
         console.log('Login successful');
