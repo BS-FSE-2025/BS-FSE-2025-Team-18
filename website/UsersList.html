@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users List</title>
+    <link rel="stylesheet" href="../styles/UsersList.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="../images/IMG_6583.png" alt="LOGO" />
+      </div>
+      <h1>Users List!</h1>
+      <div class="header-content">
+        <nav>
+          <a href="Admin.html">Home</a>
+          <a href="WebsiteStats.html">Website Stats</a>
+          <a href="EditCatalog.html">Edit Catalog</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <table id="userTable" class="content-table">
+        <thead>
+          <tr>
+            <th>User Number</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>AccountType</th>
+            <th>Gender</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="usersList"></tbody>
+      </table>
+    </main>
+    <script defer src="../scripts/UsersList.js"></script>
+  </body>
+</html>
