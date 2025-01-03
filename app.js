@@ -10,6 +10,8 @@ const cors = require("cors");
 
 dotenv.config();
 const app = express();
+app.use(cors());
+
 
 // Middleware
 app.use(express.json());
@@ -99,5 +101,21 @@ app.get('/api/get-checklist/:userId', async (req, res) => {
   } catch (error) {
     console.error('Error fetching checklist:', error); // Log the exact error
     res.status(500).send('Error fetching checklist');
+  }
+});
+app.put('/api/projects/:projectId/addProductToProject', async (req, res) => {
+  const { projectId } = req.params;
+  const { productId, productName, productImage, quantity } = req.body;
+
+  try {
+      const project = await Project.findById(projectId);
+      if (!project) return res.status(404).send("Project not found");
+
+      project.products.push({ productId, productName, productImage, quantity });
+      await project.save();
+
+      res.send("Product added to project successfully");
+  } catch (error) {
+      res.status(500).send("Failed to add product to project");
   }
 });

@@ -3,6 +3,8 @@ const Project = require('../models/contractor-projects');  // Project Model
 const CatalogItem = require('../models/CatalogItem');  // Catalog Item Model
 const { verifyToken } = require('./authMiddleware'); // Middleware for JWT token validation
 const router = express.Router();
+const mongoose = require('mongoose');
+
 
 // Create a new project
 router.post("/", verifyToken, async (req, res) => {
@@ -31,48 +33,80 @@ router.post("/", verifyToken, async (req, res) => {
 // Get all projects for the authenticated contractor (user)
 router.get('/', verifyToken, async (req, res) => {
   try {
-    const email = req.user.email;  // Get the email from the authenticated user (JWT token)
-    
-    // Find all projects for this contractor (by their email)
-    const projects = await Project.find({ email: email });
-    
-    
-    res.json(projects);  // Return the list of projects
+    const email = req.user.email; // האימייל של המשתמש המחובר
+    const projects = await Project.find({ email: email })
+      .populate('products.productId', 'name image'); // אוכלוס שם ותמונה של המוצר
+
+    res.json(projects);
   } catch (error) {
     console.error("Error fetching projects:", error);
-    res.status(500).json({ error: error.message });  // Internal server error
+    res.status(500).json({ error: error.message });
   }
 });
 
+
 // Add a product to a project (from the catalog)
 router.put('/:projectId/addProductToProject', verifyToken, async (req, res) => {
-  const { productId, quantity } = req.body;  // Get productId and quantity from the request
-  const email = req.user.email;  // Extract email from the JWT token
-
-  // Check if the product exists in the catalog
-  const product = await CatalogItem.findById(productId);
-  if (!product) {
-    return res.status(404).json({ message: "Product not found in catalog" });
-  }
+  const { productId, quantity } = req.body;
+  const email = req.user.email;
 
   try {
-    // Find the project by ID and update it by adding the selected product
+    const product = await CatalogItem.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found in catalog" });
+    }
+
+    const productDetails = {
+      productId,
+      quantity,
+      name: product.name,
+      image: product.image,
+    };
+
     const project = await Project.findOneAndUpdate(
-      { _id: req.params.projectId, email: email }, // Ensure the project belongs to the authenticated user
-      { $push: { products: { productId, quantity } } }, // Add the product to the project's products array
+      { _id: req.params.projectId, email: email },
+      { $push: { products: productDetails } },
       { new: true }
     );
 
     if (!project) {
-      return res.status(404).json({ message: 'Project not found or you are not authorized to add products to this project' });
+      return res.status(404).json({ message: 'Project not found or not authorized' });
     }
 
-    res.json(project);  // Return the updated project
+    res.json(project);
   } catch (error) {
     console.error("Error adding product to project:", error);
-    res.status(500).json({ error: error.message });  // Internal server error
+    res.status(500).json({ error: error.message });
   }
 });
+
+router.put('/:projectId/removeProduct', verifyToken, async (req, res) => {
+  const { productId } = req.body; // קבלת productId מהבקשה
+  const email = req.user.email; // אימייל מהטוקן
+
+  // בדיקה אם המזהה תקין
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(400).json({ message: "Invalid productId format." });
+  }
+
+  try {
+      const project = await Project.findOneAndUpdate(
+          { _id: req.params.projectId, email: email }, // ודא שהפרויקט שייך למשתמש
+          { $pull: { products: { productId: mongoose.Types.ObjectId(productId) } } }, // מחיקת המוצר
+          { new: true }
+      );
+
+      if (!project) {
+          return res.status(404).json({ message: 'Project not found or unauthorized' });
+      }
+
+      res.json({ message: 'Product removed successfully', project }); // תגובה עם המידע המעודכן
+  } catch (error) {
+      console.error("Error removing product from project:", error);
+      res.status(500).json({ error: error.message });
+  }
+});
+
 
 // Update a project
 router.put('/:id', verifyToken, async (req, res) => {

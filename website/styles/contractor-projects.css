@@ -278,7 +278,7 @@ footer {
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9rem;
-    color: #fff;
+    color: #fffdfd;
 }
 
 .project-actions .edit-project {
@@ -303,3 +303,18 @@ footer {
     }
 }
 
+.remove-product {
+    background-color: #DC3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-product:hover {
+    background-color: #b52d3a;
+}
