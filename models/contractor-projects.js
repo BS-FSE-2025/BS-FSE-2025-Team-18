@@ -7,10 +7,13 @@ const projectSchema = new mongoose.Schema({
   status: { type: String, default: 'Pending' },
   products: [
     {
+      itemId: { type: mongoose.Schema.Types.ObjectId, default: () => new mongoose.Types.ObjectId() }, // מזהה ייחודי לכל פריט
       productId: { type: mongoose.Schema.Types.ObjectId, ref: 'CatalogItem' },
       name: { type: String, required: true }, // שם המוצר
       image: { type: String, required: true }, // תמונת המוצר
       quantity: { type: Number, required: true },
+      price: { type: Number, required: true }, // שדה חדש למחיר ליחידה
+
     },
   ],
   

@@ -33,9 +33,9 @@ router.post("/", verifyToken, async (req, res) => {
 // Get all projects for the authenticated contractor (user)
 router.get('/', verifyToken, async (req, res) => {
   try {
-    const email = req.user.email; // האימייל של המשתמש המחובר
+    const email = req.user.email;
     const projects = await Project.find({ email: email })
-      .populate('products.productId', 'name image'); // אוכלוס שם ותמונה של המוצר
+      .populate('products.productId', '_id name image pricePerMeter');
 
     res.json(projects);
   } catch (error) {
@@ -51,61 +51,38 @@ router.put('/:projectId/addProductToProject', verifyToken, async (req, res) => {
   const email = req.user.email;
 
   try {
-    const product = await CatalogItem.findById(productId);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found in catalog" });
-    }
+      const product = await CatalogItem.findById(productId);
+      if (!product) {
+          return res.status(404).json({ message: "Product not found in catalog" });
+      }
 
-    const productDetails = {
-      productId,
-      quantity,
-      name: product.name,
-      image: product.image,
-    };
+      const productDetails = {
+          itemId: new mongoose.Types.ObjectId(), // מזהה ייחודי חדש לכל פריט
+          productId,
+          quantity,
+          name: product.name,
+          image: product.image,
+          price: product.pricePerMeter,
+      };
 
-    const project = await Project.findOneAndUpdate(
-      { _id: req.params.projectId, email: email },
-      { $push: { products: productDetails } },
-      { new: true }
-    );
-
-    if (!project) {
-      return res.status(404).json({ message: 'Project not found or not authorized' });
-    }
-
-    res.json(project);
-  } catch (error) {
-    console.error("Error adding product to project:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-router.put('/:projectId/removeProduct', verifyToken, async (req, res) => {
-  const { productId } = req.body; // קבלת productId מהבקשה
-  const email = req.user.email; // אימייל מהטוקן
-
-  // בדיקה אם המזהה תקין
-  if (!mongoose.Types.ObjectId.isValid(productId)) {
-      return res.status(400).json({ message: "Invalid productId format." });
-  }
-
-  try {
       const project = await Project.findOneAndUpdate(
-          { _id: req.params.projectId, email: email }, // ודא שהפרויקט שייך למשתמש
-          { $pull: { products: { productId: mongoose.Types.ObjectId(productId) } } }, // מחיקת המוצר
+          { _id: req.params.projectId, email: email },
+          { $push: { products: productDetails } },
           { new: true }
       );
 
       if (!project) {
-          return res.status(404).json({ message: 'Project not found or unauthorized' });
+          return res.status(404).json({ message: "Project not found or not authorized." });
       }
 
-      res.json({ message: 'Product removed successfully', project }); // תגובה עם המידע המעודכן
+      res.json(project);
   } catch (error) {
-      console.error("Error removing product from project:", error);
+      console.error("Error adding product to project:", error);
       res.status(500).json({ error: error.message });
   }
 });
+
+
 
 
 // Update a project
@@ -149,5 +126,31 @@ router.delete('/:id', verifyToken, async (req, res) => {
     res.status(500).json({ error: error.message });  // Internal server error
   }
 });
+// Remove a product from a project
+const ObjectId = mongoose.Types.ObjectId;
+
+router.put('/:projectId/removeProduct', verifyToken, async (req, res) => {
+  const { itemId } = req.body; // מזהה ייחודי למחיקת פריט
+  const email = req.user.email;
+
+  try {
+      const project = await Project.findOneAndUpdate(
+          { _id: req.params.projectId, email: email },
+          { $pull: { products: { itemId: new mongoose.Types.ObjectId(itemId) } } }, // מחיקת פריט ספציפי לפי itemId
+          { new: true }
+      );
+
+      if (!project) {
+          return res.status(404).json({ message: "Project not found or not authorized." });
+      }
+
+      res.json({ message: "Product removed successfully", project });
+  } catch (error) {
+      console.error("Error removing product:", error);
+      res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 module.exports = router;
