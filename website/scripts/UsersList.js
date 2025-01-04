@@ -27,12 +27,10 @@ async function deleteUser(userId) {
       throw new Error('Failed to delete user');
     }
 
-    // Option 1: Re-fetch the entire users list to refresh the table
+ 
     await fetchUsers();
     
-    // Option 2 (Instead of re-fetching everything):
-    // Remove the row from the DOM directly if you want to optimize
-    // But for simplicity, re-fetching is often easier.
+    
 
   } catch (error) {
     console.error('Error deleting user:', error);
@@ -46,24 +44,15 @@ function renderUsers(users) {
   const usersList = document.getElementById('usersList');
   usersList.innerHTML = ''; // Clear any previous data
 
-  // if (users.length === 0) {
-  //   const row = document.createElement('tr');
-  //   const emptyMessage = document.createElement('td');
-  //   emptyMessage.colSpan = 3;
-  //   emptyMessage.textContent = 'No users found.';
-  //   row.appendChild(emptyMessage);
-  //   usersList.appendChild(row);
-  //   return;
-  // }
-
+ 
   users.forEach((user,index) => {
     const row = document.createElement('tr');
 
-    // Add numbering to the leftmost cell
+   
     const numberCell = document.createElement('td');
-    numberCell.textContent = index + 1;  // Add 1 to make it human-readable (starting from 1)
+    numberCell.textContent = index + 1;  
     row.appendChild(numberCell);
-
+    
 
     const usernameCell = document.createElement('td');
     usernameCell.textContent = user.username;
