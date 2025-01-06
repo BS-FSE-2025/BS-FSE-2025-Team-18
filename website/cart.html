@@ -3,160 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>עגלה</title>
     <link rel="stylesheet" href="styles/cart.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <header>
-        <div class="logo">
-            <img src="../images/IMG_6583.png" alt="LOGO" />
-            <div id="accessibility-tools">
-              <button id="increase-font">A+</button>
-              <button id="decrease-font">A-</button>
-              <button id="reset-font">Reset</button>
-            </div>
-          </div>
-        <div class="header-content">
-            <nav>
-              <a href="homepage-customer.html">Home</a>
-              <a href="cart.html">Cart</a>
-              <a href="aboutus.html">About Us</a>
-              <a href="CheckList/CheckList.html">CheckList</a>
-            </nav>
-            <div class="profile-menu">
-                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Logo" />
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <div class="user-info">
-                            <img src="images/avatar-logo.jpg" alt="Logo"/>
-                            <h2><span id="username"></span></h2>
-                        </div>
-                        <hr />
-                        <a href="customer-profile.html" class="sub-menu-link">
-                            <img src="images/profile images/profile.png" alt="Logo"/>
-                            <p>Edit Profile</p>
-                            <span>></span>
-                        </a>
-                        <a href="" class="sub-menu-link">
-                            <img src="images/profile images/setting.png" alt="Logo" />
-                            <p>Settings</p>
-                            <span>></span>
-                        </a>
-                        <a href="" class="sub-menu-link">
-                            <img src="images/profile images/help.png" alt="Logo" />
-                            <p>Help</p>
-                            <span>></span>
-                        </a>
-                        <a href="main_page.html" class="sub-menu-link" onclick="logout()">
-                            <img src="images/profile images/logout.png" alt="Logo" />
-                            <p>Logout</p>
-                            <span>></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h1>העגלה שלי</h1>
     </header>
     <main>
-        <section id="cart-items">
-            <h2>Your Cart</h2>
-            <div id="cart-list"></div>
-        </section>
-        <section id="cart-summary">
-            <h2>Summary</h2>
-            <p>Total Items: <span id="total-items">0</span></p>
-            <p>Total Price: $<span id="total-price">0.00</span></p>
+        <section id="cart-container">
+            <h2>מוצרים בעגלה</h2>
+            <div id="cart-items"></div>
+            <div id="cart-summary">
+                <p>סה"כ פריטים: <span id="total-items">0</span></p>
+                <p>סה"כ מחיר: ₪<span id="total-price">0.00</span></p>
+            </div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
+        <p>&copy; 2025 RenovaCalc. כל הזכויות שמורות.</p>
     </footer>
-    <script >
-        // Fetch cart data from localStorage
-function loadCart() {
-    return JSON.parse(localStorage.getItem("cart")) || [];
-}
+    <script>
+        // קבלת עגלה מהשרת לפי דוא"ל
+        async function loadCart() {
+            const email = localStorage.getItem('Useremail');
+            if (!email) {
+                alert('עליך להתחבר כדי לצפות בעגלה שלך.');
+                return [];
+            }
 
-// Save cart data to localStorage
-function saveCart(cart) {
-    localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-// Display cart items
-function displayCart() {
-    const cart = loadCart();
-    const cartList = document.getElementById("cart-list");
-    const totalItems = document.getElementById("total-items");
-    const totalPrice = document.getElementById("total-price");
-
-    cartList.innerHTML = ""; // Clear previous items
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        const itemDiv = document.createElement("div");
-        itemDiv.classList.add("cart-item");
-
-        itemDiv.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" />
-            <h3>${item.name}</h3>
-            <p>Size: ${item.size} m²</p>
-            <p>,Price: ${item.totalPrice.toFixed(2)}$</p>
-            <button onclick="removeItem(${index})">Remove</button>
-        `;
-
-        cartList.appendChild(itemDiv);
-        total += item.totalPrice;
-    });
-
-    totalItems.innerText = cart.length;
-    totalPrice.innerText = total.toFixed(2);
-}
-
-// Remove item from cart
-function removeItem(index) {
-    const cart = loadCart();
-    cart.splice(index, 1);
-    saveCart(cart);
-    displayCart();
-}
-
-// Checkout (simple alert for now)
-function checkout() {
-    alert("Checkout successful!");
-    localStorage.removeItem("cart");
-    displayCart();
-}
-
-// Load cart on page load
-document.addEventListener("DOMContentLoaded", () => {
-    displayCart();
-    document.getElementById("checkout-button").addEventListener("click", checkout);
-});
-
-    
-const username = localStorage.getItem('username');
-           const username2 = localStorage.getItem('username');
-          if(username){
-              document.getElementById("username").innerText = username;
-          }
-         
-
-
-
-
-        function logout() {
-          localStorage.clear();
-          alert('You have been logged out.');
-            window.location.href = 'main_page.html';
+            try {
+                const response = await fetch(`http://localhost:3000/api/cart/${email}`);
+                if (!response.ok) throw new Error('שגיאה בטעינת עגלה');
+                const cart = await response.json();
+                return cart.items || [];
+            } catch (error) {
+                console.error('שגיאה בטעינת עגלה:', error);
+                return [];
+            }
         }
-        let subMenu = document.getElementById("subMenu");
-        function toggleMenu(){
-        subMenu.classList.toggle("open-menu");
-        
+
+        // הצגת מוצרים בעגלה
+        async function displayCart() {
+            const cartItems = await loadCart();
+            const cartContainer = document.getElementById('cart-items');
+            const totalItems = document.getElementById('total-items');
+            const totalPrice = document.getElementById('total-price');
+
+            cartContainer.innerHTML = '';
+            let total = 0;
+
+            cartItems.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('cart-item');
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" />
+                    <h3>${item.name}</h3>
+                    <p>כמות: ${item.quantity}</p>
+                    <p>מחיר כולל: ₪${item.totalPrice.toFixed(2)}</p>
+                    <button onclick="removeItem(${index})">הסר פריט</button>
+                `;
+                cartContainer.appendChild(itemDiv);
+                total += item.totalPrice;
+            });
+
+            totalItems.innerText = cartItems.length;
+            totalPrice.innerText = total.toFixed(2);
         }
+
+        // הסרת פריט מהעגלה
+        async function removeItem(index) {
+            const email = localStorage.getItem('Useremail');
+            try {
+                await fetch(`http://localhost:3000/api/cart/${email}/${index}`, { method: 'DELETE' });
+                alert('פריט הוסר בהצלחה.');
+                displayCart();
+            } catch (error) {
+                console.error('שגיאה בהסרת פריט:', error);
+            }
+        }
+
+        // טעינת העגלה עם פתיחת הדף
+        document.addEventListener('DOMContentLoaded', displayCart);
     </script>
-    <script src="accessability.js"></script>
 </body>
 </html>

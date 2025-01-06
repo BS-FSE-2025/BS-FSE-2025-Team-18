@@ -124,48 +124,43 @@
             });
         }
 
-        // Add product to cart
-        function addToCart(productId, pricePerMeter) {
-            const sizeInput = document.getElementById(`size-${productId}`);
-            if (!sizeInput) {
-                alert("Size input field not found.");
-                return;
-            }
+        async function addToCart(productId, pricePerMeter) {
+    const email = localStorage.getItem('Useremail'); // קבלת דוא"ל המשתמש מה-localStorage
+    const sizeInput = document.getElementById(`size-${productId}`);
+    const size = sizeInput ? parseFloat(sizeInput.value) : 0;
 
-            const size = parseFloat(sizeInput.value);
+    if (!email) {
+        alert("יש להתחבר לפני הוספת פריטים לעגלה.");
+        return;
+    }
 
-            if (isNaN(size) || size <= 0) {
-                alert("Please enter a valid size.");
-                return;
-            }
+    if (!size || size <= 0) {
+        alert("נא להזין גודל חוקי.");
+        return;
+    }
 
-            const totalPrice = size * pricePerMeter;
+    try {
+        const response = await fetch(`http://localhost:3000/api/cart/${email}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // חשוב לוודא שזה מוגדר!
+            },
+            body: JSON.stringify({
+                productId: productId,
+                price: pricePerMeter,
+                quantity: size,
+                totalPrice: pricePerMeter * size
+            })
+        });
 
-            const cart = JSON.parse(localStorage.getItem("cart")) || [];
-            const productElement = sizeInput.closest(".catalog-item");
-            const productName = productElement.querySelector("h4").innerText;
-            const productImage = productElement.querySelector("img").src;
+        if (!response.ok) throw new Error('שגיאה בהוספת פריט לעגלה.');
 
-            cart.push({
-                productId,
-                size,
-                totalPrice,
-                name: productName,
-                image: productImage,
-            });
+        alert("פריט נוסף לעגלה בהצלחה!");
+    } catch (error) {
+        console.error("שגיאה בהוספת פריט לעגלה:", error);
+    }
+}
 
-            localStorage.setItem("cart", JSON.stringify(cart));
-
-            // הצגת ההודעה "Added to cart"
-            const messageElement = productElement.querySelector(".cart-message");
-            messageElement.textContent = "Added to cart!";
-            messageElement.style.color = "green";
-
-            // הסתרת ההודעה אחרי 3 שניות
-            setTimeout(() => {
-                messageElement.textContent = "";
-            }, 3000);
-        }
 
         // Load products on page load
         document.addEventListener("DOMContentLoaded", displayProducts);
