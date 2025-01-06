@@ -1,0 +1,164 @@
+/* Basic styles for the customer gallery */
+body {
+    font-family: "Nunito", sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  header .logo img {
+    width: 100px;
+  }
+  
+  header nav {
+    display: flex;
+    gap: 20px;
+  }
+  
+  header a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+  }
+  
+  header a.active {
+    color: #007BFF;
+  }
+  
+  main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  .gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .gallery-card {
+    width: 200px;
+    text-align: center;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .gallery-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .gallery-card h3 {
+    margin-top: 10px;
+    color: #007BFF;
+    font-size: 1rem;
+  }
+  
+  .product-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+  }
+  
+  .product-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
+  
+  .product-item p {
+    display: inline-block;
+  }
+  
+  .product-item input {
+    width: 60px;
+  }
+  
+  .product-item button {
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product-item button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  .modal-content img {
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  
+  .modal-content h2 {
+    color: #007BFF;
+  }
+  
+  .modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .modal-content .close:hover {
+    color: #007BFF;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

@@ -109,3 +109,19 @@ app.delete("/api/users/:id", async (req, res) => {
 //     res.status(500).json({ error: 'Failed to fetch stats' });
 //   }
 // });
+
+
+const galleryRoutes = require("./routes/gallery");  // Admin Projects Routes
+app.use("/api/gallery", galleryRoutes);  // Link to the admin-created projects route
+
+
+app.get("/api/gallery/:projectId", async (req, res) => {
+  try {
+    const project = await GalleryProject.findById(req.params.projectId);
+    if (!project) return res.status(404).json({ message: "Project not found" });
+    res.json(project);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching project", error: error.message });
+  }
+});
+

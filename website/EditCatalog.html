@@ -36,21 +36,6 @@
                             <h2><span id="username2"></span></h2>
                         </div>
                         <hr />
-                        <a href="" class="sub-menu-link">
-                            <img src="../images/profile images/profile.png" />
-                            <p>Edit Profile</p>
-                            <span>></span>
-                        </a>
-                        <a href="" class="sub-menu-link">
-                            <img src="../images/profile images/setting.png" />
-                            <p>Settings</p>
-                            <span>></span>
-                        </a>
-                        <a href="" class="sub-menu-link">
-                            <img src="../images/profile images/help.png" />
-                            <p>Help</p>
-                            <span>></span>
-                        </a>
                         <a href="../main_page.html" class="sub-menu-link" onclick="logout()">
                             <img src="../images/profile images/logout.png" />
                             <p>Logout</p>
@@ -224,6 +209,22 @@ document.getElementById("add-item-form").addEventListener("submit", addItem);
 displayCatalog();
 
 
+
+function logout() {
+            localStorage.clear();
+            alert("You have been logged out.");
+            window.location.href = "main_page.html";
+        }
+
+        function toggleMenu() {
+            const subMenu = document.getElementById("subMenu");
+            subMenu.classList.toggle("open-menu");
+        }
+           const username2 = localStorage.getItem('username');
+
+          if(username2){
+            document.getElementById("username2").innerText = username2;
+          }
 
     </script>
     <script src="accessability.js"></script>
