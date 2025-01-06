@@ -123,28 +123,25 @@
                 catalogDiv.appendChild(categoryDiv);
             });
         }
-
         async function addToCart(productId, pricePerMeter) {
-    const email = localStorage.getItem('Useremail'); // קבלת דוא"ל המשתמש מה-localStorage
+    const email = localStorage.getItem('Useremail'); // מקבל את האימייל מה-localStorage
     const sizeInput = document.getElementById(`size-${productId}`);
     const size = sizeInput ? parseFloat(sizeInput.value) : 0;
 
     if (!email) {
-        alert("יש להתחבר לפני הוספת פריטים לעגלה.");
+        alert("Please log in to add items to the cart.");
         return;
     }
 
     if (!size || size <= 0) {
-        alert("נא להזין גודל חוקי.");
+        alert("Please enter a valid size.");
         return;
     }
 
     try {
         const response = await fetch(`http://localhost:3000/api/cart/${email}`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json' // חשוב לוודא שזה מוגדר!
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 productId: productId,
                 price: pricePerMeter,
@@ -153,11 +150,11 @@
             })
         });
 
-        if (!response.ok) throw new Error('שגיאה בהוספת פריט לעגלה.');
+        if (!response.ok) throw new Error('Failed to add item to cart.');
 
-        alert("פריט נוסף לעגלה בהצלחה!");
+        alert("Item added to cart successfully!");
     } catch (error) {
-        console.error("שגיאה בהוספת פריט לעגלה:", error);
+        console.error("Error adding to cart:", error);
     }
 }
 

@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>עגלה</title>
+    <title>Shopping Cart</title>
     <link rel="stylesheet" href="styles/cart.css">
 </head>
 <body>
     <header>
-        <h1>העגלה שלי</h1>
+        <h1>Shopping Cart</h1>
     </header>
     <main>
-        <section id="cart-container">
-            <h2>מוצרים בעגלה</h2>
-            <div id="cart-items"></div>
-            <div id="cart-summary">
-                <p>סה"כ פריטים: <span id="total-items">0</span></p>
-                <p>סה"כ מחיר: ₪<span id="total-price">0.00</span></p>
-            </div>
+        <section id="cart-items">
+            <h2>Your Cart</h2>
+            <div id="cart-list"></div>
+        </section>
+        <section id="cart-summary">
+            <h2>Summary</h2>
+            <p>Total Items: <span id="total-items">0</span></p>
+            <p>Total Price: $<span id="total-price">0.00</span></p>
+            <button id="checkout-button">Checkout</button>
         </section>
     </main>
     <footer>
@@ -25,66 +27,77 @@
     </footer>
     <script>
         // קבלת עגלה מהשרת לפי דוא"ל
-        async function loadCart() {
-            const email = localStorage.getItem('Useremail');
-            if (!email) {
-                alert('עליך להתחבר כדי לצפות בעגלה שלך.');
-                return [];
-            }
+// Fetch cart data from the server
+async function loadCart() {
+    const email = localStorage.getItem('Useremail'); // מזהה את המשתמש לפי דוא"ל
 
-            try {
-                const response = await fetch(`http://localhost:3000/api/cart/${email}`);
-                if (!response.ok) throw new Error('שגיאה בטעינת עגלה');
-                const cart = await response.json();
-                return cart.items || [];
-            } catch (error) {
-                console.error('שגיאה בטעינת עגלה:', error);
-                return [];
-            }
-        }
+    if (!email) {
+        alert('Please log in to view your cart.');
+        return;
+    }
 
-        // הצגת מוצרים בעגלה
-        async function displayCart() {
-            const cartItems = await loadCart();
-            const cartContainer = document.getElementById('cart-items');
-            const totalItems = document.getElementById('total-items');
-            const totalPrice = document.getElementById('total-price');
+    try {
+        const response = await fetch(`http://localhost:3000/api/cart/${email}`);
+        if (!response.ok) throw new Error('Failed to fetch cart.');
 
-            cartContainer.innerHTML = '';
-            let total = 0;
+        const cart = await response.json();
+        displayCart(cart.items || []);
+    } catch (error) {
+        console.error('Error fetching cart:', error);
+    }
+}
+// Display the cart on the page
+function displayCart(items) {
+    const cartList = document.getElementById("cart-list");
+    const totalItems = document.getElementById("total-items");
+    const totalPrice = document.getElementById("total-price");
 
-            cartItems.forEach((item, index) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('cart-item');
-                itemDiv.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}" />
-                    <h3>${item.name}</h3>
-                    <p>כמות: ${item.quantity}</p>
-                    <p>מחיר כולל: ₪${item.totalPrice.toFixed(2)}</p>
-                    <button onclick="removeItem(${index})">הסר פריט</button>
-                `;
-                cartContainer.appendChild(itemDiv);
-                total += item.totalPrice;
-            });
+    cartList.innerHTML = ""; // ניקוי תוכן קיים
+    let total = 0;
 
-            totalItems.innerText = cartItems.length;
-            totalPrice.innerText = total.toFixed(2);
-        }
+    items.forEach((item) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
 
-        // הסרת פריט מהעגלה
-        async function removeItem(index) {
-            const email = localStorage.getItem('Useremail');
-            try {
-                await fetch(`http://localhost:3000/api/cart/${email}/${index}`, { method: 'DELETE' });
-                alert('פריט הוסר בהצלחה.');
-                displayCart();
-            } catch (error) {
-                console.error('שגיאה בהסרת פריט:', error);
-            }
-        }
+        itemDiv.innerHTML = `
+            <h3>${item.productId.name}</h3>
+            <p>Size: ${item.quantity} m²</p>
+            <p>Total Price: $${item.totalPrice.toFixed(2)}</p>
+        `;
 
-        // טעינת העגלה עם פתיחת הדף
-        document.addEventListener('DOMContentLoaded', displayCart);
+        cartList.appendChild(itemDiv);
+        total += item.totalPrice;
+    });
+
+    totalItems.innerText = items.length;
+    totalPrice.innerText = total.toFixed(2);
+}
+// Remove an item from the cart
+async function removeItem(index) {
+    const email = localStorage.getItem('Useremail');
+    const cartItems = await loadCart();
+
+    const productId = cartItems[index].productId._id;
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/cart/${email}/${productId}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) throw new Error('Failed to remove item from cart.');
+
+        alert('Item removed successfully.');
+        displayCart();
+    } catch (error) {
+        console.error('Error removing item:', error);
+    }
+}
+
+// Load the cart when the page is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    displayCart();
+});
+
     </script>
 </body>
 </html>
