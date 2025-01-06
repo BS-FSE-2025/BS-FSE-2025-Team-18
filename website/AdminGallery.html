@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Gallery</title>
+  <link rel="stylesheet" href="styles/admin-gallery.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="../images/IMG_6583.png" alt="LOGO" />
+          <div id="accessibility-tools">
+            <button id="increase-font">A+</button>
+            <button id="decrease-font">A-</button>
+            <button id="reset-font">Reset</button>
+          </div>
+        </div>
+        
+        <div class="header-content">
+  
+          <nav class="buttons">
+            <a href="Admin.html" class="active">Home</a>
+            <a href="UsersList.html" >Users</a>
+            <a href="WebsiteStats.html" >Website Stats</a>
+            <a href="EditCatalog.html" >Edit Catalog</a>
+            <a href="AdminGallery.html" >Edit Gallery</a>
+  
+          </nav>
+  
+           <div class="profile-menu">
+            <img src="../images/avatar-logo.jpg"  onclick="toggleMenu()" />
+            <div class="sub-menu-wrap" id="subMenu">
+              <div class="sub-menu">
+                <div class="user-info">
+                  <img src="../images/avatar-logo.jpg" />
+                  <h2><span id="username2"></span></h2>
+                </div>
+                <hr />
+                <a href="../main_page.html" class="sub-menu-link" onclick="logout()">
+                  <img src="../images/profile images/logout.png" />
+                  <p>Logout</p>
+                  <span>></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </header>
+  <main>
+    <form id="addProjectForm" enctype="multipart/form-data">
+      <h2>Add New Gallery Project</h2>
+      <input type="text" id="projectName" name="name" placeholder="Project Name" required>
+      <textarea id="projectDescription" name="description" placeholder="Project Description" required></textarea>
+      <label for="projectImage">Upload Project Image:</label>
+      <input type="file" id="projectImage" name="image" accept="image/*" required>
+      <h3>Select Products from Catalog</h3>
+      <label for="categorySelect">Select Category:</label>
+      <select id="categorySelect"></select>
+      <div id="productSelection"></div>
+      <button type="submit">Add Project</button>
+    </form>
+    <div id="galleryProjects" class="gallery-grid"></div>
+  </main>
+
+  <!-- Modal for Project Details -->
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalProjectName"></h2>
+      <img id="modalProjectImage" src="" alt="Project Image">
+      <p id="modalProjectDescription"></p>
+      <div id="modalProjectProducts"></div>
+      <p id="modalTotalCost"></p>
+      <button onclick="closeModal()" class="close-modal-button">Close</button>
+    </div>
+  </div>
+
+
+  <script>
+    const API_URL = "http://localhost:3000/api/gallery";
+    const CATALOG_URL = "http://localhost:3000/api/catalog";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchCategories();
+      fetchGalleryProjects();
+    });
+
+    async function fetchCategories() {
+      try {
+        const response = await fetch(CATALOG_URL);
+        if (!response.ok) throw new Error("Failed to fetch catalog categories.");
+        const items = await response.json();
+        const categories = [...new Set(items.map(item => item.category))];
+        populateCategorySelect(categories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    }
+
+    function populateCategorySelect(categories) {
+      const categorySelect = document.getElementById("categorySelect");
+      categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        categorySelect.appendChild(option);
+      });
+      categorySelect.addEventListener("change", fetchProductsByCategory);
+    }
+
+    async function fetchProductsByCategory() {
+      const selectedCategory = document.getElementById("categorySelect").value;
+      if (!selectedCategory) return;
+
+      try {
+        const response = await fetch(CATALOG_URL);
+        if (!response.ok) throw new Error("Failed to fetch products.");
+        const items = await response.json();
+        const filteredItems = items.filter(item => item.category === selectedCategory);
+        displayProducts(filteredItems);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    }
+
+    function displayProducts(products) {
+      const productSelection = document.getElementById("productSelection");
+      productSelection.innerHTML = "";
+
+      products.forEach(product => {
+        const productDiv = document.createElement("div");
+        productDiv.classList.add("product-item");
+        productDiv.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <p>${product.name}</p>
+          <p>Price: $${product.pricePerMeter}</p>
+          <label for="quantity-${product._id}">Quantity:</label>
+          <input type="number" id="quantity-${product._id}" min="1" value="1" />
+          <button type="button" onclick="addProductToSelection('${product._id}', '${product.name}', '${product.pricePerMeter}', '${product.image}', '${product.category}')">Add Product</button>
+        `;
+        productSelection.appendChild(productDiv);
+      });
+    }
+
+    function addProductToSelection(productId, name, price, image, category) {
+      const quantity = document.getElementById(`quantity-${productId}`).value;
+      if (!quantity || quantity <= 0) {
+        alert("Please enter a valid quantity.");
+        return;
+      }
+      const selectedProducts = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+      selectedProducts.push({ productId, name, price: parseFloat(price), quantity: parseInt(quantity, 10), image, category });
+      localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
+      alert(`${name} has been added to the project.`);
+    }
+
+    document.getElementById("addProjectForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const selectedProducts = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+      formData.append("products", JSON.stringify(selectedProducts));
+
+      try {
+        const response = await fetch(API_URL, { method: "POST", body: formData });
+        if (!response.ok) throw new Error("Failed to add project to gallery");
+        alert("Project added successfully!");
+        document.getElementById("addProjectForm").reset();
+        localStorage.removeItem("selectedProducts");
+        fetchGalleryProjects();
+      } catch (error) {
+        console.error("Error adding project:", error);
+        alert("Error adding project: " + error.message);
+      }
+    });
+
+    async function fetchGalleryProjects() {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error("Failed to fetch gallery projects");
+        const projects = await response.json();
+        displayGalleryProjects(projects);
+      } catch (error) {
+        console.error("Error fetching gallery projects:", error);
+      }
+    }
+
+    function displayGalleryProjects(projects) {
+    const galleryContainer = document.getElementById("galleryProjects");
+    galleryContainer.innerHTML = "";
+
+    projects.forEach(project => {
+        const projectCard = document.createElement("div");
+        projectCard.classList.add("gallery-card");
+
+        projectCard.innerHTML =` 
+          <img src="${project.image}" alt="${project.name}" onclick="openProjectModal('${project._id}')">
+          <h3>${project.name}</h3>
+        `;
+
+        galleryContainer.appendChild(projectCard);
+    });
+}
+  async function openProjectModal(projectId) {
+    const modal = document.getElementById("projectModal");
+
+    try {
+        const response = await fetch(`${API_URL}/${projectId}`);
+        if (!response.ok) throw new Error("Failed to fetch project details");
+        const project = await response.json();
+
+        let totalCost = 0;
+        const groupedProducts = groupProductsByCategory(project.products);
+
+        document.getElementById("modalProjectName").textContent = project.name;
+        document.getElementById("modalProjectImage").src = project.image;
+        document.getElementById("modalProjectDescription").textContent = project.description;
+
+        const productsContainer = document.getElementById("modalProjectProducts");
+        productsContainer.innerHTML = Object.entries(groupedProducts).map(([category, products]) => `
+          <h4>${category}</h4>
+          <ul>
+            ${products.map(product => {
+                totalCost += product.price * product.quantity;
+                return `
+                  <li>
+                    <img src="${product.image}" alt="${product.name}">
+                    ${product.name} - $${product.price} (Quantity: ${product.quantity})
+                  </li>`;
+            }).join("")}
+          </ul>
+        `).join("");
+
+        document.getElementById("modalTotalCost").textContent = `Total Cost: $${totalCost}`;
+        modal.style.display = "flex";
+    } catch (error) {
+        console.error("Error opening project modal:", error);
+    }
+}
+
+  function closeModal() {
+    const modal = document.querySelector(".modal");
+    modal.style.display = "none";
+  }
+
+    function groupProductsByCategory(products) {
+    return products.reduce((acc, product) => {
+      if (!acc[product.category]) acc[product.category] = [];
+      acc[product.category].push(product);
+      return acc;
+    }, {});
+  }
+
+  function logout() {
+            localStorage.clear();
+            alert("You have been logged out.");
+            window.location.href = "main_page.html";
+        }
+
+        function toggleMenu() {
+            const subMenu = document.getElementById("subMenu");
+            subMenu.classList.toggle("open-menu");
+        }
+           const username2 = localStorage.getItem('username');
+
+          if(username2){
+            document.getElementById("username2").innerText = username2;
+          }
+
+  </script>
+</body>
+</html>
