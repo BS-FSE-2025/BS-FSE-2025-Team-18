@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CUSTOMER-PROJECT.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="../images/IMG_6583.png" alt="LOGO" />
+          <div id="accessibility-tools">
+            <button id="increase-font">A+</button>
+            <button id="decrease-font">A-</button>
+            <button id="reset-font">Reset</button>
+          </div>
+        </div>
+          <div class="header-content">
+              <nav>
+                <a href="homepage-customer.html" class="active">Home</a>
+                <a href="cart.html">Cart</a>
+                <a href="products.html">Catalog</a>
+                <a href="CheckList/CheckList.html">CheckList</a>
+                <a href="customer-gallery.html">Gallery</a>
+                <a href="CUSTOMER-PROJECT.html">My Renovation</a>
+              </nav>
+              <div class="profile-menu">
+                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
+                <div class="sub-menu-wrap" id="subMenu">
+                  <div class="sub-menu">
+                    <div class="user-info">
+                      <img src="images/avatar-logo.jpg" alt="Logo"/>
+                      <h2><span id="username"></span></h2>
+                    </div>
+                    <hr />
+                    <a href="customer-profile.html" class="sub-menu-link">
+                      <img src="images/profile images/profile.png" alt="Logo"/>
+                      <p>Edit Profile</p>
+                      <span>></span>
+                    </a>
+                    <a href="" class="sub-menu-link">
+                      <img src="images/profile images/setting.png"alt="Logo" />
+                      <p>Settings</p>
+                      <span>></span>
+                    </a>
+                    <a href="" class="sub-menu-link">
+                      <img src="images/profile images/help.png"alt="Logo" />
+                      <p>help</p>
+                      <span>></span>
+                    </a>
+                    <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                      <img src="images/profile images/logout.png"alt="Logo" />
+                      <p>Logout</p>
+                      <span>></span>
+                    </a>
+                    </a>
+                  </div>
+                </div>
+              </div>
+          </div>
+          
+  
+    </header>
+
+    <h1>
+        <pre>
+        products from cart (name,img,amount),
+        total cost from cart,
+        نحط BUDGET اذا بزبط,
+        CheckList(TODO, in progress, Done),
+        Time estimator,
+        absr bay        
+        </pre>
+    </h1>
+
+
+    <script src="accessability.js"></script>
+
+</body>
+</html>
