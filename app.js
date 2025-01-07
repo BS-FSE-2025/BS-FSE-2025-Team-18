@@ -8,9 +8,14 @@ const cors = require("cors");
 const User = require("./models/user");
 
 
+
 dotenv.config();
 const app = express();
 app.use(cors());
+const cartRoutes = require('./routes/cart');
+app.use('/api/cart', cartRoutes);
+
+
 
 
 // Middleware

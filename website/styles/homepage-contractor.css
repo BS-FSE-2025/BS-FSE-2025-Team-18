@@ -3,6 +3,8 @@ body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
     background-color: #f9f9f9;
+    background: url('../images/pexels-reneterp-3990359.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: #333;
 }
 
@@ -133,11 +135,17 @@ header nav a {
 }
 
 header nav a:hover {
-    color: #007BFF;
+    color: #dd0505;
 }
 
+header a.active,
+header nav a:hover {
+    color: #dd0505;
+}
+
+
 header .btn {
-    background-color: #007BFF;
+    background-color: #dd0505;
     color: #ffffff;
     padding: 10px 15px;
     border: none;
@@ -147,7 +155,7 @@ header .btn {
 }
 
 header .btn:hover {
-    background-color: #007BFF;
+    background-color: #dd0505;
 }
 
 /* Welcome User Section */
@@ -181,7 +189,7 @@ main {
 
 .feature-card {
     background-color: #ffffff;
-    border-radius: 10px;
+    border-radius: 10px ;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 300px;
@@ -191,7 +199,7 @@ main {
 
 .feature-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px #dd0505;
     cursor: pointer;
 }
 
@@ -202,10 +210,17 @@ main {
 
 /* Footer */
 footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px; /* Adjust the height if needed */
     background-color: #ffffff;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 0.9rem;
-    color: #333;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #000000; /* Footer text is black */
+    text-align: center;
+    z-index: 1000;
 }
