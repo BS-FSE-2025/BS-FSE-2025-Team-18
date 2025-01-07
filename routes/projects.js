@@ -83,6 +83,42 @@ router.put('/:projectId/addProductToProject', verifyToken, async (req, res) => {
 });
 
 
+router.put('/updateProductStatus', verifyToken, async (req, res) => {
+  const { itemId, status } = req.body;
+
+  // בדיקה אם itemId ו-status קיימים
+  if (!itemId || !status) {
+      return res.status(400).json({ message: "ItemId ו-Status הם שדות חובה" });
+  }
+
+  // בדיקה אם הסטטוס חוקי
+  const allowedStatuses = ["To Do", "In Progress", "Done"];
+  if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({ message: "סטטוס לא חוקי" });
+  }
+
+  // בדיקה אם ה-itemId הוא ObjectId חוקי
+  if (!mongoose.Types.ObjectId.isValid(itemId)) {
+      return res.status(400).json({ message: "פורמט itemId לא חוקי" });
+  }
+
+  try {
+      const project = await Project.findOneAndUpdate(
+          { "products.itemId": itemId },
+          { $set: { "products.$.status": status } },
+          { new: true }
+      );
+
+      if (!project) {
+          return res.status(404).json({ message: "מוצר לא נמצא" });
+      }
+
+      res.json({ message: "סטטוס המוצר עודכן בהצלחה", project });
+  } catch (error) {
+      console.error("שגיאה בעדכון סטטוס המוצר:", error);
+      res.status(500).json({ error: error.message });
+  }
+});
 
 
 // Update a project
@@ -150,6 +186,30 @@ router.put('/:projectId/removeProduct', verifyToken, async (req, res) => {
       res.status(500).json({ error: error.message });
   }
 });
+
+// Get project details by projectId
+router.get('/:projectId', verifyToken, async (req, res) => {
+  const { projectId } = req.params;
+
+  try {
+      // בדיקה שה-ID הוא תקין בפורמט ObjectId
+      if (!mongoose.Types.ObjectId.isValid(projectId)) {
+          return res.status(400).json({ message: "Invalid project ID" });
+      }
+
+      const project = await Project.findById(projectId).populate('products.productId', '_id name image pricePerMeter');
+
+      if (!project) {
+          return res.status(404).json({ message: "Project not found" });
+      }
+
+      res.json(project); // מחזיר את פרטי הפרויקט
+  } catch (error) {
+      console.error("Error fetching project details:", error);
+      res.status(500).json({ message: "Failed to fetch project details" });
+  }
+});
+
 
 
 

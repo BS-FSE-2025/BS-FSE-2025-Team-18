@@ -23,38 +23,43 @@
             <a href="homepage-contractor.html">Home</a>
             <a href="Contractor-Projects.html" class="active">My Projects</a>
             <a href="contractor-catalog.html">Catalog</a>
-            <a href="CheckList/CheckListContractor.html">CheckList</a>
+            <a href="contractor-checklist.html">CheckList</a>
           </nav>
-    
           <div class="profile-menu">
-            <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Profile" />
+            <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
             <div class="sub-menu-wrap" id="subMenu">
               <div class="sub-menu">
                 <div class="user-info">
-                  <img src="images/avatar-logo.jpg" alt="User" />
+                  <img src="images/avatar-logo.jpg" alt="Logo"/>
                   <h2><span id="username"></span></h2>
                 </div>
                 <hr />
-                <a href="contractor-profile.html" class="sub-menu-link">
-                  <img src="images/profile images/profile.png" alt="Profile" />
+                <a href="customer-profile.html" class="sub-menu-link">
+                  <img src="images/profile images/profile.png" alt="Logo"/>
                   <p>Edit Profile</p>
+                  <span>></span>
                 </a>
                 <a href="" class="sub-menu-link">
-                  <img src="images/profile images/setting.png" alt="Settings" />
+                  <img src="images/profile images/setting.png"alt="Logo" />
                   <p>Settings</p>
+                  <span>></span>
                 </a>
                 <a href="" class="sub-menu-link">
-                  <img src="images/profile images/help.png" alt="Help" />
-                  <p>Help</p>
+                  <img src="images/profile images/help.png"alt="Logo" />
+                  <p>help</p>
+                  <span>></span>
                 </a>
                 <a href="main_page.html" class="sub-menu-link" onclick="logout()">
-                  <img src="images/profile images/logout.png" alt="Logout" />
+                  <img src="images/profile images/logout.png"alt="Logo" />
                   <p>Logout</p>
+                  <span>></span>
+                </a>
                 </a>
               </div>
             </div>
           </div>
-        </div>
+    
+          
     </header>
     
     <main>
@@ -70,6 +75,26 @@
             <div id="project-list"></div>
         </section>
     </main>
+        <!-- Edit Project Modal -->
+        <div id="editProjectModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditModal()">&times;</span>
+                <h2>Edit Project</h2>
+                <form id="editProjectForm">
+                    <label for="editProjectName">Project Name:</label>
+                    <input type="text" id="editProjectName" required />
+                    <label for="editProjectDescription">Project Description:</label>
+                    <textarea id="editProjectDescription" required></textarea>
+                    <label for="editProjectStatus">Project Status:</label>
+                    <select id="editProjectStatus">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    <button type="button" onclick="saveProjectChanges()">Save</button>
+                </form>
+            </div>
+        </div>
 
     <footer>
         <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
@@ -156,10 +181,13 @@
                     <h4>Total Cost: $${totalCost}</h4>
                 </div>
                 <div class="project-actions">
-                    <button class="edit-project" onclick="editProject('${project._id}')">Edit Project</button>
-                    <button class="delete-project" onclick="deleteProject('${project._id}')">Delete Project</button>
-                    <button class="add-from-catalog" onclick="redirectToCatalog()">Add Product from Catalog</button>
-                </div>
+    <button class="edit-project" onclick="openEditModal('${project._id}', '${project.name}', '${project.description}', '${project.status}')">
+        Edit Project
+    </button>
+    <button class="delete-project" onclick="deleteProject('${project._id}')">Delete Project</button>
+    <button class="add-from-catalog" onclick="redirectToCatalog()">Add Product from Catalog</button>
+</div>
+
             </div>
         `;
         projectList.appendChild(projectCard);
@@ -195,6 +223,60 @@ async function removeProductFromProject(projectId, itemId) {
         alert("Error deleting product: " + error.message);
     }
 }
+let currentProjectId = null; // משתנה גלובלי לשמירת מזהה הפרויקט הנוכחי
+
+function openEditModal(projectId, projectName, projectDescription, projectStatus) {
+    currentProjectId = projectId;
+
+    // מילוי הנתונים הקיימים בשדות הטופס
+    document.getElementById('editProjectName').value = projectName;
+    document.getElementById('editProjectDescription').value = projectDescription;
+    document.getElementById('editProjectStatus').value = projectStatus;
+
+    // הצגת המודאל
+    document.getElementById('editProjectModal').style.display = 'block';
+}
+
+function closeEditModal() {
+    // הסתרת המודאל
+    document.getElementById('editProjectModal').style.display = 'none';
+}
+
+async function saveProjectChanges() {
+    const projectName = document.getElementById('editProjectName').value;
+    const projectDescription = document.getElementById('editProjectDescription').value;
+    const projectStatus = document.getElementById('editProjectStatus').value;
+
+    if (!projectName || !projectDescription || !projectStatus) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/projects/${currentProjectId}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: projectName,
+                description: projectDescription,
+                status: projectStatus,
+            }),
+        });
+
+        if (!response.ok) throw new Error('Failed to update project.');
+        alert('Project updated successfully!');
+        closeEditModal();
+        await displayProjects(); // רענון הרשימה
+    } catch (error) {
+        alert('Error updating project: ' + error.message);
+    }
+}
+
 
         function toggleDetails(projectId) {
             const details = document.getElementById(`details-${projectId}`);
@@ -296,7 +378,11 @@ async function removeProductFromProject(projectId, itemId) {
                 alert("Error updating project: " + error.message);
             }
         }
-
+        const username = localStorage.getItem('username');
+          if(username){
+              document.getElementById("username").innerText = username;
+          }
+         
         function logout() {
             localStorage.clear();
             alert("You have been logged out.");
