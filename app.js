@@ -6,16 +6,16 @@ const path = require("path");
 const authRoutes = require("./routes/auth"); // חיבור לנתיבי האימות
 const cors = require("cors");
 const User = require("./models/user");
-const cartRoutes = require('./routes/cart'); // קובץ ה-routes של ה-CART
 
 
 
 dotenv.config();
 const app = express();
 app.use(cors());
-app.use('/api/cart', require('./routes/cart'));
+const cartRoutes = require('./routes/cart');
+app.use('/api/cart', cartRoutes);
 
-app.use('/api/cart', cartRoutes); // שימוש בנתיבים של CART
+
 
 
 // Middleware

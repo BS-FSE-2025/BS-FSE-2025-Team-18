@@ -1,103 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="styles/cart.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles/cart.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header>
-        <h1>Shopping Cart</h1>
+      <div class="logo">
+        <img src="../images/IMG_6583.png" alt="LOGO" />
+        <div id="accessibility-tools">
+          <button id="increase-font">A+</button>
+          <button id="decrease-font">A-</button>
+          <button id="reset-font">Reset</button>
+        </div>
+      </div>
+      <div class="header-content">
+        <nav>
+          <a href="homepage-customer.html">Home</a>
+          <a href="cart.html">Cart</a>
+          <a href="aboutus.html">About Us</a>
+          <a href="CheckList/CheckList.html">CheckList</a>
+        </nav>
+        <div class="profile-menu">
+          <img
+            src="images/avatar-logo.jpg"
+            width="50"
+            onclick="toggleMenu()"
+            alt="Logo"
+          />
+          <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+              <div class="user-info">
+                <img src="images/avatar-logo.jpg" alt="Logo" />
+                <h2><span id="username"></span></h2>
+              </div>
+              <hr />
+              <a href="customer-profile.html" class="sub-menu-link">
+                <img src="images/profile images/profile.png" alt="Logo" />
+                <p>Edit Profile</p>
+                <span>></span>
+              </a>
+              <a href="" class="sub-menu-link">
+                <img src="images/profile images/setting.png" alt="Logo" />
+                <p>Settings</p>
+                <span>></span>
+              </a>
+              <a href="" class="sub-menu-link">
+                <img src="images/profile images/help.png" alt="Logo" />
+                <p>Help</p>
+                <span>></span>
+              </a>
+              <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                <img src="images/profile images/logout.png" alt="Logo" />
+                <p>Logout</p>
+                <span>></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
     <main>
-        <section id="cart-items">
-            <h2>Your Cart</h2>
-            <div id="cart-list"></div>
-        </section>
-        <section id="cart-summary">
-            <h2>Summary</h2>
-            <p>Total Items: <span id="total-items">0</span></p>
-            <p>Total Price: $<span id="total-price">0.00</span></p>
-            <button id="checkout-button">Checkout</button>
-        </section>
+      <section id="cart-items">
+        <h2>Your Cart</h2>
+        <div id="cart-list"></div>
+      </section>
+      <section id="cart-summary">
+        <h2>Summary</h2>
+        <p>Total Items: <span id="total-items">0</span></p>
+        <p>Total Price: $<span id="total-price">0.00</span></p>
+      </section>
     </main>
     <footer>
-        <p>&copy; 2025 RenovaCalc. כל הזכויות שמורות.</p>
+      <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
     </footer>
     <script>
-        // קבלת עגלה מהשרת לפי דוא"ל
-// Fetch cart data from the server
-async function loadCart() {
-    const email = localStorage.getItem('Useremail'); // מזהה את המשתמש לפי דוא"ל
+      // Fetch cart data from localStorage
+      async function loadCart() {
+        const userEmail = localStorage.getItem("Useremail"); // Retrieve email
+        if (!userEmail) {
+          alert("Please log in to view your cart.");
+          return;
+        }
 
-    if (!email) {
-        alert('Please log in to view your cart.');
-        return;
-    }
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/cart/${userEmail}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          const cart = await response.json();
 
-    try {
-        const response = await fetch(`http://localhost:3000/api/cart/${email}`);
-        if (!response.ok) throw new Error('Failed to fetch cart.');
+          const cartList = document.getElementById("cart-list");
+          cartList.innerHTML = cart.items
+            .map(
+              (item) => `
+            <div>
+                <img src="${item.image}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>${item.quantity} × $${
+                item.price
+              } = $${item.totalPrice.toFixed(2)}</p>
+            </div>
+        `
+            )
+            .join("");
+        } catch (error) {
+          console.error("Error fetching cart:", error);
+        }
+      }
 
-        const cart = await response.json();
-        displayCart(cart.items || []);
-    } catch (error) {
-        console.error('Error fetching cart:', error);
-    }
-}
-// Display the cart on the page
-function displayCart(items) {
-    const cartList = document.getElementById("cart-list");
-    const totalItems = document.getElementById("total-items");
-    const totalPrice = document.getElementById("total-price");
+      document.addEventListener("DOMContentLoaded", loadCart);
 
-    cartList.innerHTML = ""; // ניקוי תוכן קיים
-    let total = 0;
+      // Save cart data to localStorage
+      function saveCart(cart) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
 
-    items.forEach((item) => {
-        const itemDiv = document.createElement("div");
-        itemDiv.classList.add("cart-item");
+      // Display cart items
+      async function displayCart() {
+        const { items } = await loadCart();
+        const cartList = document.getElementById("cart-list");
+        const totalItems = document.getElementById("total-items");
+        const totalPrice = document.getElementById("total-price");
 
-        itemDiv.innerHTML = `
-            <h3>${item.productId.name}</h3>
-            <p>Size: ${item.quantity} m²</p>
-            <p>Total Price: $${item.totalPrice.toFixed(2)}</p>
-        `;
+        cartList.innerHTML = ""; // Clear previous items
+        let total = 0;
 
-        cartList.appendChild(itemDiv);
-        total += item.totalPrice;
-    });
+        items.forEach((item) => {
+          const itemDiv = document.createElement("div");
+          itemDiv.classList.add("cart-item");
 
-    totalItems.innerText = items.length;
-    totalPrice.innerText = total.toFixed(2);
-}
-// Remove an item from the cart
-async function removeItem(index) {
-    const email = localStorage.getItem('Useremail');
-    const cartItems = await loadCart();
+          itemDiv.innerHTML = `
+      <img src="${item.image}" alt="${item.name}" />
+      <h3>${item.name}</h3>
+      <p>Size: ${item.size} m²</p>
+      <p>Price: ${item.totalPrice.toFixed(2)}$</p>
+      <button onclick="removeItem('${item.productId}')">Remove</button>
+    `;
 
-    const productId = cartItems[index].productId._id;
-
-    try {
-        const response = await fetch(`http://localhost:3000/api/cart/${email}/${productId}`, {
-            method: 'DELETE'
+          cartList.appendChild(itemDiv);
+          total += item.totalPrice;
         });
 
-        if (!response.ok) throw new Error('Failed to remove item from cart.');
+        totalItems.innerText = items.length;
+        totalPrice.innerText = total.toFixed(2);
+      }
 
-        alert('Item removed successfully.');
+      // Remove item from cart
+      async function removeItem(productId) {
+        const Useremail = localStorage.getItem("Useremail");
+
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/cart/${Useremail}/${productId}`,
+            {
+              method: "DELETE",
+            }
+          );
+          if (response.ok) {
+            displayCart();
+          } else {
+            alert("Failed to remove item.");
+          }
+        } catch (error) {
+          console.error("Error removing item:", error);
+        }
+      }
+
+      // Checkout (simple alert for now)
+      function checkout() {
+        alert("Checkout successful!");
+        localStorage.removeItem("cart");
         displayCart();
-    } catch (error) {
-        console.error('Error removing item:', error);
-    }
-}
+      }
 
-// Load the cart when the page is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    displayCart();
-});
+      // Load cart on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        displayCart();
+        document
+          .getElementById("checkout-button")
+          .addEventListener("click", checkout);
+      });
 
+      const username = localStorage.getItem("username");
+      const username2 = localStorage.getItem("username");
+      if (username) {
+        document.getElementById("username").innerText = username;
+      }
+
+      function logout() {
+        localStorage.clear();
+        alert("You have been logged out.");
+        window.location.href = "main_page.html";
+      }
+      let subMenu = document.getElementById("subMenu");
+      function toggleMenu() {
+        subMenu.classList.toggle("open-menu");
+      }
     </script>
-</body>
+    <script src="accessability.js"></script>
+  </body>
 </html>
