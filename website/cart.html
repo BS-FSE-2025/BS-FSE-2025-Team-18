@@ -75,6 +75,7 @@
         <h2>Summary</h2>
         <p>Total Items: <span id="total-items">0</span></p>
         <p>Total Price: $<span id="total-price">0.00</span></p>
+        <p>Total Time Estimation: <span id="total-time">0</span> hours</p>
       </section>
     </main>
     <footer>
@@ -83,7 +84,7 @@
     <script>
       // Fetch cart data from localStorage
       async function loadCart() {
-        const userEmail = localStorage.getItem("Useremail"); // Retrieve email
+        const userEmail = localStorage.getItem("Useremail");
         if (!userEmail) {
           alert("Please log in to view your cart.");
           return;
@@ -91,35 +92,16 @@
 
         try {
           const response = await fetch(
-            `http://localhost:3000/api/cart/${userEmail}`,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
+            `http://localhost:3000/api/cart/${userEmail}`
           );
           const cart = await response.json();
 
-          const cartList = document.getElementById("cart-list");
-          cartList.innerHTML = cart.items
-            .map(
-              (item) => `
-            <div>
-                <img src="${item.image}" alt="${item.name}">
-                <h3>${item.name}</h3>
-                <p>${item.quantity} × $${
-                item.price
-              } = $${item.totalPrice.toFixed(2)}</p>
-            </div>
-        `
-            )
-            .join("");
+          console.log("Cart API response:", cart); // Log the response
+          displayCart(cart);
         } catch (error) {
           console.error("Error fetching cart:", error);
         }
       }
-
-      document.addEventListener("DOMContentLoaded", loadCart);
 
       // Save cart data to localStorage
       function saveCart(cart) {
@@ -127,34 +109,56 @@
       }
 
       // Display cart items
-      async function displayCart() {
-        const { items } = await loadCart();
+      async function displayCart(cart) {
         const cartList = document.getElementById("cart-list");
         const totalItems = document.getElementById("total-items");
         const totalPrice = document.getElementById("total-price");
+        const totaltime = document.getElementById("total-time");
 
         cartList.innerHTML = ""; // Clear previous items
         let total = 0;
+        let totalTimeEst = 0;
 
-        items.forEach((item) => {
+        if (!cart || !cart.items || cart.items.length === 0) {
+          cartList.innerHTML = "<p>Your cart is empty.</p>";
+          totalItems.innerText = "0";
+          totalPrice.innerText = "0.00";
+          return;
+        }
+
+        cart.items.forEach((item) => {
+          const { productId, quantity } = item;
+          const { name, image, pricePerMeter, totalTime } = productId; // Extract product details
+
+          const totalPriceForItem = pricePerMeter * quantity;
+          const totalTimeEstimation = (totalTime * quantity) / 60;
+
           const itemDiv = document.createElement("div");
           itemDiv.classList.add("cart-item");
 
           itemDiv.innerHTML = `
-      <img src="${item.image}" alt="${item.name}" />
-      <h3>${item.name}</h3>
-      <p>Size: ${item.size} m²</p>
-      <p>Price: ${item.totalPrice.toFixed(2)}$</p>
-      <button onclick="removeItem('${item.productId}')">Remove</button>
-    `;
+            <img src="${image || "default-image.png"}" alt="${
+            name || "Unnamed Product"
+          }" />
+            <h3>${name || "Unnamed Product"}</h3>
+            <p>${quantity || 0} × $${pricePerMeter || 0} = $${(
+            totalPriceForItem || 0
+          ).toFixed(2)}</p>
+            <pre>Time Estimation:
+               ${(totalTimeEstimation || 0).toFixed(2)} hours</pre>
+        `;
 
           cartList.appendChild(itemDiv);
-          total += item.totalPrice;
+          total += totalPriceForItem;
+          totalTimeEst += totalTimeEstimation;
         });
 
-        totalItems.innerText = items.length;
+        totalItems.innerText = cart.items.length;
         totalPrice.innerText = total.toFixed(2);
+        totaltime.innerText = totalTimeEst;
       }
+
+      document.addEventListener("DOMContentLoaded", loadCart);
 
       // Remove item from cart
       async function removeItem(productId) {
