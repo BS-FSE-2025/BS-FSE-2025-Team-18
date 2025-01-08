@@ -136,12 +136,12 @@ header nav a {
 
 header a.active,
 header nav a:hover {
-    color: #dd0505; /* Orange for active or hover links */
+    color: #28a745; /* Orange for active or hover links */
 }
 
 /* Accessibility Buttons */
 header .btn {
-    background-color: #dd0505; /* Button background color */
+    background-color: #28a745; /* Button background color */
     color: #ffffff; /* Text color */
     padding: 5px 10px; /* Smaller padding for smaller buttons */
     border: none;
@@ -155,7 +155,7 @@ header .btn {
 }
 
 header .btn:hover {
-    background-color: #b50404; /* Darker shade on hover */
+    background-color: #28a745; /* Darker shade on hover */
     transform: scale(1.05); /* Slight zoom effect */
 }
 
@@ -194,7 +194,7 @@ main {
 
 .gallery-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px #dd0505;
+    box-shadow: 0 8px 16px #28a745;
 }
 
 .gallery-card img {
@@ -206,7 +206,7 @@ main {
 
 .gallery-card h3 {
     margin-top: 10px;
-    color: #dd0505; /* Orange title */
+    color: #28a745; /* Orange title */
     font-size: 1.2rem;
 }
 
@@ -266,7 +266,7 @@ main {
 }
 
 .product-item button {
-    background-color: #dd0505;
+    background-color: #28a745;
     color: #fff;
     padding: 8px 12px;
     font-size: 14px;
@@ -278,7 +278,7 @@ main {
 }
 
 .product-item button:hover {
-    background-color: #b50404;
+    background-color: #28a745;
     transform: scale(1.05);
 }
 /* Modal */
@@ -321,7 +321,7 @@ main {
 .modal-content h2 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #dd0505;
+    color: #28a745;
     font-weight: bold;
 }
 
@@ -351,7 +351,7 @@ main {
 }
 
 .modal-content .close:hover {
-    color: #ff5a5a;
+    color: #28a745;
 }
 
 .modal-products {
@@ -362,7 +362,7 @@ main {
 
 .close-modal-button {
     margin-top: 20px;
-    background-color: #dd0505;
+    background-color: #28a745;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -373,7 +373,7 @@ main {
 }
 
 .close-modal-button:hover {
-    background-color: #b50404;
+    background-color: #28a745;
     transform: scale(1.05);
 }
 
@@ -384,7 +384,7 @@ main {
 /* General Buttons */
 button {
     padding: 10px 20px;
-    background-color: #dd0505; /* Orange buttons */
+    background-color: #28a745; /* Orange buttons */
     color: white;
     border: none;
     border-radius: 5px;
@@ -394,7 +394,7 @@ button {
 }
 
 button:hover {
-    background-color: #dd0505; /* Darker orange on hover */
+    background-color: #28a745; /* Darker orange on hover */
     transform: scale(1.05);
 }
 
@@ -411,10 +411,10 @@ footer {
     bottom: 0;
     width: 100%;
     height: 50px; /* Adjust the height if needed */
-    background-color: #ffffff;
+    background-color: #232324;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     font-size: 14px;
-    color: #000000; /* Footer text is black */
+    color: #ffffff; /* Footer text is black */
     text-align: center;
     z-index: 1000;
 }

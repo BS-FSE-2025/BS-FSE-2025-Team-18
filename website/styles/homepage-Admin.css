@@ -4,8 +4,12 @@
 body {
   margin: 0;
   font-family: "Nunito", sans-serif;
+  background: url('../images/pexels-orlovamaria-4947007.jpg') no-repeat center center fixed;
   background-color: #f9f9f9;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the body spans the full viewport height */
 }
 
 a {
@@ -132,7 +136,7 @@ a {
 }
 
 header a.active, nav a:hover {
-  color: #007BFF;
+  color: #28a745;
 }
 
 header nav a {
@@ -142,11 +146,11 @@ header nav a {
 }
 
 header nav a:hover {
-  color: #007bff;
+  color: #28a745;
 }
 
 header .btn {
-  background-color: #007bff;
+  background-color: #28a745;
   color: #ffffff;
   padding: 10px 15px;
   border: none;
@@ -156,7 +160,7 @@ header .btn {
 }
 
 header .btn:hover {
-  background-color: #007bff;
+  background-color: #28a745;
 }
 
 /* Welcome User Section */
@@ -172,6 +176,7 @@ header .btn:hover {
 
 /* Main Section */
 main {
+  flex: 1; /* Makes the main content take up remaining space */
   text-align: center;
   padding: 40px 20px;
 }
@@ -200,7 +205,7 @@ main {
 
 .feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px #28a745;
   cursor: pointer;
 }
 
@@ -211,10 +216,11 @@ main {
 
 /* Footer */
 footer {
-  background-color: #ffffff;
+  background-color: #232324;
   text-align: center;
   padding: 15px 0;
   font-size: 0.9rem;
-  color: #333;
+  color: #ffffff;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Prevents the footer from shrinking */
 }

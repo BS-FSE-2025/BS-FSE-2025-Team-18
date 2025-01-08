@@ -26,6 +26,8 @@ document.getElementById("feature").addEventListener("click", (e) => {
     window.location.href = "WebsiteStats.html";
   } else if (cardId === "card3") {
     window.location.href = "EditCatalog.html";
+  }else if (cardId === "card4") {
+    window.location.href = "AdminGallery.html";
   }
 }
 });
