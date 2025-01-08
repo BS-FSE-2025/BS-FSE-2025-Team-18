@@ -21,7 +21,7 @@ router.get('/:email', async (req, res) => {
 
 // הוספה או עדכון פריט בעגלה
 router.post('/:email', async (req, res) => {
-    const { productId, price, quantity, totalPrice } = req.body;
+    const { productId, price, quantity, totalPrice, status = "Pending" } = req.body;
     const email = req.params.email;
 
     if (!email) {
@@ -38,8 +38,9 @@ router.post('/:email', async (req, res) => {
         if (existingItem) {
             existingItem.quantity += quantity;
             existingItem.totalPrice += totalPrice;
+            existingItem.status = status; // עדכון סטטוס
         } else {
-            cart.items.push({ productId, price, quantity, totalPrice });
+            cart.items.push({ productId, price, quantity, totalPrice, status });
         }
 
         await cart.save();
@@ -62,6 +63,28 @@ router.delete('/:email/:index', async (req, res) => {
         res.status(200).json(cart);
     } catch (error) {
         res.status(500).json({ message: 'שגיאה בהסרת פריט', error });
+    }
+});
+
+router.patch("/:email/update-status", async (req, res) => {
+    const { email } = req.params;
+    const { productId, status } = req.body;
+
+    try {
+        const cart = await Cart.findOne({ email });
+        if (!cart) return res.status(404).json({ message: "Cart not found" });
+
+        const item = cart.items.find(item => item.productId.toString() === productId);
+        if (item) {
+            item.status = status;
+            await cart.save();
+            return res.status(200).json({ message: "Status updated successfully" });
+        } else {
+            return res.status(404).json({ message: "Product not found in cart" });
+        }
+    } catch (error) {
+        console.error("Error updating status:", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 });
 

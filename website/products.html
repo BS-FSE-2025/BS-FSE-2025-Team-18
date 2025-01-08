@@ -21,13 +21,16 @@
           </div>
         <div class="header-content">
             <nav>
-              <a href="homepage-customer.html">Home</a>
-              <a href="cart.html">Cart</a>
-              <a href="products.html">Catalog</a>
-              <a href="CheckList/CheckList.html">CheckList</a>
-              <a href="customer-gallery.html">Gallery</a>
-
-            </nav>
+                <a href="homepage-customer.html" >Home</a>
+                <a href="cart.html" class="cart-icon" >
+                  <img src="images/carrt.png" alt="Cart Icon" />
+                  <span id="cart-count">0</span> 
+                </a>
+                <a href="products.html">Catalog</a>
+                <a href="CheckList/CheckList.html">CheckList</a>
+                <a href="customer-gallery.html">Gallery</a>
+                <a href="CUSTOMER-PROJECT.html">My Renovation</a>
+              </nav>
             <div class="profile-menu">
                 <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Logo" />
                 <div class="sub-menu-wrap" id="subMenu">
@@ -127,8 +130,8 @@
                 catalogDiv.appendChild(categoryDiv);
             });
         }
-        async function addToCart(productId, pricePerMeter) {
-    const email = localStorage.getItem('Useremail'); // מקבל את האימייל מה-localStorage
+        async function addToCart(productId, pricePerMeter, name, image) {
+    const email = localStorage.getItem('Useremail');
     const sizeInput = document.getElementById(`size-${productId}`);
     const size = sizeInput ? parseFloat(sizeInput.value) : 0;
 
@@ -149,6 +152,8 @@
             body: JSON.stringify({
                 productId: productId,
                 price: pricePerMeter,
+                name: name,
+                image: image,
                 quantity: size,
                 totalPrice: pricePerMeter * size
             })
@@ -156,11 +161,17 @@
 
         if (!response.ok) throw new Error('Failed to add item to cart.');
 
+        // עדכון ב-LocalStorage
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItems.push({ productId, price: pricePerMeter, name, image, quantity: size, totalPrice: pricePerMeter * size });
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+
         alert("Item added to cart successfully!");
     } catch (error) {
         console.error("Error adding to cart:", error);
     }
 }
+
 
 
         // Load products on page load
@@ -178,5 +189,7 @@
         }
     </script>
     <script src="accessability.js"></script>
+    <script src="cartcount.js"></script>
+
 </body>
 </html>

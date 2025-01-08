@@ -22,11 +22,16 @@
       </div>
       <div class="header-content">
         <nav>
-          <a href="homepage-customer.html">Home</a>
-          <a href="cart.html">Cart</a>
-          <a href="aboutus.html">About Us</a>
-          <a href="CheckList/CheckList.html">CheckList</a>
-        </nav>
+            <a href="homepage-customer.html" >Home</a>
+            <a href="cart.html" class="cart-icon" >
+              <img src="images/carrt.png" alt="Cart Icon" />
+              <span id="cart-count">0</span> 
+            </a>
+            <a href="products.html">Catalog</a>
+            <a href="CheckList/CheckList.html">CheckList</a>
+            <a href="customer-gallery.html">Gallery</a>
+            <a href="CUSTOMER-PROJECT.html">My Renovation</a>
+          </nav>
         <div class="profile-menu">
           <img
             src="images/avatar-logo.jpg"
@@ -46,12 +51,12 @@
                 <p>Edit Profile</p>
                 <span>></span>
               </a>
-              <a href="" class="sub-menu-link">
+              <a href="#" class="sub-menu-link">
                 <img src="images/profile images/setting.png" alt="Logo" />
                 <p>Settings</p>
                 <span>></span>
               </a>
-              <a href="" class="sub-menu-link">
+              <a href="#" class="sub-menu-link">
                 <img src="images/profile images/help.png" alt="Logo" />
                 <p>Help</p>
                 <span>></span>
@@ -67,22 +72,32 @@
       </div>
     </header>
     <main>
-      <section id="cart-items">
-        <h2>Your Cart</h2>
-        <div id="cart-list"></div>
-      </section>
-      <section id="cart-summary">
-        <h2>Summary</h2>
-        <p>Total Items: <span id="total-items">0</span></p>
-        <p>Total Price: $<span id="total-price">0.00</span></p>
-        <p>Total Time Estimation: <span id="total-time">0</span> hours</p>
-      </section>
-    </main>
+        <!-- עמודת העגלה -->
+        <section id="cart-items">
+          <h2>Your Cart</h2>
+          <div id="cart-list"></div>
+        </section>
+      
+        <!-- סיכום העגלה -->
+        <section id="cart-summary">
+          <h2>Order Summary</h2>
+          <p>Total Items: <span id="total-items">0</span></p>
+          <p>Total Price: $<span id="total-price">0.00</span></p>
+          <p>Total Time Estimation: <span id="total-time">0</span> hours</p>
+        </section>
+      
+        <!-- מוצרים מומלצים -->
+        <section id="recommended-products">
+          <h2>Check Out Another Products</h2>
+          <div id="recommended-list"></div>
+        </section>
+      </main>
+      
+      
     <footer>
       <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
     </footer>
     <script>
-      // Fetch cart data from localStorage
       async function loadCart() {
         const userEmail = localStorage.getItem("Useremail");
         if (!userEmail) {
@@ -95,25 +110,18 @@
             `http://localhost:3000/api/cart/${userEmail}`
           );
           const cart = await response.json();
-
-          console.log("Cart API response:", cart); // Log the response
           displayCart(cart);
         } catch (error) {
           console.error("Error fetching cart:", error);
         }
       }
 
-      // Save cart data to localStorage
-      function saveCart(cart) {
-        localStorage.setItem("cart", JSON.stringify(cart));
-      }
-
-      // Display cart items
+      
       async function displayCart(cart) {
         const cartList = document.getElementById("cart-list");
         const totalItems = document.getElementById("total-items");
         const totalPrice = document.getElementById("total-price");
-        const totaltime = document.getElementById("total-time");
+        const totalTime = document.getElementById("total-time");
 
         cartList.innerHTML = ""; // Clear previous items
         let total = 0;
@@ -126,9 +134,9 @@
           return;
         }
 
-        cart.items.forEach((item) => {
+        cart.items.forEach((item, index) => {
           const { productId, quantity } = item;
-          const { name, image, pricePerMeter, totalTime } = productId; // Extract product details
+          const { name, image, pricePerMeter, totalTime } = productId;
 
           const totalPriceForItem = pricePerMeter * quantity;
           const totalTimeEstimation = (totalTime * quantity) / 60;
@@ -137,16 +145,24 @@
           itemDiv.classList.add("cart-item");
 
           itemDiv.innerHTML = `
-            <img src="${image || "default-image.png"}" alt="${
+            <div class="cart-item-content">
+              <img src="${image || "default-image.png"}" alt="${
             name || "Unnamed Product"
           }" />
-            <h3>${name || "Unnamed Product"}</h3>
-            <p>${quantity || 0} × $${pricePerMeter || 0} = $${(
+              <div class="cart-item-details">
+                <h3>${name || "Unnamed Product"}</h3>
+                <p>${quantity || 0} × $${pricePerMeter || 0} = $${(
             totalPriceForItem || 0
           ).toFixed(2)}</p>
-            <pre>Time Estimation:
-               ${(totalTimeEstimation || 0).toFixed(2)} hours</pre>
-        `;
+                <p>Time Estimation: ${(totalTimeEstimation || 0).toFixed(
+                  2
+                )} hours</p>
+              </div>
+            </div>
+            <button class="remove-btn" onclick="removeItemFromCart(${index})">
+              Remove
+            </button>
+          `;
 
           cartList.appendChild(itemDiv);
           total += totalPriceForItem;
@@ -155,62 +171,172 @@
 
         totalItems.innerText = cart.items.length;
         totalPrice.innerText = total.toFixed(2);
-        totaltime.innerText = totalTimeEst;
+        totalTime.innerText = totalTimeEst.toFixed(2);
       }
 
-      document.addEventListener("DOMContentLoaded", loadCart);
-
-      // Remove item from cart
-      async function removeItem(productId) {
-        const Useremail = localStorage.getItem("Useremail");
+      async function removeItemFromCart(index) {
+        const userEmail = localStorage.getItem("Useremail");
+        if (!userEmail) {
+          alert("Please log in to manage your cart.");
+          return;
+        }
 
         try {
           const response = await fetch(
-            `http://localhost:3000/api/cart/${Useremail}/${productId}`,
-            {
-              method: "DELETE",
-            }
+            `http://localhost:3000/api/cart/${userEmail}/${index}`,
+            { method: "DELETE" }
           );
-          if (response.ok) {
-            displayCart();
-          } else {
-            alert("Failed to remove item.");
-          }
+
+          if (!response.ok) throw new Error("Failed to remove item from cart.");
+
+          alert("Item removed successfully!");
+          loadCart();
         } catch (error) {
           console.error("Error removing item:", error);
         }
       }
 
-      // Checkout (simple alert for now)
-      function checkout() {
-        alert("Checkout successful!");
-        localStorage.removeItem("cart");
-        displayCart();
-      }
-
-      // Load cart on page load
-      document.addEventListener("DOMContentLoaded", () => {
-        displayCart();
-        document
-          .getElementById("checkout-button")
-          .addEventListener("click", checkout);
-      });
-
-      const username = localStorage.getItem("username");
-      const username2 = localStorage.getItem("username");
-      if (username) {
-        document.getElementById("username").innerText = username;
-      }
 
       function logout() {
         localStorage.clear();
         alert("You have been logged out.");
         window.location.href = "main_page.html";
       }
-      let subMenu = document.getElementById("subMenu");
+
       function toggleMenu() {
+        const subMenu = document.getElementById("subMenu");
         subMenu.classList.toggle("open-menu");
       }
+
+      async function addToCart(productId, pricePerMeter) {
+  const userEmail = localStorage.getItem("Useremail");
+
+  if (!userEmail) {
+    alert("Please log in to add items to the cart.");
+    return;
+  }
+
+  const quantityInput = document.getElementById(`quantity-${productId}`);
+  const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+
+  if (!quantity || quantity < 1) {
+    alert("Please enter a valid quantity.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:3000/api/cart/${userEmail}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: productId,
+        price: pricePerMeter,
+        quantity: quantity,
+        totalPrice: pricePerMeter * quantity,
+      }),
+    });
+
+    if (!response.ok) throw new Error("Failed to add item to cart.");
+
+    alert("Product added to cart successfully!");
+    loadCart(); // Refresh cart after adding
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+  }
+}
+
+
+// שליפה והצגה של מוצרים מומלצים
+async function loadRecommendedProducts() {
+  try {
+    const response = await fetch("http://localhost:3000/api/recommended");
+    const recommendedProducts = await response.json();
+
+    const recommendedList = document.getElementById("recommended-list");
+    recommendedList.innerHTML = "";
+
+    recommendedProducts.forEach((product) => {
+      const productDiv = document.createElement("div");
+      productDiv.classList.add("recommended-item");
+
+      productDiv.innerHTML = `
+        <img src="${product.image || "default-image.png"}" alt="${product.name}" />
+        <div>
+          <h4>${product.name}</h4>
+          <p>$${product.pricePerMeter.toFixed(2)}</p>
+          <label for="quantity-${product._id}">Quantity:</label>
+          <input
+            type="number"
+            id="quantity-${product._id}"
+            min="1"
+            value="1"
+            style="width: 50px; margin-left: 5px; text-align: center;"
+          />
+        </div>
+        <button onclick="addToCart('${product._id}', ${product.pricePerMeter})">Add to Cart</button>
+      `;
+
+      recommendedList.appendChild(productDiv);
+    });
+  } catch (error) {
+    console.error("Error fetching recommended products:", error);
+  }
+}
+
+
+// טוען מוצרים מומלצים בעת טעינת הדף
+document.addEventListener("DOMContentLoaded", loadRecommendedProducts);
+
+
+function displayRecommendedProducts(products) {
+  const recommendationsList = document.getElementById("recommendations-list");
+
+  recommendationsList.innerHTML = ""; // Clear previous recommendations
+
+  products.forEach((product) => {
+    const itemDiv = document.createElement("div");
+    itemDiv.classList.add("recommendation-item");
+
+    itemDiv.innerHTML = `
+      <img src="${product.image || "default-image.png"}" alt="${product.name}" />
+      <h3>${product.name}</h3>
+      <p>$${product.pricePerMeter.toFixed(2)}</p>
+      <button class="add-btn" onclick="addToCart('${product._id}', ${product.pricePerMeter})">
+        Add to Cart
+      </button>
+    `;
+
+    recommendationsList.appendChild(itemDiv);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadCart();
+  loadRecommendedProducts();
+});
+function updateCartCount() {
+  const userEmail = localStorage.getItem("Useremail");
+
+  if (!userEmail) {
+    document.getElementById("cart-count").innerText = "0";
+    return;
+  }
+
+  fetch(`http://localhost:3000/api/cart/${userEmail}`)
+    .then((response) => response.json())
+    .then((cart) => {
+      const itemCount = cart.items.reduce((total, item) => total + item.quantity, 0);
+      document.getElementById("cart-count").innerText = itemCount;
+    })
+    .catch((error) => {
+      console.error("Error fetching cart count:", error);
+      document.getElementById("cart-count").innerText = "0";
+    });
+}
+
+// טוען את כמות המוצרים בעת פתיחת העמוד
+document.addEventListener("DOMContentLoaded", updateCartCount);
+
     </script>
     <script src="accessability.js"></script>
   </body>
