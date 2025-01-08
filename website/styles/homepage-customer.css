@@ -188,7 +188,33 @@ main {
     box-shadow: 0 8px 16px #28a745;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-
+.cart-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart-icon img {
+    width: 24px; /* גודל תמונת העגלה */
+    height: 24px;
+  }
+  
+  #cart-count {
+    position: absolute;
+    top: 14px; /* מיקום המספר */
+    right: -10px;
+    background-color: red; /* רקע אדום */
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
 .feature-card h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;

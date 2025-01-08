@@ -6,6 +6,8 @@ const cartItemSchema = new mongoose.Schema({
     quantity: { type: Number, required: true }, // כמות
     price: { type: Number, required: true }, // מחיר יחידה
     totalPrice: { type: Number, required: true }, // מחיר כולל
+    status: { type: String, default: "Pending" }, // סטטוס פריט
+
 });
 
 // סכמת עגלה
