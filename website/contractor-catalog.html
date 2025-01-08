@@ -412,45 +412,54 @@
 
         // Add product to a project
         async function addToProject(productId, pricePerMeter) {
-            const sizeInput = document.getElementById(`size-${productId}`);
-            const projectSelect = document.getElementById(`project-${productId}`);
+    const sizeInput = document.getElementById(`size-${productId}`);
+    const projectSelect = document.getElementById(`project-${productId}`);
 
-            if (!sizeInput || !projectSelect) {
-                alert("Required fields are missing.");
-                return;
-            }
+    if (!sizeInput || !projectSelect) {
+        alert("Required fields are missing.");
+        return;
+    }
 
-            const size = parseFloat(sizeInput.value);
-            const projectId = projectSelect.value;
+    const quantity = parseFloat(sizeInput.value); // שדה הכמות
+    const projectId = projectSelect.value;
 
-            if (isNaN(size) || size <= 0) {
-                alert("Please enter a valid size.");
-                return;
-            }
+    if (isNaN(quantity) || quantity <= 0) {
+        alert("Please enter a valid quantity.");
+        return;
+    }
 
-            if (!projectId) {
-                alert("Please select a project.");
-                return;
-            }
+    if (!projectId) {
+        alert("Please select a project.");
+        return;
+    }
 
-            const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-            try {
-                const response = await fetch(`http://localhost:3000/api/projects/${projectId}/addProductToProject`, {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ productId, size }),
-                });
+    // בדיקה: הדפסת הנתונים שנשלחים לשרת
+    console.log({
+        productId,
+        quantity,
+        pricePerMeter,
+        projectId,
+    });
 
-                if (!response.ok) throw new Error("Failed to add product to project.");
-                alert("Product added to project successfully!");
-            } catch (error) {
-                alert("Error adding product to project: " + error.message);
-            }
-        }
+    try {
+        const response = await fetch(`http://localhost:3000/api/projects/${projectId}/addProductToProject`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ productId, quantity, pricePerMeter }),
+        });
+
+        if (!response.ok) throw new Error("Failed to add product to project.");
+        alert("Product added to project successfully!");
+    } catch (error) {
+        alert("Error adding product to project: " + error.message);
+    }
+}
+
 
         // Filter products by category
         document.querySelectorAll(".filter-btn").forEach(button => {
