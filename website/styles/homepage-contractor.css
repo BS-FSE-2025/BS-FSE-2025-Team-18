@@ -6,8 +6,7 @@ body {
 
     background: url('../images/pexels-thatguycraig000-1917849.jpg') no-repeat center center fixed;
 
-    background: url('../images/pexels-reneterp-3990359.jpg') no-repeat center center fixed;
-
+    
     background-size: cover;
     color: #333;
 }
@@ -142,7 +141,7 @@ header nav a:hover {
 
     color: #28a745;
 
-    color: #dd0505;
+    
 
 }
 
@@ -151,7 +150,7 @@ header nav a:hover {
 
     color: #28a745;
 
-    color: #dd0505;
+    
 
 }
 
@@ -160,7 +159,7 @@ header .btn {
 
     background-color: #28a745;
 
-    background-color: #dd0505;
+    
 
     color: #ffffff;
     padding: 10px 15px;
@@ -174,8 +173,7 @@ header .btn:hover {
 
     background-color: #28a745;
 
-    background-color: #dd0505;
-
+    
 }
 
 /* Welcome User Section */
@@ -226,7 +224,7 @@ main {
 
     box-shadow: 0 8px 16px #28a745;
 
-    box-shadow: 0 8px 16px #dd0505;
+    
 
     cursor: pointer;
 }
