@@ -3,7 +3,11 @@ body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
     background-color: #f9f9f9;
+
     background: url('../images/pexels-thatguycraig000-1917849.jpg') no-repeat center center fixed;
+
+    background: url('../images/pexels-reneterp-3990359.jpg') no-repeat center center fixed;
+
     background-size: cover;
     color: #333;
 }
@@ -135,17 +139,29 @@ header nav a {
 }
 
 header nav a:hover {
+
     color: #28a745;
+
+    color: #dd0505;
+
 }
 
 header a.active,
 header nav a:hover {
+
     color: #28a745;
+
+    color: #dd0505;
+
 }
 
 
 header .btn {
+
     background-color: #28a745;
+
+    background-color: #dd0505;
+
     color: #ffffff;
     padding: 10px 15px;
     border: none;
@@ -155,7 +171,11 @@ header .btn {
 }
 
 header .btn:hover {
+
     background-color: #28a745;
+
+    background-color: #dd0505;
+
 }
 
 /* Welcome User Section */
@@ -203,7 +223,11 @@ main {
 
 .feature-card:hover {
     transform: translateY(-5px);
+
     box-shadow: 0 8px 16px #28a745;
+
+    box-shadow: 0 8px 16px #dd0505;
+
     cursor: pointer;
 }
 
@@ -221,6 +245,7 @@ footer {
     bottom: 0;
     width: 100%;
     height: 50px; /* Adjust the height if needed */
+
     background-color: #232324;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     font-size: 14px;
@@ -228,3 +253,12 @@ footer {
     text-align: center;
     z-index: 1000;
 }
+
+    background-color: #ffffff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #000000; /* Footer text is black */
+    text-align: center;
+    z-index: 1000;
+}
+

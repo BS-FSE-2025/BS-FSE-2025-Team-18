@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +23,7 @@
             <a href="homepage-contractor.html">Home</a>
             <a href="Contractor-Projects.html">My Projects</a>
             <a href="contractor-catalog.html" class="active">Catalog</a>
-            <a href="CheckList/CheckListContractor.html">CheckList</a>
+            <a href="contractor-checklist.html" class="active">Checklist</a>
           </nav>
   
           <div class="profile-menu">
@@ -60,10 +60,10 @@
     <main>
         <section class="welcome-user">
             <h1>Products</h1>
+            <div id="category-buttons" class="category-buttons"></div>
         </section>
         <section id="catalog">
             <div id="catalog-categories">
-                <!-- Products and projects will load dynamically here -->
             </div>
         </section>
     </main>
@@ -215,9 +215,8 @@
     quantity: size, // כמות
 });
 
+
 }
-
-
         // Load products and projects on page load
         document.addEventListener("DOMContentLoaded", displayProducts);
 
@@ -236,6 +235,248 @@
           if(username2){
             document.getElementById("username2").innerText = username2;
           }
+          
+    </script>
+    <script src="accessability.js"></script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contractor Catalog</title>
+    <link rel="stylesheet" href="styles/contractor-catalog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../images/IMG_6583.png" alt="LOGO" />
+            <div id="accessibility-tools">
+                <button id="increase-font">A+</button>
+                <button id="decrease-font">A-</button>
+                <button id="reset-font">Reset</button>
+            </div>
+        </div>
+        <div class="header-content">
+            <nav>
+                <a href="homepage-contractor.html">Home</a>
+                <a href="Contractor-Projects.html">My Projects</a>
+                <a href="contractor-catalog.html" class="active">Catalog</a>
+                <a href="CheckList/CheckListContractor.html">CheckList</a>
+            </nav>
+            <div class="profile-menu">
+                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Profile" />
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img src="images/avatar-logo.jpg" alt="Profile" />
+                            <h2><span id="username"></span></h2>
+                        </div>
+                        <hr />
+                        <a href="contractor-profile.html" class="sub-menu-link">
+                            <img src="images/profile images/profile.png" alt="Edit Profile" />
+                            <p>Edit Profile</p>
+                        </a>
+                        <a href="" class="sub-menu-link">
+                            <img src="images/profile images/setting.png" alt="Settings" />
+                            <p>Settings</p>
+                        </a>
+                        <a href="" class="sub-menu-link">
+                            <img src="images/profile images/help.png" alt="Help" />
+                            <p>Help</p>
+                        </a>
+                        <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                            <img src="images/profile images/logout.png" alt="Logout" />
+                            <p>Logout</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="welcome-user">
+            <h1>Products</h1>
+        </section>
+        <section id="filter-buttons">
+            <button class="filter-btn" data-category="all">All</button>
+            <button class="filter-btn" data-category="Painting">Painting</button>
+            <button class="filter-btn" data-category="Woodwork">Woodwork</button>
+            <button class="filter-btn" data-category="Roofing">Roofing</button>
+            <button class="filter-btn" data-category="Flooring">Flooring</button>
+            <button class="filter-btn" data-category="Lighting">Lighting</button>
+            <button class="filter-btn" data-category="Kitchens">Kitchens</button>
+            <button class="filter-btn" data-category="Outdoor">Outdoor</button>
+        </section>
+        <section id="catalog">
+            <div id="catalog-categories">
+                <!-- Products and projects will load dynamically here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
+    </footer>
+    <script>
+        const CATALOG_API_URL = "http://localhost:3000/api/catalog";
+        const PROJECTS_API_URL = "http://localhost:3000/api/projects";
+
+        // Fetch all projects for the user
+        async function fetchProjects() {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("You must be logged in to view your projects.");
+                return [];
+            }
+            try {
+                const response = await fetch(PROJECTS_API_URL, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    },
+                });
+                if (!response.ok) throw new Error("Failed to fetch projects.");
+                return await response.json();
+            } catch (error) {
+                alert("Error fetching projects: " + error.message);
+                return [];
+            }
+        }
+
+        // Fetch products from server
+        async function fetchProducts() {
+            try {
+                const response = await fetch(CATALOG_API_URL);
+                if (!response.ok) throw new Error("Failed to fetch products.");
+                return await response.json();
+            } catch (error) {
+                alert("Error fetching products: " + error.message);
+                return [];
+            }
+        }
+
+        // Display products and project selector
+        async function displayProducts(selectedCategory = "all") {
+            const catalogItems = await fetchProducts();
+            const projects = await fetchProjects();
+
+            const catalogDiv = document.getElementById("catalog-categories");
+            catalogDiv.innerHTML = ""; // Clear existing content
+
+            // Filter products by selected category
+            const filteredItems = selectedCategory === "all" 
+                ? catalogItems 
+                : catalogItems.filter(item => item.category === selectedCategory);
+
+            // Group products by categories
+            const categories = [...new Set(filteredItems.map(item => item.category))];
+
+            categories.forEach(category => {
+                const categoryDiv = document.createElement("div");
+                categoryDiv.classList.add("catalog-category");
+                categoryDiv.innerHTML = `
+                    <h3>${category}</h3>
+                    <div class="category-items"></div>`;
+                const itemsDiv = categoryDiv.querySelector(".category-items");
+
+                filteredItems
+                    .filter(item => item.category === category)
+                    .forEach(item => {
+                        const itemDiv = document.createElement("div");
+                        itemDiv.classList.add("catalog-item");
+                        itemDiv.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}" />
+                            <h4>${item.name}</h4>
+                            <p>${item.description}</p>
+                            <p>Price per meter: ${item.pricePerMeter}$</p>
+                            <label for="size-${item._id}">Enter size (m²):</label>
+                            <input type="number" id="size-${item._id}" min="1" placeholder="Enter size" />
+                            <label for="project-${item._id}">Select Project:</label>
+                            <select id="project-${item._id}">
+                                <option value="">Select a project</option>
+                                ${projects.map(project => `<option value="${project._id}">${project.name}</option>`).join("")}
+                            </select>
+                            <button onclick="addToProject('${item._id}', ${item.pricePerMeter})">Add to Project</button>
+                        `;
+                        itemsDiv.appendChild(itemDiv);
+                    });
+
+                catalogDiv.appendChild(categoryDiv);
+            });
+        }
+
+        // Add product to a project
+        async function addToProject(productId, pricePerMeter) {
+            const sizeInput = document.getElementById(`size-${productId}`);
+            const projectSelect = document.getElementById(`project-${productId}`);
+
+            if (!sizeInput || !projectSelect) {
+                alert("Required fields are missing.");
+                return;
+            }
+
+            const size = parseFloat(sizeInput.value);
+            const projectId = projectSelect.value;
+
+            if (isNaN(size) || size <= 0) {
+                alert("Please enter a valid size.");
+                return;
+            }
+
+            if (!projectId) {
+                alert("Please select a project.");
+                return;
+            }
+
+            const token = localStorage.getItem("token");
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/projects/${projectId}/addProductToProject`, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ productId, size }),
+                });
+
+                if (!response.ok) throw new Error("Failed to add product to project.");
+                alert("Product added to project successfully!");
+            } catch (error) {
+                alert("Error adding product to project: " + error.message);
+            }
+        }
+
+        // Filter products by category
+        document.querySelectorAll(".filter-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const selectedCategory = button.getAttribute("data-category");
+                displayProducts(selectedCategory);
+            });
+        });
+
+        // Load products and projects on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            displayProducts();
+            const username = localStorage.getItem("username");
+            if (username) document.getElementById("username").innerText = username;
+        });
+
+        function logout() {
+            localStorage.clear();
+            alert("You have been logged out.");
+            window.location.href = "main_page.html";
+        }
+
+        function toggleMenu() {
+            const subMenu = document.getElementById("subMenu");
+            subMenu.classList.toggle("open-menu");
+        }
     </script>
     <script src="accessability.js"></script>
 </body>

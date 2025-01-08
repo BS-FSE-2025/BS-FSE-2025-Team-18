@@ -1,232 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Catalog</title>
-    <link rel="stylesheet" href="../styles/admin-catalog.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
-
-</head>
-<body>
+    <link rel="stylesheet" href="../styles/admin-catalog.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header>
-        <div class="logo">
-            <img src="../images/IMG_6583.png" alt="LOGO" />
-            <div id="accessibility-tools">
-              <button id="increase-font">A+</button>
-              <button id="decrease-font">A-</button>
-              <button id="reset-font">Reset</button>
+      <div class="logo">
+        <img src="../images/IMG_6583.png" alt="LOGO" />
+        <div id="accessibility-tools">
+          <button id="increase-font">A+</button>
+          <button id="decrease-font">A-</button>
+          <button id="reset-font">Reset</button>
+        </div>
+      </div>
+
+      <div class="header-content">
+        <nav class="buttons">
+          <a href="Admin.html">Home</a>
+          <a href="UsersList.html">Users</a>
+          <a href="WebsiteStats.html">Website Stats</a>
+          <a href="EditCatalog.html" class="active">Edit Catalog</a>
+        </nav>
+
+        <div class="profile-menu">
+          <img src="../images/avatar-logo.jpg" onclick="toggleMenu()" />
+          <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+              <div class="user-info">
+                <img src="../images/avatar-logo.jpg" />
+                <h2><span id="username2"></span></h2>
+              </div>
+              <hr />
+              <a
+                href="../main_page.html"
+                class="sub-menu-link"
+                onclick="logout()"
+              >
+                <img src="../images/profile images/logout.png" />
+                <p>Logout</p>
+                <span>></span>
+              </a>
             </div>
           </div>
-
-        <div class="header-content">
-            <nav class="buttons">
-                <a href="Admin.html">Home</a>
-                <a href="UsersList.html">Users</a>
-                <a href="WebsiteStats.html">Website Stats</a>
-                <a href="EditCatalog.html" class="active">Edit Catalog</a>
-            </nav>
-
-            <div class="profile-menu">
-                <img src="../images/avatar-logo.jpg" onclick="toggleMenu()" />
-                <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <div class="user-info">
-                            <img src="../images/avatar-logo.jpg" />
-                            <h2><span id="username2"></span></h2>
-                        </div>
-                        <hr />
-                        <a href="../main_page.html" class="sub-menu-link" onclick="logout()">
-                            <img src="../images/profile images/logout.png" />
-                            <p>Logout</p>
-                            <span>></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
+      </div>
     </header>
 
     <section class="welcome-user">
-        <h1>Edit Catalog</h1>
-        <p>Manage and modify the items in your catalog.</p>
+      <h1>Edit Catalog</h1>
+      <p>Manage and modify the items in your catalog.</p>
     </section>
 
     <main>
-        <!-- Form to Add Items -->
-        <section id="add-item">
-            <h2>Add New Item</h2>
-            <form id="add-item-form" enctype="multipart/form-data">
-                <label for="item-name">Item Name:</label>
-                <input type="text" id="item-name" required />
-            
-                <label for="item-description">Description:</label>
-                <textarea id="item-description" rows="3" required></textarea>
-            
-                <label for="item-price">Price per Meter:</label>
-                <input type="number" id="item-price" min="1" required />
-            
-                <label for="item-category">Category:</label>
-                <select id="item-category" required>
-                    <option value="Painting">Painting</option>
-                    <option value="Wood">Wood</option>
-                    <option value="Flooring">Flooring</option>
-                    <option value="Roof">Roof</option>
+      <!-- Form to Add Items -->
+      <section id="add-item">
+        <h2>Add New Item</h2>
+        <form id="add-item-form" enctype="multipart/form-data">
+          <label for="item-name">Item Name:</label>
+          <input type="text" id="item-name" required />
 
-                </select>
-            
-                <label for="item-image">Upload Picture:</label>
-                <input type="file" id="item-image" accept="image/*" required />
-            
-                <button type="submit">Add Item</button>
-            </form>
-            
-        </section>
+          <label for="item-description">Description:</label>
+          <textarea id="item-description" rows="3" required></textarea>
 
-        <!-- Catalog Display -->
-        <section id="catalog">
-            <h2>Current Catalog</h2>
-            <div id="catalog-categories">
-                <!-- Categories and items will be dynamically added here -->
-            </div>
-        </section>
+          <label for="item-price">Price per Meter:</label>
+          <input type="number" id="item-price" min="1" required />
+          <label for="item-time">Estimated Time (in minutes):</label>
+          <input type="number" id="item-time" min="1" required />
+
+          <label for="item-category">Category:</label>
+          <select id="item-category" required>
+            <option value="Painting">Painting</option>
+            <option value="Woodwork">Woodwork</option>
+            <option value="Roofing">Roofing</option>
+            <option value="Flooring">Flooring</option>
+            <option value="Lighting">Lighting</option>
+            <option value="Kitchens">Kitchens</option>
+            <option value="Outdoor">Outdoor</option>
+          </select>
+
+          <label for="item-image">Upload Picture:</label>
+          <input type="file" id="item-image" accept="image/*" required />
+
+          <button type="submit">Add Item</button>
+        </form>
+      </section>
+
+      <!-- Catalog Display -->
+      <section id="catalog">
+        <h2>Current Catalog</h2>
+        <div id="catalog-categories">
+          <!-- Categories and items will be dynamically added here -->
+        </div>
+      </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
+      <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
     </footer>
 
-
     <script>
+      const API_URL = "http://localhost:3000/api/catalog";
 
-        const API_URL = "http://localhost:3000/api/catalog";
+      // Add a new item with an image
+      async function addItem(event) {
+        event.preventDefault();
+        console.log("Add Item button clicked!");
 
-// Add a new item with an image
-async function addItem(event) {
-    event.preventDefault();
-    console.log("Add Item button clicked!");
+        const name = document.getElementById("item-name").value;
+        const description = document.getElementById("item-description").value;
+        const price = parseFloat(document.getElementById("item-price").value);
+        const category = document.getElementById("item-category").value;
+        const image = document.getElementById("item-image").files[0];
+        const time = parseFloat(document.getElementById("item-time").value);
+        console.log({ name, description, price, category, image,time });
 
-    const name = document.getElementById("item-name").value;
-    const description = document.getElementById("item-description").value;
-    const price = parseFloat(document.getElementById("item-price").value);
-    const category = document.getElementById("item-category").value;
-    const image = document.getElementById("item-image").files[0];
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("pricePerMeter", price);
+        formData.append("category", category);
+        formData.append("image", image);
+        formData.append("totalTime", time);
 
-    console.log({ name, description, price, category, image });
-
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("pricePerMeter", price);
-    formData.append("category", category);
-    formData.append("image", image);
-
-    try {
-        const response = await fetch("http://localhost:3000/api/catalog", {
+        try {
+          const response = await fetch("http://localhost:3000/api/catalog", {
             method: "POST",
             body: formData,
-        });
+          });
 
-        if (!response.ok) {
+          if (!response.ok) {
             const error = await response.json();
             console.error("Error from server:", error);
             throw new Error(error.error || "Failed to add item.");
+          }
+
+          console.log("Item successfully added!");
+          document.getElementById("add-item-form").reset();
+          displayCatalog();
+        } catch (error) {
+          console.error("Error adding item:", error);
+          alert(
+            "Failed to add item. Please check the console for more details."
+          );
         }
+      }
 
-        console.log("Item successfully added!");
-        document.getElementById("add-item-form").reset();
-        displayCatalog();
-    } catch (error) {
-        console.error("Error adding item:", error);
-        alert("Failed to add item. Please check the console for more details.");
-    }
-}
+      // Fetch all catalog items from the server
+      async function fetchCatalog() {
+        try {
+          const response = await fetch(API_URL);
+          if (!response.ok) throw new Error("Failed to fetch catalog items.");
+          return await response.json();
+        } catch (error) {
+          console.error("Error fetching catalog:", error);
+          return [];
+        }
+      }
 
+      // Display catalog items in the UI
+      async function displayCatalog() {
+        const catalogItems = await fetchCatalog();
+        const catalogDiv = document.getElementById("catalog-categories");
+        catalogDiv.innerHTML = ""; // Clear existing catalog content
 
-// Fetch all catalog items from the server
-async function fetchCatalog() {
-    try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Failed to fetch catalog items.");
-        return await response.json();
-    } catch (error) {
-        console.error("Error fetching catalog:", error);
-        return [];
-    }
-}
+        // Get unique categories from the catalog items
+        const categories = [
+          ...new Set(catalogItems.map((item) => item.category)),
+        ];
 
-// Display catalog items in the UI
-async function displayCatalog() {
-    const catalogItems = await fetchCatalog();
-    const catalogDiv = document.getElementById("catalog-categories");
-    catalogDiv.innerHTML = ""; // Clear existing catalog content
+        // Group items by category and display them
+        categories.forEach((category) => {
+          const categoryDiv = document.createElement("div");
+          categoryDiv.classList.add("catalog-category");
+          categoryDiv.innerHTML = `<h3>${category}</h3><div class="category-items"></div>`;
+          const itemsDiv = categoryDiv.querySelector(".category-items");
 
-    // Get unique categories from the catalog items
-    const categories = [...new Set(catalogItems.map(item => item.category))];
-
-    // Group items by category and display them
-    categories.forEach(category => {
-        const categoryDiv = document.createElement("div");
-        categoryDiv.classList.add("catalog-category");
-        categoryDiv.innerHTML = `<h3>${category}</h3><div class="category-items"></div>`;
-        const itemsDiv = categoryDiv.querySelector(".category-items");
-
-        // Filter items by category and display each item
-        catalogItems
-            .filter(item => item.category === category)
-            .forEach(item => {
-                const itemDiv = document.createElement("div");
-                itemDiv.classList.add("catalog-item");
-                itemDiv.innerHTML = `
+          // Filter items by category and display each item
+          catalogItems
+            .filter((item) => item.category === category)
+            .forEach((item) => {
+              const itemDiv = document.createElement("div");
+              itemDiv.classList.add("catalog-item");
+              itemDiv.innerHTML = `
                     <img src="${item.image}" alt="${item.name}" class="catalog-item-image" />
                     <h4>${item.name}</h4>
                     <p>${item.description}</p>
                     <p>Price per meter: $${item.pricePerMeter}</p>
+                    <p>Estimated Time per meter: ${item.totalTime} minutes </p>
                     <button class="delete-button" onclick="deleteItem('${item._id}')">Delete</button>
                 `;
-                itemsDiv.appendChild(itemDiv);
+              itemsDiv.appendChild(itemDiv);
             });
 
-        catalogDiv.appendChild(categoryDiv);
-    });
-}
+          catalogDiv.appendChild(categoryDiv);
+        });
+      }
 
-// Delete an item from the catalog
-async function deleteItem(itemId) {
-    try {
-        const response = await fetch(`${API_URL}/${itemId}`, { method: "DELETE" });
-        if (!response.ok) throw new Error("Failed to delete item.");
-        displayCatalog(); // Refresh the catalog display
-    } catch (error) {
-        console.error("Error deleting item:", error);
-    }
-}
-
-// Attach event listener to the form
-document.getElementById("add-item-form").addEventListener("submit", addItem);
-
-// Load the catalog items when the page loads
-displayCatalog();
-
-
-
-function logout() {
-            localStorage.clear();
-            alert("You have been logged out.");
-            window.location.href = "main_page.html";
+      // Delete an item from the catalog
+      async function deleteItem(itemId) {
+        try {
+          const response = await fetch(`${API_URL}/${itemId}`, {
+            method: "DELETE",
+          });
+          if (!response.ok) throw new Error("Failed to delete item.");
+          displayCatalog(); // Refresh the catalog display
+        } catch (error) {
+          console.error("Error deleting item:", error);
         }
+      }
 
-        function toggleMenu() {
-            const subMenu = document.getElementById("subMenu");
-            subMenu.classList.toggle("open-menu");
-        }
-           const username2 = localStorage.getItem('username');
+      // Attach event listener to the form
+      document
+        .getElementById("add-item-form")
+        .addEventListener("submit", addItem);
 
-          if(username2){
-            document.getElementById("username2").innerText = username2;
-          }
+      // Load the catalog items when the page loads
+      displayCatalog();
 
+      function logout() {
+        localStorage.clear();
+        alert("You have been logged out.");
+        window.location.href = "main_page.html";
+      }
+
+      function toggleMenu() {
+        const subMenu = document.getElementById("subMenu");
+        subMenu.classList.toggle("open-menu");
+      }
+      const username2 = localStorage.getItem("username");
+
+      if (username2) {
+        document.getElementById("username2").innerText = username2;
+      }
     </script>
     <script src="accessability.js"></script>
-</body>
+  </body>
 </html>

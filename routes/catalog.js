@@ -45,14 +45,15 @@ router.post("/", upload.single("image"), async (req, res) => {
     console.log("Request Body:", req.body);
     console.log("Uploaded File:", req.file);
     try {
-        const { name, description, pricePerMeter, category } = req.body;
+        const { name, description, pricePerMeter, category,totalTime } = req.body;
         const image = req.file ? `/uploads/${req.file.filename}` : null;
 
         if (!name || !description || !pricePerMeter || !category || !image) {
             return res.status(400).json({ error: "All fields are required, including an image." });
         }
 
-        const newItem = new CatalogItem({ name, description, pricePerMeter, category, image });
+        const newItem = new CatalogItem({ name, description,
+           pricePerMeter, category, image,totalTime });
         await newItem.save();
         res.status(201).json(newItem);
     } catch (error) {

@@ -15,6 +15,7 @@ const projectSchema = new mongoose.Schema({
       image: { type: String, required: true }, // תמונת המוצר
       quantity: { type: Number, required: true },
       price: { type: Number, required: true }, // שדה חדש למחיר ליחידה
+      status: { type: String, default: "To Do" }, // ברירת מחדל
 
     },
   ],
