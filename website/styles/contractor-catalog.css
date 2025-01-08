@@ -327,6 +327,9 @@ body {
     font-family: 'Nunito', sans-serif;
     background-color: #f9f9f9;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body spans the full viewport height */
 }
 
 a {
@@ -450,11 +453,11 @@ header nav a {
 
 header a.active,
 header nav a:hover {
-    color: #dd0505;
+    color: #28a745;
 }
 
 header .btn {
-    background-color: #dd0505;
+    background-color: #28a745;
     color: #ffffff;
     padding: 8px 12px;
     border: none;
@@ -465,7 +468,7 @@ header .btn {
 }
 
 header .btn:hover {
-    background-color: #dd0505;
+    background-color: #28a745;
 }
 
 /* Welcome User Section */
@@ -480,6 +483,7 @@ header .btn:hover {
 }
 
 main {
+    flex:1;
     text-align: center;
     padding: 40px 20px;
 }
@@ -515,15 +519,7 @@ main {
 }
 
 
-/* Footer */
-footer {
-    background-color: #ffffff;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 0.9rem;
-    color: #333;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-}
+
 
 /* Catalog Section */
 .catalog-category {
@@ -532,9 +528,9 @@ footer {
 
 .catalog-category h3 {
     font-size: 1.8rem;
-    color: #dd0505;
+    color: #232324;
     margin-bottom: 15px;
-    border-bottom: 2px solid #dd0505;
+    border-bottom: 2px solid #232324;
     padding-bottom: 5px;
 }
 
@@ -545,8 +541,8 @@ footer {
 }
 
 .catalog-item {
-    flex: 1 1 calc(30% - 20px);
-    max-width: calc(18% - 20px); /* Adjust width to fit 3 items in a row */
+    flex: 1 1 calc(20% - 20px);
+    max-width: calc(20% - 20px); /* Adjust width to fit 3 items in a row */
     background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -555,6 +551,7 @@ footer {
     box-sizing: border-box;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease both;
 }
 
 .catalog-item input[type="number"], 
@@ -563,8 +560,8 @@ footer {
     width: 90%;
     max-width: 100%;
     margin-bottom: 10px;
-    padding: 8px;
-    font-size: 1rem;
+    padding: 6px;
+    font-size: 0.9rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
@@ -572,13 +569,13 @@ footer {
 
 .catalog-item input[type="number"]:focus, 
 .catalog-item select:focus {
-    border-color: #dd0505;
-    box-shadow: 0 0 5px #dd0505;
+    border-color: #232324;
+    box-shadow: 0 0 5px #232324;
     outline: none;
 }
 
 .catalog-item button {
-    background-color: #dd0505;
+    background-color: #232324;
     color: white;
     border: none;
     border-radius: 5px;
@@ -587,12 +584,12 @@ footer {
 }
 
 .catalog-item button:hover {
-    background-color: #dd0505;
+    background-color: #232324;
 }
 
 .catalog-item img {
-    width: 70%;
-    height: 180px;
+    width: 60%;
+    height: 140px;
     object-fit: cover;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -611,7 +608,7 @@ footer {
 
 .catalog-item button {
     padding: 10px 15px;
-    background-color: #dd0505;
+    background-color: #232324;
     color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -620,7 +617,7 @@ footer {
 }
 
 .catalog-item button:hover {
-    background-color: #dd0505;
+    background-color: #232324;
 }
 
 .cart-message {
@@ -645,7 +642,7 @@ footer {
     font-size: 16px;
     font-weight: 600;
     color: #ffffff;
-    background: linear-gradient(45deg, #dd0505, #dd0505);
+    background: linear-gradient(45deg, #232324, #232324);
     border: none;
     border-radius: 25px;
     cursor: pointer;
@@ -670,3 +667,26 @@ footer {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+footer {
+    background-color: #232324;
+    position: relative;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+    color: #ffffff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Prevent the footer from shrinking */
+
+}

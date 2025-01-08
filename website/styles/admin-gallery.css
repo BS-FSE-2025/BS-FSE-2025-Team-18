@@ -129,7 +129,7 @@ body {
   }
   
   header a.active, nav a:hover {
-    color: #007BFF;
+    color: #28a745;
   }
   
   header nav a {
@@ -139,11 +139,11 @@ body {
   }
   
   header nav a:hover {
-    color: #007bff;
+    color: #28a745;
   }
   
   header .btn {
-    background-color: #007bff;
+    background-color: #28a745;
     color: #ffffff;
     padding: 10px 15px;
     border: none;
@@ -153,7 +153,7 @@ body {
   }
   
   header .btn:hover {
-    background-color: #007bff;
+    background-color: #28a745;
   }
   
   main {
@@ -173,7 +173,7 @@ body {
   
   form h2 {
     text-align: center;
-    color: #007BFF;
+    color: #28a745;
   }
   
   form input, form textarea, form select {
@@ -186,7 +186,7 @@ body {
   
   button {
     padding: 10px 20px;
-    background: #007BFF;
+    background: #28a745;
     color: white;
     border: none;
     border-radius: 5px;
@@ -195,7 +195,7 @@ body {
   }
   
   button:hover {
-    background: #0056b3;
+    background: #28a745;
   }
   
   /* Gallery Grid */
@@ -227,7 +227,7 @@ body {
   
   .gallery-card h3 {
     font-size: 1rem;
-    color: #007BFF;
+    color: #000000;
     margin: 10px 0 0;
   }
   
@@ -263,7 +263,7 @@ body {
   
   
   .modal-content h2 {
-    color: #007BFF;
+    color: #28a745;
     text-align: center;
   }
   
@@ -309,7 +309,7 @@ body {
   }
   
   .modal-content .close:hover {
-    color: #007BFF;
+    color: #28a745;
   }
   
   .close {
@@ -324,7 +324,7 @@ body {
     display: block;
     margin: 10px auto;
     padding: 10px 20px;
-    background-color: #007BFF;
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 5px;
@@ -334,7 +334,7 @@ body {
   }
   
   .details-button:hover {
-    background-color: #0056b3;
+    background-color: #28a745;
   }
 
 
@@ -358,3 +358,13 @@ body {
     background-color: #bd2130;
   }
   
+  /* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #232324;
+  color: #ffffff;
+  font-size: 0.9rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Prevents the footer from shrinking */
+}

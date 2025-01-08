@@ -119,7 +119,7 @@ header nav {
     margin-right: 20px;
 }
 header a.active, nav a:hover {
-    color: #007BFF;
+    color: #28a745;
 }
 header nav a {
     color: #000000;
@@ -128,11 +128,11 @@ header nav a {
 }
 
 header nav a:hover {
-    color: #007BFF;
+    color: #28a745;
 }
 
 header .btn {
-    background-color: #007BFF;
+    background-color: #28a745;
     color: #ffffff;
     padding: 8px 12px;
     border: none;
@@ -143,7 +143,7 @@ header .btn {
 }
 
 header .btn:hover {
-    background-color: #007BFF;
+    background-color: #28a745;
 }
 
 .welcome-user {
@@ -215,9 +215,9 @@ footer {
 #add-item h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
-    color: #007BFF;
+    color: #28a745;
     text-align: center;
-    border-bottom: 2px solid #007BFF;
+    border-bottom: 2px solid #28a745;
     padding-bottom: 10px;
 }
 
@@ -238,7 +238,7 @@ footer {
     font-size: 1rem;
     font-weight: bold;
     color: #ffffff;
-    background-color: #007BFF;
+    background-color: #28a745;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -246,7 +246,7 @@ footer {
 }
 
 #add-item button:hover {
-    background-color: #0056b3;
+    background-color: #28a745;
 }
 
 /* Catalog Section */
@@ -336,8 +336,8 @@ footer {
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #ffffff;
-    color: #555;
+    background-color: #232324;
+    color: #ffffff;
     font-size: 0.9rem;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 40px;
