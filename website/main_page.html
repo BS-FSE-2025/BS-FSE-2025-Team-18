@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RenovaCalc - Welcome</title>
+    <title>RenovaCalc - Revolutionizing Renovations</title>
     <link rel="stylesheet" href="styles/main_page.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    
     <!-- Header -->
     <header>
         <div class="logo">
@@ -27,35 +26,64 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        
+    <section id="home" class="hero">
         <div class="hero-content">
-            <h1>Welcome to RenovaCalc!</h1>
-            <h4>Easily plan and calculate your renovation costs in a few clicks.</h4>
-            
+            <h1>Make Your Dream Renovation a Reality</h1>
+            <h4>Calculate, plan, Renovate.</h4>
+            <button class="btn-primary" onclick="scrollToSection('#features')">Explore Features</button>
         </div>
-      
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>Why Choose RenovaCalc?</h2>
+        <p>RenovaCalc transforms the complex process of home and business renovations into a seamless and stress-free experience. From precise cost estimations tailored to your project size and material preferences to connecting you with trusted contractors, we are your go-to platform for all things renovation. Whether youre a homeowner dreaming of a modern kitchen or a contractor managing multiple projects, RenovaCalc equips you with tools to plan efficiently, save money, and bring your vision to life. With RenovaCalc, your renovation journey is simplified, organized, and designed to exceed expectations.</p>
+        <div class="about-image"></div>
     </section>
 
     <!-- Features Section -->
-    <section class="features">
-        <div class="feature-card">
-            <h3>Calculate Costs</h3>
-            <p>Estimate your renovation project based on size, area, and materials.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Add Products</h3>
-            <p>Choose paints, tiles, and other materials for your project.</p>
-        </div>
-        <div class="feature-card">
-            <h3>For Contractors</h3>
-            <p>Manage offers, send quotes, and track your projects.</p>
+    <section id="features" class="features">
+        <h2>Key Features</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>Calculate Costs</h3>
+                <p>Estimate your renovation project based on size, and materials.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-toolbox"></i>
+                </div>
+                <h3>Project Management</h3>
+                <p>Easily manage all aspects of your renovation projects in one place.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Add Products</h3>
+                <p>Choose paints, tiles, and other materials for your project.</p>
+            </div>
         </div>
     </section>
-    <script src="accessability.js"></script>
+
+    
+
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 RenovaCalc. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        function scrollToSection(section) {
+            document.querySelector(section).scrollIntoView({ behavior: "smooth" });
+        }
+    </script>
 </body>
 </html>

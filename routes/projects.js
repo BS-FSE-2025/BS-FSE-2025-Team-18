@@ -151,6 +151,67 @@ router.put('/:projectId/removeProduct', verifyToken, async (req, res) => {
   }
 });
 
+const GalleryProject = require('../models/GalleryProject');
+
+// Share a project to the gallery
+router.post('/:id/share', verifyToken, async (req, res) => {
+  try {
+      const project = await Project.findById(req.params.id);
+      if (!project) return res.status(404).json({ message: "Project not found" });
+
+      if (project.sharedToGallery) {
+          return res.status(400).json({ message: "Project is already shared to the gallery." });
+      }
+
+      const image = project.products.length > 0 ? project.products[0].image : 'default-image-path';
+
+
+      const galleryProject = new GalleryProject({
+          name: project.name,
+          description: project.description,
+          image: image,
+          products: project.products.map(product => ({
+              productId: product.productId,
+              name: product.name,
+              price: product.price,
+              quantity: product.quantity,
+              category: product.category || 'Uncategorized',
+              image: product.image,
+          })),
+      });
+
+      await galleryProject.save();
+      project.sharedToGallery = true;
+      await project.save();
+
+      res.status(201).json({ message: "Project shared to gallery successfully!" });
+  } catch (error) {
+      console.error("Error sharing project to gallery:", error);
+      res.status(500).json({ message: "Failed to share project to gallery", error: error.message });
+  }
+});
+
+
+
+// Generate PDF for a project
+// Get details of a single project
+router.get('/:id', verifyToken, async (req, res) => {
+  try {
+      const project = await Project.findById(req.params.id).populate('products.productId', '_id name image pricePerMeter');
+      if (!project) {
+          return res.status(404).json({ message: "Project not found" });
+      }
+      res.status(200).json(project);
+  } catch (error) {
+      console.error("Error fetching project:", error.message);
+      res.status(500).json({ message: "Failed to fetch project details", error: error.message });
+  }
+});
+
+
+
+
+
 
 
 module.exports = router;

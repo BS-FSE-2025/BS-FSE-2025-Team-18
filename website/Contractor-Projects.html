@@ -159,6 +159,10 @@
                     <button class="edit-project" onclick="editProject('${project._id}')">Edit Project</button>
                     <button class="delete-project" onclick="deleteProject('${project._id}')">Delete Project</button>
                     <button class="add-from-catalog" onclick="redirectToCatalog()">Add Product from Catalog</button>
+                    <button class="share-project" onclick="shareProject('${project._id}')">Share to Gallery</button>
+                    <button class="download-txt" onclick="downloadProjectAsText('${project._id}')">Download as TXT</button>
+
+
                 </div>
             </div>
         `;
@@ -307,6 +311,112 @@ async function removeProductFromProject(projectId, itemId) {
             const subMenu = document.getElementById("subMenu");
             subMenu.classList.toggle("open-menu");
         }
+        async function shareProject(projectId) {
+    if (!confirm("Are you sure you want to share this project to the gallery?")) return;
+
+    const token = localStorage.getItem("token");
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/projects/${projectId}/share`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) throw new Error("Failed to share project.");
+
+        alert("Project shared to gallery successfully!");
+
+        // Option to download as PDF
+        if (confirm("Would you like to download this project as a PDF?")) {
+            await downloadProjectAsPDF(projectId);
+        }
+
+        await displayProjects(); // Refresh the project list
+    } catch (error) {
+        alert("Error sharing project: " + error.message);
+    }
+}
+
+async function downloadProjectAsText(projectId) {
+    const token = localStorage.getItem("token");
+
+    try {
+        console.log("Fetching project details for ID:", projectId);
+
+        const response = await fetch(`http://localhost:3000/api/projects/${projectId}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            const errorDetails = await response.text();
+            throw new Error(`Failed to fetch project details: ${errorDetails}`);
+        }
+
+        const project = await response.json();
+
+        // בדיקה אם יש נתונים לפרויקט
+        if (!project || !project.name || !project.products) {
+            throw new Error("Project details are incomplete.");
+        }
+
+        // יצירת תוכן הטקסט עם עיצוב מסודר
+        const content = `
+==========================================================
+                     Project Details
+==========================================================
+
+Project Name     : ${project.name}
+Description      : ${project.description || "No description provided"}
+Status           : ${project.status || "No status provided"}
+
+==========================================================
+                     Products List
+==========================================================
+
+${
+    project.products.length > 0
+        ? project.products.map((product, index) => `
+----------------------------------------------------------
+ Product ${index + 1}
+----------------------------------------------------------
+ Name            : ${product.name || "Unknown"}
+ Quantity        : ${product.quantity || 0}
+ Price per Unit  : $${product.price || 0}
+ Total Cost      : $${(product.quantity || 0) * (product.price || 0)}
+`).join("\n")
+        : "No products added.\n"
+}
+
+==========================================================
+                     End of Project
+==========================================================
+        `;
+
+        // יצירת קובץ טקסט להורדה
+        const blob = new Blob([content], { type: "text/plain" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = `${project.name}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error("Error downloading project as text:", error.message);
+        alert("Error downloading project as text: " + error.message);
+    }
+}
+
+
+
+
     </script>
     <script src="accessability.js"></script>
 </body>
