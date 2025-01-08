@@ -405,8 +405,6 @@ footer {
 }
 
 /* עיצוב ה-Modal */
-.modal {
-    display: none;
 
 /* Modal styles */
 .modal {
@@ -462,8 +460,6 @@ footer {
     width: 100%;
 }
 
-.modal-action:hover {
-    background-color: #4e00b3;
 
 .modal-content {
     background-color: #fefefe;

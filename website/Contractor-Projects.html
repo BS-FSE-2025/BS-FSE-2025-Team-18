@@ -181,8 +181,7 @@
                     <h4>Total Cost: $${totalCost}</h4>
                 </div>
                 <div class="project-actions">
-
-                    <button class="edit-project" onclick="editProject('${project._id}')">Edit Project</button>
+                    <button class="edit-project" onclick="openEditModal('${project._id}', '${project.name}', '${project.description}', '${project.status}')">Edit Project</button>
                     <button class="delete-project" onclick="deleteProject('${project._id}')">Delete Project</button>
                     <button class="add-from-catalog" onclick="redirectToCatalog()">Add Product from Catalog</button>
                     <button class="share-project" onclick="shareProject('${project._id}')">Share to Gallery</button>
@@ -191,11 +190,7 @@
 
                 </div>
 
-    <button class="edit-project" onclick="openEditModal('${project._id}', '${project.name}', '${project.description}', '${project.status}')">
-        Edit Project
-    </button>
-    <button class="delete-project" onclick="deleteProject('${project._id}')">Delete Project</button>
-    <button class="add-from-catalog" onclick="redirectToCatalog()">Add Product from Catalog</button>
+   
 </div>
 
 
