@@ -19,9 +19,11 @@ document.getElementById('feature').addEventListener('click', (e) => {
     if (cardId === 'card1') {
         window.location.href = '../addproject.html';
     } else if (cardId === 'card2') {
-        window.location.href = '../Calculator.html';
+        window.location.href = '../contractor-catalog.html';
     } else if (cardId === 'card3') {
-        window.location.href = '../Budget.html';
+        window.location.href = '../contractor-gallery.html';
+    }else if (cardId === 'card4') {
+        window.location.href = '../contractor-checklist.html';
     }
 })
 
@@ -38,5 +40,3 @@ let subMenu = document.getElementById("subMenu");
 function toggleMenu(){
     subMenu.classList.toggle("open-menu");
 }
-
-

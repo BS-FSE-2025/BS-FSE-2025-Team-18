@@ -288,6 +288,9 @@ footer {
 .project-actions .delete-project {
     background: #DC3545;
 }
+.project-actions .share-project{
+    background: #5900ff;
+}
 
 .project-actions button:hover {
     opacity: 0.9;
@@ -385,9 +388,30 @@ footer {
 .product-item button:hover {
     background-color: #0056b3;
 }
+
+/* עיצוב הכפתור */
+.action-button {
+    background-color: #6200ea;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #4e00b3;
+}
+
+/* עיצוב ה-Modal */
+.modal {
+    display: none;
+
 /* Modal styles */
 .modal {
     display: none; /* Hidden by default */
+
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -397,6 +421,49 @@ footer {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+
+/* תוכן ה-Modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+/* כפתור הסגירה */
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* כפתורי הפעולה בתוך ה-Modal */
+.modal-action {
+    background-color: #6200ea;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.modal-action:hover {
+    background-color: #4e00b3;
 
 .modal-content {
     background-color: #fefefe;
@@ -453,4 +520,5 @@ footer {
     color: black;
     text-decoration: none;
     cursor: pointer;
+
 }

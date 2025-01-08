@@ -185,6 +185,7 @@ main {
 
 .feature-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 16px #28a745;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -207,7 +208,11 @@ footer {
     color: #000000; 
     text-align: center;
     z-index: 1000;
+
+}
+
 }
  
 
  
+
