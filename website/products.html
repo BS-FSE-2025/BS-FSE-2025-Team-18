@@ -109,6 +109,7 @@
 
     // הצגת פריטים לפי קטגוריות
     categories.forEach(category => {
+        const unit = getUnitByCategory(category); // Get the unit (e.g., "m²", "liters")
         const categoryDiv = document.createElement("div");
         categoryDiv.classList.add("catalog-category");
         categoryDiv.innerHTML = `<h3>${category}</h3><div class="category-items"></div>`;
@@ -124,12 +125,12 @@
                     <img src="${item.image}" alt="${item.name}" />
                     <h4>${item.name}</h4>
                     <p>${item.description}</p>
-                    <p>Price per meter: ${item.pricePerMeter}$</p>
-                    <p>Time/meter : ${timerPerMinute} minutes</p>
-                    <label for="size-${item._id}">Enter size (m²):</label>
-                    <input type="number" id="size-${item._id}" min="1" placeholder="Enter size" />
+                    <p>Price per ${unit}: ${item.pricePerMeter}$</p>
+                    <p>Time per ${unit}: ${timerPerMinute} minutes</p>
+                    <label for="size-${item._id}">Enter ${unit}:</label>
+                    <input type="number" id="size-${item._id}" min="1" placeholder="Enter ${unit}" />
                     <span class="cart-message" style="display: block; margin-top: 5px;"></span>
-                    <button onclick="addToCart('${item._id}', ${item.pricePerMeter})">Add to Cart</button>
+                    <button onclick="addToCart('${item._id}', ${item.pricePerMeter}, '${unit}')">Add to Cart</button>
                 `;
                 itemsDiv.appendChild(itemDiv);
             });
@@ -137,6 +138,26 @@
         catalogDiv.appendChild(categoryDiv);
     });
 }
+
+function getUnitByCategory(category) {
+    switch (category) {
+        case "Painting":
+            return "liters";
+        case "Woodwork":
+        case "Flooring":
+            return "m²";
+        case "Lighting":
+        case "Kitchens":
+        case "Outdoor":
+            return "units";
+        default:
+            return "m²"; // Default unit
+    }
+}
+
+
+
+
 document.querySelectorAll(".filter-btn").forEach(button => {
     button.addEventListener("click", () => {
         const selectedCategory = button.getAttribute("data-category");
@@ -144,7 +165,7 @@ document.querySelectorAll(".filter-btn").forEach(button => {
     });
 });
 
-        async function addToCart(productId, pricePerMeter, name, image) {
+        async function addToCart(productId, pricePerUnit,Unit, name, image) {
     const email = localStorage.getItem('Useremail');
     const sizeInput = document.getElementById(`size-${productId}`);
     const size = sizeInput ? parseFloat(sizeInput.value) : 0;
@@ -165,11 +186,11 @@ document.querySelectorAll(".filter-btn").forEach(button => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 productId: productId,
-                price: pricePerMeter,
+                price: pricePerUnit,
                 name: name,
                 image: image,
                 quantity: size,
-                totalPrice: pricePerMeter * size
+                totalPrice: pricePerUnit * size
             })
         });
 
@@ -177,7 +198,7 @@ document.querySelectorAll(".filter-btn").forEach(button => {
 
         // עדכון ב-LocalStorage
         const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-        cartItems.push({ productId, price: pricePerMeter, name, image, quantity: size, totalPrice: pricePerMeter * size });
+        cartItems.push({ productId, price: pricePerUnit, name, image, quantity: size, totalPrice: pricePerUnit * size });
         localStorage.setItem('cart', JSON.stringify(cartItems));
 
         alert("Item added to cart successfully!");

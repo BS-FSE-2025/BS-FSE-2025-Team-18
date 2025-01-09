@@ -4,6 +4,9 @@ const CatalogItem = require('../models/CatalogItem');  // Catalog Item Model
 const { verifyToken } = require('./authMiddleware'); // Middleware for JWT token validation
 const router = express.Router();
 const mongoose = require('mongoose');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); // תיקיית העלאות התמונות
+
 
 
 // Create a new project
@@ -122,25 +125,34 @@ router.put('/updateProductStatus', verifyToken, async (req, res) => {
 
 
 // Update a project
-router.put('/:id', verifyToken, async (req, res) => {
+router.put('/:id', verifyToken, upload.single('image'), async (req, res) => {
   try {
-    const email = req.user.email;  // Get email from the authenticated user (JWT token)
-    
-    // Ensure the project belongs to the authenticated user by matching the email
-    const project = await Project.findOneAndUpdate(
-      { _id: req.params.id, email: email },  // Ensure the project is owned by the authenticated user
-      req.body,
-      { new: true }
-    );
-    
-    if (!project) {
-      return res.status(404).json({ message: 'Project not found or you are not authorized to update this project' });
-    }
+      const email = req.user.email; // אימות משתמש
+      const updateData = {
+          name: req.body.name,
+          description: req.body.description,
+          status: req.body.status
+      };
 
-    res.json(project);  // Return the updated project
+      // שמירת נתיב התמונה אם הועלתה
+      if (req.file) {
+          updateData.image = `/uploads/${req.file.filename}`;
+      }
+
+      const project = await Project.findOneAndUpdate(
+          { _id: req.params.id, email: email },
+          updateData,
+          { new: true }
+      );
+
+      if (!project) {
+          return res.status(404).json({ message: 'לא נמצא פרויקט או שאין לך הרשאה לערוך אותו.' });
+      }
+
+      res.json(project); // החזרת הפרויקט המעודכן
   } catch (error) {
-    console.error("Error updating project:", error);
-    res.status(400).json({ error: error.message });  // Bad request error
+      console.error("שגיאה בעדכון פרויקט:", error);
+      res.status(400).json({ error: error.message });
   }
 });
 
@@ -206,7 +218,7 @@ router.post('/:id/share', verifyToken, async (req, res) => {
       const galleryProject = new GalleryProject({
           name: project.name,
           description: project.description,
-          image: image,
+          image: project.image,
           products: project.products.map(product => ({
               productId: product.productId,
               name: product.name,

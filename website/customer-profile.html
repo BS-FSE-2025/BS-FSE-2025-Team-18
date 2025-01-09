@@ -14,13 +14,16 @@
             <img src="images/IMG_6583.png" alt="RenovaCalc Logo">
         </div>
         <div class="header-content">
-            <nav>
-                <a href="homepage-customer.html">Home</a>
-                <a href="products.html">My Products</a>
-                <a href="aboutus.html">About Us</a>
-                <a href="CheckList/CheckList.html">CheckList</a>
+                <nav>
+              <a href="homepage-customer.html" class="active">Home</a>
+              <a href="cart.html" class="cart-icon">
+                <img src="images/carrt.png" alt="Cart Icon" />
+                <span id="cart-count">0</span>
+              </a>              <a href="products.html">Catalog</a>
+              
+              <a href="customer-gallery.html">Gallery</a>
+              <a href="checklest.html">Chicklist</a>
             </nav>
-        
         <div class="profile-menu">
             <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" />
             <div class="sub-menu-wrap" id="subMenu">
@@ -69,7 +72,7 @@
                   <strong>Password: ********</strong>
                   <a class="edit-btn" href="reset-password.html">edit</a>
               </p>                <p><strong>Account Type:</strong> <span id="accountType"></span></p>
-              <p><strong>Gender: </strong><span id="gender"></span></p>
+              <p>Gender: <span id="gender"></span></p>
 
             </div>
             
@@ -90,6 +93,21 @@
 
     <!-- Script Section -->
     <script>
+
+async function fetchUserProfile() {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:3000/api/profile', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    const data = await response.json();
+    console.log(data); // בדוק אם gender מחזיר ערך
+    return data;
+}
+
         // קבלת פרטי המשתמש מה-Local Storage
         const username = localStorage.getItem('username') || "Guest";
         const username1 = localStorage.getItem('username') || "Guest";
@@ -103,7 +121,7 @@
         document.getElementById('username1').innerText = username1;
         document.getElementById('accountType').innerText = accountType;
         document.getElementById('email').innerText = email;
-
+console.log("gender:", gender);
         let currentField = '';
 
 function showEditBox(field) {

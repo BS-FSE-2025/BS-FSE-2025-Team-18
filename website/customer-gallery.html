@@ -173,20 +173,20 @@
           );
           if (project.products && project.products.length > 0) {
             productsContainer.innerHTML = project.products
-              .map(
-                (item) => `
+    .map(
+        (item) => `
         <div class="product-item">
           <img src="${item.image}" alt="${item.name}">
           <h3>${item.name}</h3>
           <p> Price: $${item.price}</p>
           <p> Quantity: ${item.quantity}</p>
-          <label for="quantity-${item.productId}"> Quantity:</label>
-          <input type="number" id="quantity-${item.productId}" value="1" min="1" max="${item.quantity}">
-          <button onclick="addToCart('${item.productId}', '${item.name}', ${item.price}, '${project.name}')">Add to Cart</button>
+          <label for="quantity-${item._id}"> Quantity:</label>
+          <input type="number" id="quantity-${item._id}" value="1" min="1" max="${item.quantity}">
+          <button onclick="addToCart('${item._id}', '${item.name}', ${item.price}, '${project.name}')">Add to Cart</button>
         </div>
       `
-              )
-              .join("");
+    )
+    .join("");
           } else {
             productsContainer.innerHTML =
               "<p>No products available for this project.</p>";
@@ -213,20 +213,52 @@
         modal.style.display = "none";
       }
 
-      function addToCart(productId, name, price, projectName) {
-        const quantity = parseInt(
-          document.getElementById(`quantity-${productId}`).value,
-          10
-        );
-        if (quantity > 0) {
-          const cart = JSON.parse(localStorage.getItem("cart")) || [];
-          cart.push({ productId, name, price, quantity, projectName });
-          localStorage.setItem("cart", JSON.stringify(cart));
-          alert(`${name} has been added to the cart.`);
-        } else {
-          alert("Please select a valid quantity.");
-        }
-      }
+   function addToCart(productId, name, price, projectName) {
+    const quantityInput = document.getElementById(`quantity-${productId}`);
+    const quantity = quantityInput ? parseInt(quantityInput.value, 10) : 1;
+
+    if (!quantity || quantity <= 0) {
+        alert("Please enter a valid quantity.");
+        return;
+    }
+
+    const userEmail = localStorage.getItem("Useremail");
+    if (!userEmail) {
+        alert("Please log in to add items to the cart.");
+        return;
+    }
+
+    // ודא ש-productId הוא מחרוזת תקינה
+    if (typeof productId !== 'string' || productId.length !== 24) {
+        console.error('Invalid productId:', productId);
+        alert("Invalid product ID.");
+        return;
+    }
+
+    const totalPrice = price * quantity;
+
+    fetch(`http://localhost:3000/api/cart/${userEmail}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            productId,
+            price,
+            quantity,
+            totalPrice,
+            projectName,
+        }),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Failed to add item to cart.");
+            }
+            alert(`${name} has been added to the cart.`);
+            loadCart(); // רענן את העגלה
+        })
+        .catch((error) => {
+            console.error("Error adding to cart:", error);
+        });
+}
 
       async function applyBudgetFilter() {
         const budget = parseFloat(document.getElementById("budgetInput").value);
@@ -281,7 +313,7 @@
 
       const username2 = localStorage.getItem("username");
       if (username2) {
-        document.getElementById("username2").innerText = username2;
+        document.getElementById("username").innerText = username2;
       }
     </script>
     <script src="accessability.js"></script>
