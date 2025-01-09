@@ -1,8 +1,13 @@
-/* Basic Styling */
+/* General Styles */
 body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
     background-color: #f9f9f9;
+
+    background: url('../images/pexels-thatguycraig000-1917849.jpg') no-repeat center center fixed;
+
+    
+    background-size: cover;
     color: #333;
 }
 
@@ -10,7 +15,7 @@ a {
     text-decoration: none;
 }
 
-/* Header Styling */
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -21,29 +26,33 @@ header {
 }
 
 header .logo img {
-    height: 100px;
+    width: 120px;
+    height: auto;
 }
 
-/* Profile Menu */
+/* Positioning the parent container of the profile icon */
 .profile-menu {
-    position: relative;
+    position: relative; /* This ensures the dropdown is positioned relative to this container */
 }
 
+/* Submenu dropdown */
 .sub-menu-wrap {
     position: absolute;
-    top: 100%;
-    right: 0;
+    top: 100%;  /* Places the dropdown directly below the profile icon */
+    right: 0;   /* Aligns the dropdown to the right of the profile icon */
     width: 320px;
-    max-height: 0;
+    max-height: 0px;
     overflow: hidden;
     transition: max-height 0.5s ease;
-    z-index: 100;
+    z-index: 100; /* Makes sure the dropdown appears above other elements */
 }
 
+/* When the menu is open, we increase the max-height to reveal the dropdown */
 .sub-menu-wrap.open-menu {
-    max-height: 500px;
+    max-height: 500px; /* Adjust the value based on the height of the dropdown */
 }
 
+/* General styles for the dropdown */
 .sub-menu {
     background: #fff;
     padding: 20px;
@@ -102,6 +111,7 @@ header .logo img {
     font-weight: 600;
 }
 
+/* Profile icon styling */
 .profile-menu img {
     width: 50px;
     height: 50px;
@@ -109,7 +119,7 @@ header .logo img {
     cursor: pointer;
 }
 
-/* Header Content and Navigation */
+
 .header-content {
     display: flex;
     align-items: center;
@@ -121,10 +131,6 @@ header nav {
     margin-right: 20px;
 }
 
-header a.active, nav a:hover {
-    color: #007BFF;
-}
-
 header nav a {
     color: #000000;
     font-weight: 600;
@@ -132,24 +138,43 @@ header nav a {
 }
 
 header nav a:hover {
-    color: #007BFF;
+
+    color: #28a745;
+
+    
+
 }
 
+header a.active,
+header nav a:hover {
+
+    color: #28a745;
+
+    
+
+}
+
+
 header .btn {
-    background-color: #007BFF;
+
+    background-color: #28a745;
+
+    
+
     color: #ffffff;
-    padding: 8px 12px;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-weight: 600;
 }
 
 header .btn:hover {
-    background-color: #0056b3;
-}
 
+    background-color: #28a745;
+
+    
+}
 /* Footer Styling */
 footer {
     background-color: #ffffff;
@@ -517,4 +542,47 @@ footer {
     text-decoration: none;
     cursor: pointer;
 
+}
+.upload-image-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    float: right;
+}
+
+.upload-image-btn:hover {
+    background-color: #0056b3;
+}
+
+#imageUploadModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 10px;
+    text-align: center;
+}
+.modal-project-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }

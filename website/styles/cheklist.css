@@ -39,7 +39,8 @@ nav a {
 }
 
 nav a.active, nav a:hover {
-    color: #f95f5f;
+    color: #28a745
+    ;
 }
 .profile-menu {
     position: relative; /* This ensures the dropdown is positioned relative to this container */

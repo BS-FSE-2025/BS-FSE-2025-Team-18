@@ -119,7 +119,8 @@ header nav {
     margin-right: 20px;
 }
 header a.active, nav a:hover {
-    color: #007BFF;
+    color: #28a745
+    ;
 }
 header nav a {
     color: #000000;
@@ -128,7 +129,7 @@ header nav a {
 }
 
 header nav a:hover {
-    color: #007BFF;
+    color:  #28a745 ;
 }
 
 header .btn {
