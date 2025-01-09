@@ -329,37 +329,41 @@
 
         // Fetch all projects for the user
         async function fetchProjects() {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                alert("You must be logged in to view your projects.");
-                return [];
-            }
-            try {
-                const response = await fetch(PROJECTS_API_URL, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                    },
-                });
-                if (!response.ok) throw new Error("Failed to fetch projects.");
-                return await response.json();
-            } catch (error) {
-                alert("Error fetching projects: " + error.message);
-                return [];
-            }
-        }
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("You must be logged in to view your projects.");
+        return [];
+    }
+    try {
+        const response = await fetch(PROJECTS_API_URL, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        });
+        if (!response.ok) throw new Error("Failed to fetch projects.");
+        const data = await response.json();
+        console.log("Fetched projects:", data); // Debugging
+        return data;
+    } catch (error) {
+        alert("Error fetching projects: " + error.message);
+        return [];
+    }
+}
 
         // Fetch products from server
         async function fetchProducts() {
-            try {
-                const response = await fetch(CATALOG_API_URL);
-                if (!response.ok) throw new Error("Failed to fetch products.");
-                return await response.json();
-            } catch (error) {
-                alert("Error fetching products: " + error.message);
-                return [];
-            }
-        }
+    try {
+        const response = await fetch(CATALOG_API_URL);
+        if (!response.ok) throw new Error("Failed to fetch products.");
+        const data = await response.json();
+        console.log("Fetched products:", data); // Debugging
+        return data;
+    } catch (error) {
+        alert("Error fetching products: " + error.message);
+        return [];
+    }
+}
 
         // Display products and project selector
         async function displayProducts(selectedCategory = "all") {
@@ -378,6 +382,11 @@
             const categories = [...new Set(filteredItems.map(item => item.category))];
 
             categories.forEach(category => {
+                const unit = getUnitByCategory(category); // Get the unit (e.g., "m²", "liters")
+                if (!unit) {
+                    console.error("Unit is not defined for category:", category);
+                    return;
+                }
                 const categoryDiv = document.createElement("div");
                 categoryDiv.classList.add("catalog-category");
                 categoryDiv.innerHTML = `
@@ -394,15 +403,15 @@
                             <img src="${item.image}" alt="${item.name}" />
                             <h4>${item.name}</h4>
                             <p>${item.description}</p>
-                            <p>Price per meter: ${item.pricePerMeter}$</p>
-                            <label for="size-${item._id}">Enter size (m²):</label>
-                            <input type="number" id="size-${item._id}" min="1" placeholder="Enter size" />
+                            <p>Price per ${unit}: ${item.pricePerMeter}$</p>
+                            <label for="size-${item._id}">Enter ${unit}:</label>
+                            <input type="number" id="size-${item._id}" min="1" placeholder="Enter ${unit}" />
                             <label for="project-${item._id}">Select Project:</label>
                             <select id="project-${item._id}">
                                 <option value="">Select a project</option>
                                 ${projects.map(project => `<option value="${project._id}">${project.name}</option>`).join("")}
                             </select>
-                            <button onclick="addToProject('${item._id}', ${item.pricePerMeter})">Add to Project</button>
+                            <button onclick="addToProject('${item._id}', ${item.pricePerUnit}, '${unit}')">Add to Project</button>
                         `;
                         itemsDiv.appendChild(itemDiv);
                     });
@@ -410,9 +419,25 @@
                 catalogDiv.appendChild(categoryDiv);
             });
         }
+        function getUnitByCategory(category) {
+            switch (category) {
+                case "Painting":
+                    return "liters";
+                case "Woodwork":
+                case "Flooring":
+                    return "m²";
+                case "Lighting":
+                case "Kitchens":
+                case "Outdoor":
+                    return "units";
+                default:
+                    return "m²"; // Default unit
+            }
+        }
+
 
         // Add product to a project
-        async function addToProject(productId, pricePerMeter) {
+        async function addToProject(productId, pricePerUnit, unit) {
     const sizeInput = document.getElementById(`size-${productId}`);
     const projectSelect = document.getElementById(`project-${productId}`);
 
@@ -440,7 +465,7 @@
     console.log({
         productId,
         quantity,
-        pricePerMeter,
+        pricePerUnit,
         projectId,
     });
 
@@ -451,7 +476,7 @@
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ productId, quantity, pricePerMeter }),
+            body: JSON.stringify({ productId, quantity, pricePerUnit }),
         });
 
         if (!response.ok) throw new Error("Failed to add product to project.");
