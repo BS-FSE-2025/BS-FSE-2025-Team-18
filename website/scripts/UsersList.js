@@ -3,7 +3,11 @@ async function fetchUsers() {
   try {
     const response = await fetch('http://localhost:3000/api/users'); // Ensure this URL matches your API route
     if (response.ok) {
+
       const users = await response.json();
+      console.log('Number of users fetched:', users.length);
+      localStorage.setItem('userCount', users.length);
+
       renderUsers(users);
     } else {
       alert('Failed to fetch users');
@@ -43,16 +47,24 @@ async function deleteUser(userId) {
 function renderUsers(users) {
   const usersList = document.getElementById('usersList');
   usersList.innerHTML = ''; // Clear any previous data
-
+  
  
   users.forEach((user,index) => {
     const row = document.createElement('tr');
 
-   
     const numberCell = document.createElement('td');
     numberCell.textContent = index + 1;  
     row.appendChild(numberCell);
     
+    // Gender-based logo column
+    const logoCell = document.createElement('td');
+    const logoImage = document.createElement('img');
+    logoImage.src = user.gender.toLowerCase() === 'male' ? '/images/Male.png' : '/images/female.jpg';
+    logoImage.alt = `${user.gender} logo`;
+    logoImage.style.width = '30px'; // Adjust size as needed
+    logoImage.style.height = '30px';
+    logoCell.appendChild(logoImage);
+    row.appendChild(logoCell);
 
     const usernameCell = document.createElement('td');
     usernameCell.textContent = user.username;
