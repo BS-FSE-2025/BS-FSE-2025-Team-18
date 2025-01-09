@@ -70,7 +70,7 @@
           <label for="item-description">Description:</label>
           <textarea id="item-description" rows="3" required></textarea>
 
-          <label for="item-price">Price per Meter:</label>
+          <label for="item-price">Price per Unit:</label>
           <input type="number" id="item-price" min="1" required />
           <label for="item-time">Estimated Time (in minutes):</label>
           <input type="number" id="item-time" min="1" required />
@@ -193,8 +193,8 @@
                     <img src="${item.image}" alt="${item.name}" class="catalog-item-image" />
                     <h4>${item.name}</h4>
                     <p>${item.description}</p>
-                    <p>Price per meter: $${item.pricePerMeter}</p>
-                    <p>Estimated Time per meter: ${item.totalTime} minutes </p>
+                    <p>Price per Unit: $${item.pricePerMeter}</p>
+                    <p>Estimated Time per Unit: ${item.totalTime} minutes </p>
                     <button class="delete-button" onclick="deleteItem('${item._id}')">Delete</button>
                 `;
               itemsDiv.appendChild(itemDiv);

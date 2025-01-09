@@ -136,12 +136,12 @@ header nav a {
 
 header a.active,
 header nav a:hover {
-    color: #dd0505; /* Orange for active or hover links */
+    color: #28a745; /* Orange for active or hover links */
 }
 
 /* Accessibility Buttons */
 header .btn {
-    background-color: #dd0505; /* Button background color */
+    background-color: #28a745; /* Button background color */
     color: #ffffff; /* Text color */
     padding: 5px 10px; /* Smaller padding for smaller buttons */
     border: none;
@@ -155,7 +155,7 @@ header .btn {
 }
 
 header .btn:hover {
-    background-color: #b50404; /* Darker shade on hover */
+    background-color: #28a745; /* Darker shade on hover */
     transform: scale(1.05); /* Slight zoom effect */
 }
 
@@ -165,13 +165,40 @@ header #accessibility-tools {
     align-items: center; /* Align buttons vertically */
 }
 
-
+.cart-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart-icon img {
+    width: 24px; /* גודל תמונת העגלה */
+    height: 24px;
+  }
+  
+  #cart-count {
+    position: absolute;
+    top: 14px; /* מיקום המספר */
+    right: -10px;
+    background-color: red; /* רקע אדום */
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
 /* Main Content */
 main {
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
     position: relative;
+    padding-bottom: 80px; /* Ensure enough space for the fixed footer */
+
 }
 
 /* Gallery Grid */
@@ -180,6 +207,8 @@ main {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    margin-bottom: 80px; /* Space for the fixed footer */
+
 }
 
 .gallery-card {
@@ -194,7 +223,7 @@ main {
 
 .gallery-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px #dd0505;
+    box-shadow: 0 8px 16px #28a745;
 }
 
 .gallery-card img {
@@ -206,7 +235,7 @@ main {
 
 .gallery-card h3 {
     margin-top: 10px;
-    color: #dd0505; /* Orange title */
+    color: #28a745; /* Orange title */
     font-size: 1.2rem;
 }
 
@@ -266,7 +295,7 @@ main {
 }
 
 .product-item button {
-    background-color: #dd0505;
+    background-color: #28a745;
     color: #fff;
     padding: 8px 12px;
     font-size: 14px;
@@ -278,7 +307,7 @@ main {
 }
 
 .product-item button:hover {
-    background-color: #b50404;
+    background-color: #28a745;
     transform: scale(1.05);
 }
 /* Modal */
@@ -321,7 +350,7 @@ main {
 .modal-content h2 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #dd0505;
+    color: #28a745;
     font-weight: bold;
 }
 
@@ -351,7 +380,7 @@ main {
 }
 
 .modal-content .close:hover {
-    color: #ff5a5a;
+    color: #28a745;
 }
 
 .modal-products {
@@ -362,7 +391,7 @@ main {
 
 .close-modal-button {
     margin-top: 20px;
-    background-color: #dd0505;
+    background-color: #28a745;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -373,7 +402,7 @@ main {
 }
 
 .close-modal-button:hover {
-    background-color: #b50404;
+    background-color: #28a745;
     transform: scale(1.05);
 }
 
@@ -384,7 +413,7 @@ main {
 /* General Buttons */
 button {
     padding: 10px 20px;
-    background-color: #dd0505; /* Orange buttons */
+    background-color: #28a745; /* Orange buttons */
     color: white;
     border: none;
     border-radius: 5px;
@@ -394,7 +423,7 @@ button {
 }
 
 button:hover {
-    background-color: #dd0505; /* Darker orange on hover */
+    background-color: #28a745; /* Darker orange on hover */
     transform: scale(1.05);
 }
 
@@ -411,10 +440,10 @@ footer {
     bottom: 0;
     width: 100%;
     height: 50px; /* Adjust the height if needed */
-    background-color: #ffffff;
+    background-color: #232324;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     font-size: 14px;
-    color: #000000; /* Footer text is black */
+    color: #ffffff; /* Footer text is black */
     text-align: center;
     z-index: 1000;
 }
@@ -454,7 +483,7 @@ footer {
 }
 
 #budget-filter input[type="number"]:focus {
-    border-color: #007bff;
+    border-color: #28a745;
     outline: none;
     box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
 }
@@ -463,7 +492,7 @@ footer {
     padding: 10px 20px;
     font-size: 1rem;
     color: #fff;
-    background-color: #007bff;
+    background-color: #28a745;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -471,9 +500,9 @@ footer {
 }
 
 #budget-filter button:hover {
-    background-color: #0056b3;
+    background-color: #28a745;
 }
 
 #budget-filter button:active {
-    background-color: #004085;
+    background-color: #28a745;
 }

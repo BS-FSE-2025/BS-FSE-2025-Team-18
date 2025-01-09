@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Nunito", sans-serif;
-    background: url('../images/pexels-orlovamaria-4947007.jpg') no-repeat center center fixed;
+    background: url('../images/pexels-binyaminmellish-1396122.jpg') no-repeat center center fixed;
     background-size: cover; /* Ensures the image covers the entire background */
     color: #000; /* Changed text color to black */
     overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -172,6 +172,8 @@ main {
     margin: 20px auto;
     padding: 20px;
     position: relative;
+    padding-bottom: 80px; /* Ensure enough space for the fixed footer */
+
 }
 
 /* Gallery Grid */
@@ -180,6 +182,8 @@ main {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    margin-bottom: 80px; /* Space for the fixed footer */
+
 }
 
 .gallery-card {

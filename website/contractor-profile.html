@@ -21,8 +21,9 @@
             <nav>
                 <a href="homepage-contractor.html">Home</a>
                 <a href="Contractor-Projects.html">My Projects</a>
-                <a href="aboutus.html">About Us</a>
-                <a href="contractor-checklist.html" class="active">Checklist</a>
+                <a href="contractor-catalog.html">Catalog</a>
+                <a href="contractor-gallery.html">Gallery</a>
+                <a href="contractor-checklist.html">Checklist</a>
             </nav>
         
         <div class="profile-menu">
@@ -73,8 +74,6 @@
                   <strong>Password: ********</strong>
                   <a class="edit-btn" href="reset-password.html">edit</a>
               </p>                <p><strong>Account Type:</strong> <span id="accountType"></span></p>
-              <p><strong>Gender: </strong><span id="gender"></span></p>
-
             </div>
             
 
@@ -98,11 +97,9 @@
         const username1 = localStorage.getItem('username') || "Guest";
         const accountType = localStorage.getItem('accountType') || "Contractor";
         const email = localStorage.getItem('Useremail') || "Not Available"; // שליפת המייל
-        const gender = localStorage.getItem('gender');
 
 
         // הצגת הנתונים בדף
-        document.getElementById('gender').innerText=gender;
         document.getElementById('username').innerText = username;
         document.getElementById('username1').innerText = username1;
         document.getElementById('accountType').innerText = accountType;

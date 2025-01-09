@@ -39,7 +39,7 @@ nav a {
 }
 
 nav a.active, nav a:hover {
-    color: #f95f5f;
+    color: #28a745;
 }
 .profile-menu {
     position: relative; /* This ensures the dropdown is positioned relative to this container */
@@ -133,7 +133,7 @@ nav a.active, nav a:hover {
 
 
 .logout-btn {
-    background-color: #f76c6c;
+    background-color: #28a745;
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -143,7 +143,7 @@ nav a.active, nav a:hover {
 }
 
 .logout-btn:hover {
-    background-color: #e04b4b;
+    background-color: #28a745;
 }
 
 /* עיצוב לתוכן הראשי */
@@ -188,7 +188,7 @@ footer {
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 .edit-btn {
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -199,7 +199,7 @@ footer {
 }
 
 .edit-btn:hover {
-    background-color: #0056b3;
+    background-color: #28a745;
 }
 .edit-box {
     background-color: #fff;
@@ -240,5 +240,5 @@ footer {
 }
 
 .edit-box button:hover {
-    background-color: #218838;
+    background-color: #28a745;
 }

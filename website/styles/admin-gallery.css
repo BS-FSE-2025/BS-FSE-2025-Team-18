@@ -358,3 +358,14 @@ body {
     background-color: #bd2130;
   }
   
+
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #232324;
+    color: #ffffff;
+    font-size: 0.9rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+}
