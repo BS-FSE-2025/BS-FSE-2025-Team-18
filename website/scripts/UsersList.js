@@ -5,9 +5,6 @@ async function fetchUsers() {
     if (response.ok) {
 
       const users = await response.json();
-      console.log('Number of users fetched:', users.length);
-      localStorage.setItem('userCount', users.length);
-
       renderUsers(users);
     } else {
       alert('Failed to fetch users');
