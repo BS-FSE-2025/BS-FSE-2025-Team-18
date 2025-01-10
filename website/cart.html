@@ -14,23 +14,19 @@
     <header>
       <div class="logo">
         <img src="../images/IMG_6583.png" alt="LOGO" />
-        <div id="accessibility-tools">
-          <button id="increase-font">A+</button>
-          <button id="decrease-font">A-</button>
-          <button id="reset-font">Reset</button>
-        </div>
       </div>
       <div class="header-content">
         <nav>
-              <a href="homepage-customer.html" >Home</a>
-              <a href="cart.html" class="cart-icon">
-                <img src="images/carrt.png" alt="Cart Icon" />
-                <span id="cart-count">0</span>
-              </a>              <a href="products.html">Catalog</a>
-              
-              <a href="customer-gallery.html">Gallery</a>
-              <a href="checklest.html">Chicklist</a>
-            </nav>
+          <a href="homepage-customer.html">Home</a>
+          <a href="cart.html" class="cart-icon">
+            <img src="images/carrt.png" alt="Cart Icon" />
+            <span id="cart-count">0</span>
+          </a>
+          <a href="products.html">Catalog</a>
+
+          <a href="customer-gallery.html">Gallery</a>
+          <a href="checklest.html">Checklist</a>
+        </nav>
         <div class="profile-menu">
           <img
             src="images/avatar-logo.jpg"
@@ -45,19 +41,19 @@
                 <h2><span id="username"></span></h2>
               </div>
               <hr />
+              <div id="accessibility-tools">
+                <button id="increase-font">A+</button>
+                <button id="decrease-font">A-</button>
+                <button id="reset-font">Reset</button>
+              </div>
               <a href="customer-profile.html" class="sub-menu-link">
                 <img src="images/profile images/profile.png" alt="Logo" />
                 <p>Edit Profile</p>
                 <span>></span>
               </a>
-              <a href="#" class="sub-menu-link">
-                <img src="images/profile images/setting.png" alt="Logo" />
-                <p>Settings</p>
-                <span>></span>
-              </a>
-              <a href="#" class="sub-menu-link">
+              <a href="" class="sub-menu-link">
                 <img src="images/profile images/help.png" alt="Logo" />
-                <p>Help</p>
+                <p>help</p>
                 <span>></span>
               </a>
               <a href="main_page.html" class="sub-menu-link" onclick="logout()">
@@ -71,28 +67,27 @@
       </div>
     </header>
     <main>
-        <!-- עמודת העגלה -->
-        <section id="cart-items">
-          <h2>Your Cart</h2>
-          <div id="cart-list"></div>
-        </section>
-      
-        <!-- סיכום העגלה -->
-        <section id="cart-summary">
-          <h2>Order Summary</h2>
-          <p>Total Items: <span id="total-items">0</span></p>
-          <p>Total Price: $<span id="total-price">0.00</span></p>
-          <p>Total Time Estimation: <span id="total-time">0</span> hours</p>
-        </section>
-      
-        <!-- מוצרים מומלצים -->
-        <section id="recommended-products">
-          <h2>Check Out Another Products</h2>
-          <div id="recommended-list"></div>
-        </section>
-      </main>
-      
-      
+      <!-- עמודת העגלה -->
+      <section id="cart-items">
+        <h2>Your Cart</h2>
+        <div id="cart-list"></div>
+      </section>
+
+      <!-- סיכום העגלה -->
+      <section id="cart-summary">
+        <h2>Order Summary</h2>
+        <p>Total Items: <span id="total-items">0</span></p>
+        <p>Total Price: $<span id="total-price">0.00</span></p>
+        <p>Total Time Estimation: <span id="total-time">0</span> hours</p>
+      </section>
+
+      <!-- מוצרים מומלצים -->
+      <section id="recommended-products">
+        <h2>Check Out Another Products</h2>
+        <div id="recommended-list"></div>
+      </section>
+    </main>
+
     <footer>
       <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
     </footer>
@@ -115,7 +110,6 @@
         }
       }
 
-      
       async function displayCart(cart) {
         const cartList = document.getElementById("cart-list");
         const totalItems = document.getElementById("total-items");
@@ -195,7 +189,6 @@
         }
       }
 
-
       function logout() {
         localStorage.clear();
         alert("You have been logged out.");
@@ -208,58 +201,62 @@
       }
 
       async function addToCart(productId, pricePerMeter) {
-  const userEmail = localStorage.getItem("Useremail");
+        const userEmail = localStorage.getItem("Useremail");
 
-  if (!userEmail) {
-    alert("Please log in to add items to the cart.");
-    return;
-  }
+        if (!userEmail) {
+          alert("Please log in to add items to the cart.");
+          return;
+        }
 
-  const quantityInput = document.getElementById(`quantity-${productId}`);
-  const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+        const quantityInput = document.getElementById(`quantity-${productId}`);
+        const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
 
-  if (!quantity || quantity < 1) {
-    alert("Please enter a valid quantity.");
-    return;
-  }
+        if (!quantity || quantity < 1) {
+          alert("Please enter a valid quantity.");
+          return;
+        }
 
-  try {
-    const response = await fetch(`http://localhost:3000/api/cart/${userEmail}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        productId: productId,
-        price: pricePerMeter,
-        quantity: quantity,
-        totalPrice: pricePerMeter * quantity,
-      }),
-    });
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/cart/${userEmail}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                productId: productId,
+                price: pricePerMeter,
+                quantity: quantity,
+                totalPrice: pricePerMeter * quantity,
+              }),
+            }
+          );
 
-    if (!response.ok) throw new Error("Failed to add item to cart.");
+          if (!response.ok) throw new Error("Failed to add item to cart.");
 
-    alert("Product added to cart successfully!");
-    loadCart(); // Refresh cart after adding
-  } catch (error) {
-    console.error("Error adding to cart:", error);
-  }
-}
+          alert("Product added to cart successfully!");
+          loadCart(); // Refresh cart after adding
+        } catch (error) {
+          console.error("Error adding to cart:", error);
+        }
+      }
 
+      // שליפה והצגה של מוצרים מומלצים
+      async function loadRecommendedProducts() {
+        try {
+          const response = await fetch("http://localhost:3000/api/recommended");
+          const recommendedProducts = await response.json();
 
-// שליפה והצגה של מוצרים מומלצים
-async function loadRecommendedProducts() {
-  try {
-    const response = await fetch("http://localhost:3000/api/recommended");
-    const recommendedProducts = await response.json();
+          const recommendedList = document.getElementById("recommended-list");
+          recommendedList.innerHTML = "";
 
-    const recommendedList = document.getElementById("recommended-list");
-    recommendedList.innerHTML = "";
+          recommendedProducts.forEach((product) => {
+            const productDiv = document.createElement("div");
+            productDiv.classList.add("recommended-item");
 
-    recommendedProducts.forEach((product) => {
-      const productDiv = document.createElement("div");
-      productDiv.classList.add("recommended-item");
-
-      productDiv.innerHTML = `
-        <img src="${product.image || "default-image.png"}" alt="${product.name}" />
+            productDiv.innerHTML = `
+        <img src="${product.image || "default-image.png"}" alt="${
+              product.name
+            }" />
         <div>
           <h4>${product.name}</h4>
           <p>$${product.pricePerMeter.toFixed(2)}</p>
@@ -272,70 +269,78 @@ async function loadRecommendedProducts() {
             style="width: 50px; margin-left: 5px; text-align: center;"
           />
         </div>
-        <button onclick="addToCart('${product._id}', ${product.pricePerMeter})">Add to Cart</button>
+        <button onclick="addToCart('${product._id}', ${
+              product.pricePerMeter
+            })">Add to Cart</button>
       `;
 
-      recommendedList.appendChild(productDiv);
-    });
-  } catch (error) {
-    console.error("Error fetching recommended products:", error);
-  }
-}
+            recommendedList.appendChild(productDiv);
+          });
+        } catch (error) {
+          console.error("Error fetching recommended products:", error);
+        }
+      }
 
+      // טוען מוצרים מומלצים בעת טעינת הדף
+      document.addEventListener("DOMContentLoaded", loadRecommendedProducts);
 
-// טוען מוצרים מומלצים בעת טעינת הדף
-document.addEventListener("DOMContentLoaded", loadRecommendedProducts);
+      function displayRecommendedProducts(products) {
+        const recommendationsList = document.getElementById(
+          "recommendations-list"
+        );
 
+        recommendationsList.innerHTML = ""; // Clear previous recommendations
 
-function displayRecommendedProducts(products) {
-  const recommendationsList = document.getElementById("recommendations-list");
+        products.forEach((product) => {
+          const itemDiv = document.createElement("div");
+          itemDiv.classList.add("recommendation-item");
 
-  recommendationsList.innerHTML = ""; // Clear previous recommendations
-
-  products.forEach((product) => {
-    const itemDiv = document.createElement("div");
-    itemDiv.classList.add("recommendation-item");
-
-    itemDiv.innerHTML = `
-      <img src="${product.image || "default-image.png"}" alt="${product.name}" />
+          itemDiv.innerHTML = `
+      <img src="${product.image || "default-image.png"}" alt="${
+            product.name
+          }" />
       <h3>${product.name}</h3>
       <p>$${product.pricePerMeter.toFixed(2)}</p>
-      <button class="add-btn" onclick="addToCart('${product._id}', ${product.pricePerMeter})">
+      <button class="add-btn" onclick="addToCart('${product._id}', ${
+            product.pricePerMeter
+          })">
         Add to Cart
       </button>
     `;
 
-    recommendationsList.appendChild(itemDiv);
-  });
-}
+          recommendationsList.appendChild(itemDiv);
+        });
+      }
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadCart();
-  loadRecommendedProducts();
-});
-function updateCartCount() {
-  const userEmail = localStorage.getItem("Useremail");
+      document.addEventListener("DOMContentLoaded", () => {
+        loadCart();
+        loadRecommendedProducts();
+      });
+      function updateCartCount() {
+        const userEmail = localStorage.getItem("Useremail");
 
-  if (!userEmail) {
-    document.getElementById("cart-count").innerText = "0";
-    return;
-  }
+        if (!userEmail) {
+          document.getElementById("cart-count").innerText = "0";
+          return;
+        }
 
-  fetch(`http://localhost:3000/api/cart/${userEmail}`)
-    .then((response) => response.json())
-    .then((cart) => {
-      const itemCount = cart.items.reduce((total, item) => total + item.quantity, 0);
-      document.getElementById("cart-count").innerText = itemCount;
-    })
-    .catch((error) => {
-      console.error("Error fetching cart count:", error);
-      document.getElementById("cart-count").innerText = "0";
-    });
-}
+        fetch(`http://localhost:3000/api/cart/${userEmail}`)
+          .then((response) => response.json())
+          .then((cart) => {
+            const itemCount = cart.items.reduce(
+              (total, item) => total + item.quantity,
+              0
+            );
+            document.getElementById("cart-count").innerText = itemCount;
+          })
+          .catch((error) => {
+            console.error("Error fetching cart count:", error);
+            document.getElementById("cart-count").innerText = "0";
+          });
+      }
 
-// טוען את כמות המוצרים בעת פתיחת העמוד
-document.addEventListener("DOMContentLoaded", updateCartCount);
-
+      // טוען את כמות המוצרים בעת פתיחת העמוד
+      document.addEventListener("DOMContentLoaded", updateCartCount);
     </script>
     <script src="accessability.js"></script>
   </body>

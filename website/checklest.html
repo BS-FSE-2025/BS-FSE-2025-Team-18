@@ -11,11 +11,6 @@
     <header>
         <div class="logo">
           <img src="../images/IMG_6583.png" alt="LOGO" />
-          <div id="accessibility-tools">
-            <button id="increase-font">A+</button>
-            <button id="decrease-font">A-</button>
-            <button id="reset-font">Reset</button>
-          </div>
         </div>
           <div class="header-content">
               <nav>
@@ -36,14 +31,14 @@
                       <h2><span id="username"></span></h2>
                     </div>
                     <hr />
+                    <div id="accessibility-tools">
+                      <button id="increase-font">A+</button>
+                      <button id="decrease-font">A-</button>
+                      <button id="reset-font">Reset</button>
+                    </div>
                     <a href="customer-profile.html" class="sub-menu-link">
                       <img src="images/profile images/profile.png" alt="Logo"/>
                       <p>Edit Profile</p>
-                      <span>></span>
-                    </a>
-                    <a href="" class="sub-menu-link">
-                      <img src="images/profile images/setting.png"alt="Logo" />
-                      <p>Settings</p>
                       <span>></span>
                     </a>
                     <a href="" class="sub-menu-link">
@@ -56,7 +51,7 @@
                       <p>Logout</p>
                       <span>></span>
                     </a>
-                    </a>
+                  
                   </div>
                 </div>
               </div>
@@ -165,6 +160,7 @@ const username = localStorage.getItem('username');
 
     </script>
         <script src="cartcount.js"></script>
+        <script src="accessability.js"></script>
 
 </body>
 </html>
