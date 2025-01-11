@@ -180,7 +180,7 @@ header {
   
 /* Main Content Styling */
 main {
-    background-image: url(../images/b3.jpg);
+    background-image: url(../images/123123.jpg);
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -202,7 +202,7 @@ main {
 }
 
 .content-table thead {
-    background-color: #393e46;
+    background-color: #0c9b05;
     color: #ffffff;
 }
 
@@ -224,11 +224,11 @@ main {
 }
 
 .content-table tbody tr:nth-of-type(even) {
-    background-color: #0c8f7d;
+    background-color: #0c8f20;
 }
 
 .content-table tbody tr:nth-of-type(odd) {
-    background-color: #0a9196;
+    background-color: #076c0c;
 }
 
 .content-table tbody tr:hover {
