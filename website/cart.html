@@ -83,7 +83,21 @@
           <p>Total Items: <span id="total-items">0</span></p>
           <p>Total Price: $<span id="total-price">0.00</span></p>
           <p>Total Time Estimation: <span id="total-time">0</span> hours</p>
+          <button id="saveMyWorkBtn">Save in My Works</button>
         </section>
+        <div id="saveMyWorkModal" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeSaveModal()">&times;</span>
+            <h2>Save Your Work</h2>
+            <label for="projectName">Name:</label>
+            <input type="text" id="projectName" placeholder="Enter project name" required>
+            <label for="projectDescription">Description:</label>
+            <textarea id="projectDescription" placeholder="Enter project description" required></textarea>
+            <label for="projectImage">Image:</label>
+            <input type="file" id="projectImage" accept="image/*">
+            <button onclick="saveWork()">Save</button>
+          </div>
+        </div>
       
         <!-- מוצרים מומלצים -->
         <section id="recommended-products">
@@ -331,6 +345,79 @@ function updateCartCount() {
       console.error("Error fetching cart count:", error);
       document.getElementById("cart-count").innerText = "0";
     });
+}
+// Show save modal
+document.getElementById('saveMyWorkBtn').addEventListener('click', () => {
+  document.getElementById('saveMyWorkModal').style.display = 'block';
+});
+
+// Close save modal
+function closeSaveModal() {
+  document.getElementById('saveMyWorkModal').style.display = 'none';
+}
+
+// Save work and redirect
+async function saveWork() {
+  const name = document.getElementById('projectName').value;
+  const description = document.getElementById('projectDescription').value;
+  const imageInput = document.getElementById('projectImage');
+  const image = imageInput.files[0];
+
+  // שליפת כתובת הדוא"ל של המשתמש
+  const userEmail = localStorage.getItem('Useremail');
+  if (!userEmail) {
+    alert("Please log in to save your project.");
+    return;
+  }
+
+  let products = [];
+  try {
+    const cartResponse = await fetch(`/api/cart/${userEmail}`);
+    const cartData = await cartResponse.json();
+
+    // מיפוי המוצרים בעגלה
+    products = cartData.items.map(item => ({
+      productId: item.productId._id,
+      name: item.productId.name,
+      price: item.productId.pricePerMeter,
+      quantity: item.quantity,
+      category: item.productId.category,
+      image: item.productId.image
+    }));
+  } catch (error) {
+    console.error("Error fetching cart products:", error);
+    alert("Failed to load cart products. Please try again.");
+    return;
+  }
+
+  if (!name || !description || !image) {
+    alert("Please fill all fields.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('description', description);
+  formData.append('image', image);
+  formData.append('products', JSON.stringify(products)); // הוספת המוצרים
+  formData.append('email', userEmail); // הוספת כתובת דוא"ל
+
+  try {
+    const response = await fetch('/api/myworks', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to save work');
+    }
+
+    alert('Work saved successfully!');
+    window.location.href = 'myworks.html';
+  } catch (error) {
+    console.error(error);
+    alert('Error saving work');
+  }
 }
 
 // טוען את כמות המוצרים בעת פתיחת העמוד

@@ -134,4 +134,6 @@ app.get("/api/gallery/:projectId", async (req, res) => {
     res.status(500).json({ message: "Error fetching project", error: error.message });
   }
 });
+const myWorksRouter = require("./routes/myworks");
+app.use("/api/myworks", myWorksRouter);
 
