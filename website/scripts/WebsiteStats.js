@@ -56,3 +56,13 @@ async function fetchProductCount() {
         document.getElementById('products-count').textContent = "Error";
     }
 }
+
+
+const username2 = localStorage.getItem("username");
+if (username2) {
+  document.getElementById("username2").innerText = username2;
+}
+let subMenu = document.getElementById("subMenu");
+function toggleMenu() {
+  subMenu.classList.toggle("open-menu");
+}

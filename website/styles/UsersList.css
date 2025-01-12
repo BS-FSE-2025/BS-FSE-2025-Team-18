@@ -6,49 +6,181 @@ body {
     color: #333;
     line-height: 1.6;
 }
-
-/* Header Styling */
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
-    background-color: #222831;
-    color: #ffffff;
+    background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-header .logo img {
+  }
+  
+  header .logo img {
     width: 120px;
     height: auto;
-}
-
-header h1 {
-    font-family: 'Lucida Sans', sans-serif;
-    font-size: 2rem;
-    color: #f4f7f6;
-    margin: 0;
-}
-
-header nav {
+  }
+  
+  /* Positioning the parent container of the profile icon */
+  .profile-menu {
+    position: relative; /* This ensures the dropdown is positioned relative to this container */
+  }
+  
+  /* Submenu dropdown */
+  .sub-menu-wrap {
+    position: absolute;
+    top: 100%; /* Places the dropdown directly below the profile icon */
+    right: 0; /* Aligns the dropdown to the right of the profile icon */
+    width: 320px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    z-index: 100; /* Makes sure the dropdown appears above other elements */
+  }
+  
+  /* When the menu is open, we increase the max-height to reveal the dropdown */
+  .sub-menu-wrap.open-menu {
+    max-height: 500px; /* Adjust the value based on the height of the dropdown */
+  }
+  
+  /* General styles for the dropdown */
+  .sub-menu {
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-info img {
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  
+  .sub-menu hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #ccc;
+    margin: 15px 0 10px;
+  }
+  
+  .sub-menu-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+  }
+  
+  .sub-menu-link p {
+    width: 100%;
+  }
+  
+  .sub-menu-link img {
+    width: 40px;
+    background: #e5e5e5;
+    border-radius: 50%;
+    padding: 8px;
+    margin-right: 15px;
+  }
+  
+  .sub-menu-link span {
+    font-size: 22px;
+    transition: transform 0.5s;
+  }
+  
+  .sub-menu-link:hover span {
+    transform: translateX(5px);
+  }
+  
+  .sub-menu-link:hover p {
+    font-weight: 600;
+  }
+  
+  /* Profile icon styling */
+  .profile-menu img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  header nav {
     display: flex;
     gap: 20px;
-}
-
-header nav a {
-    color: #f4f7f6;
-    font-weight: 600;
+    margin-right: 20px;
+  }
+  a {
     text-decoration: none;
+  }
+  
+  header a.active, nav a:hover {
+    color: #28a745;
+  }
+  
+  header nav a {
+    color: #000000;
+    font-weight: 600;
     transition: color 0.3s ease;
-}
-
-header nav a:hover {
-    color: #00adb5;
-}
-
+  }
+  
+  header nav a:hover {
+    color: #28a745;
+  }
+  
+  header .btn {
+    background-color: #28a745;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  header .btn:hover {
+    background-color: #28a745;
+  }
+  #accessibility-tools {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+  }
+  
+  
+  #accessibility-tools button {
+    background-color: #007BFF;
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #accessibility-tools button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
 /* Main Content Styling */
 main {
-    background-image: url(../images/b3.jpg);
+    background-image: url(../images/123123.jpg);
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -70,7 +202,7 @@ main {
 }
 
 .content-table thead {
-    background-color: #393e46;
+    background-color: #0c9b05;
     color: #ffffff;
 }
 
@@ -92,11 +224,11 @@ main {
 }
 
 .content-table tbody tr:nth-of-type(even) {
-    background-color: #0c8f7d;
+    background-color: #0c8f20;
 }
 
 .content-table tbody tr:nth-of-type(odd) {
-    background-color: #0a9196;
+    background-color: #076c0c;
 }
 
 .content-table tbody tr:hover {

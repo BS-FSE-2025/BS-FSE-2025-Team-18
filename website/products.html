@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contractor Catalog</title>
+    <title>Customer Catalog</title>
     <link rel="stylesheet" href="styles/contractor-catalog.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
 </head>
@@ -11,11 +11,7 @@
     <header>
         <div class="logo">
             <img src="../images/IMG_6583.png" alt="LOGO" />
-            <div id="accessibility-tools">
-                <button id="increase-font">A+</button>
-                <button id="decrease-font">A-</button>
-                <button id="reset-font">Reset</button>
-            </div>
+            
         </div>
         <div class="header-content">
             <nav>
@@ -26,36 +22,41 @@
                 </a>              
                 <a href="products.html" class="active">Catalog</a>
                 <a href="customer-gallery.html">Gallery</a>
-                <a href="checklest.html">Chicklist</a>
+                <a href="checklest.html">Checklist</a>
               </nav>
-            <div class="profile-menu">
-                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Profile" />
+              <div class="profile-menu">
+                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
                 <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <div class="user-info">
-                            <img src="images/avatar-logo.jpg" alt="Profile" />
-                            <h2><span id="username"></span></h2>
-                        </div>
-                        <hr />
-                        <a href="customer-profile.html" class="sub-menu-link">
-                            <img src="images/profile images/profile.png" alt="Edit Profile" />
-                            <p>Edit Profile</p>
-                        </a>
-                        <a href="" class="sub-menu-link">
-                            <img src="images/profile images/setting.png" alt="Settings" />
-                            <p>Settings</p>
-                        </a>
-                        <a href="" class="sub-menu-link">
-                            <img src="images/profile images/help.png" alt="Help" />
-                            <p>Help</p>
-                        </a>
-                        <a href="main_page.html" class="sub-menu-link" onclick="logout()">
-                            <img src="images/profile images/logout.png" alt="Logout" />
-                            <p>Logout</p>
-                        </a>
+                  <div class="sub-menu">
+                    <div class="user-info">
+                      <img src="images/avatar-logo.jpg" alt="Logo"/>
+                      <h2><span id="username"></span></h2>
                     </div>
+                    <hr />
+                    <div id="accessibility-tools">
+                      <button id="increase-font">A+</button>
+                      <button id="decrease-font">A-</button>
+                      <button id="reset-font">Reset</button>
+                    </div>
+                    <a href="customer-profile.html" class="sub-menu-link">
+                      <img src="images/profile images/profile.png" alt="Logo"/>
+                      <p>Edit Profile</p>
+                      <span>></span>
+                    </a>
+                    <a href="" class="sub-menu-link">
+                      <img src="images/profile images/help.png"alt="Logo" />
+                      <p>help</p>
+                      <span>></span>
+                    </a>
+                    <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                      <img src="images/profile images/logout.png"alt="Logo" />
+                      <p>Logout</p>
+                      <span>></span>
+                    </a>
+                  
+                  </div>
                 </div>
-            </div>
+              </div>
         </div>
     </header>
     <main>
@@ -69,8 +70,12 @@
             <button class="filter-btn" data-category="Roofing">Roofing</button>
             <button class="filter-btn" data-category="Flooring">Flooring</button>
             <button class="filter-btn" data-category="Lighting">Lighting</button>
-            <button class="filter-btn" data-category="Kitchens">Kitchens</button>
-            <button class="filter-btn" data-category="Outdoor">Outdoor</button>
+            <button class="filter-btn" data-category="Kitchen-sinks">Kitchen sinks</button>
+            <button class="filter-btn" data-category="bathroom-sinks">bathroom sinks</button>
+            <button class="filter-btn" data-category="bathroom-showers">bathroom shower</button>
+            <button class="filter-btn" data-category="bathroom-toilets">bathroom toilets</button>
+            <button class="filter-btn" data-category="Drywall">Drywall</button>
+            
         </section>
         <section id="catalog">
             <div id="catalog-categories">
@@ -224,6 +229,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const subMenu = document.getElementById("subMenu");
             subMenu.classList.toggle("open-menu");
         }
+        const username = localStorage.getItem('username');
+          if(username){
+              document.getElementById("username").innerText = username;
+          }
+         
     </script>
     <script src="accessability.js"></script>
     <script src="cartcount.js"></script>

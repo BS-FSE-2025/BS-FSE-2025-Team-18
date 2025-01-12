@@ -95,3 +95,15 @@ function renderUsers(users) {
 
 // Call the function to fetch users when the page loads
 window.onload = fetchUsers;
+
+
+
+
+const username2 = localStorage.getItem("username");
+if (username2) {
+  document.getElementById("username2").innerText = username2;
+}
+let subMenu = document.getElementById("subMenu");
+function toggleMenu() {
+  subMenu.classList.toggle("open-menu");
+}

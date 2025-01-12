@@ -14,7 +14,32 @@ body {
 a {
     text-decoration: none;
 }
-
+#accessibility-tools {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+  }
+  
+  
+  #accessibility-tools button {
+    background-color: #007BFF;
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #accessibility-tools button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
 /* Header Styles */
 header {
     display: flex;
@@ -199,15 +224,20 @@ main {
 
 /* Footer */
 footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 50px; /* Adjust the height if needed */
     background-color: #232324;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 0.9rem;
-    color: #ffffff;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0; /* Prevent the footer from shrinking */
+    font-size: 14px;
+    color: #ffffff; /* Footer text is black */
+    text-align: center;
+    z-index: 1000;
 }
-
 /* Catalog Section */
 .catalog-category {
     margin-bottom: 30px;
