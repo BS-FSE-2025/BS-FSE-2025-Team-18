@@ -2,8 +2,10 @@
 body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
+    background: url('../images/rrrr.jpg') no-repeat center center fixed;
     background-color: #f9f9f9;
     color: #333;
+    background-size: cover;
 }
 
 /* עיצוב ל-header */

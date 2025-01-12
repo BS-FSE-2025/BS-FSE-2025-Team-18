@@ -44,14 +44,9 @@
                 <h2><span id="username"></span></h2>
               </div>
               <hr />
-              <a href="customer-profile.html" class="sub-menu-link">
+              <a href="contractor-profile.html" class="sub-menu-link">
                 <img src="images/profile images/profile.png" alt="Logo" />
                 <p>Edit Profile</p>
-                <span>></span>
-              </a>
-              <a href="" class="sub-menu-link">
-                <img src="images/profile images/setting.png" alt="Logo" />
-                <p>Settings</p>
                 <span>></span>
               </a>
               <a href="" class="sub-menu-link">
@@ -210,9 +205,9 @@
         subMenu.classList.toggle("open-menu");
       }
 
-      const username2 = localStorage.getItem("username");
-      if (username2) {
-        document.getElementById("username2").innerText = username2;
+      const username = localStorage.getItem("username");
+      if (username) {
+        document.getElementById("username").innerText = username;
       }
     </script>
     <script src="accessability.js"></script>
