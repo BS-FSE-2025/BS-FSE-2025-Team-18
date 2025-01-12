@@ -159,11 +159,32 @@ header .btn:hover {
     transform: scale(1.05); /* Slight zoom effect */
 }
 
-header #accessibility-tools {
+#accessibility-tools {
     display: flex;
-    gap: 4px; /* Space between the buttons */
-    align-items: center; /* Align buttons vertically */
-}
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+  }
+  
+  
+  #accessibility-tools button {
+    background-color: #007BFF;
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #accessibility-tools button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
 
 .cart-icon {
     position: relative;
@@ -436,7 +457,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: 100%;
     height: 50px; /* Adjust the height if needed */

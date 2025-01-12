@@ -11,11 +11,6 @@
     <header>
         <div class="logo">
             <img src="../images/IMG_6583.png" alt="LOGO" />
-            <div id="accessibility-tools">
-              <button id="increase-font">A+</button>
-              <button id="decrease-font">A-</button>
-              <button id="reset-font">Reset</button>
-            </div>
           </div>
     
         <div class="header-content">
@@ -26,17 +21,40 @@
                 <a href="contractor-gallery.html">Gallery</a>
                 <a href="contractor-checklist.html">Checklist</a>
               </nav>
-          <div class="profile-menu">
-            <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
-            <div class="sub-menu-wrap" id="subMenu">
-              <div class="sub-menu">
-                <div class="user-info">
-                  <img src="images/avatar-logo.jpg" alt="Logo"/>
-                  <h2><span id="username"></span></h2>
+              <div class="profile-menu">
+                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Logo" />
+                <div class="sub-menu-wrap" id="subMenu">
+                  <div class="sub-menu">
+                    <div class="user-info">
+                      <img src="images/avatar-logo.jpg"alt="Logo" />
+                      <h2><span id="username2"></span></h2>
+                    </div>
+                    <hr />
+                    <div id="accessibility-tools">
+                      <button id="increase-font">A+</button>
+                      <button id="decrease-font">A-</button>
+                      <button id="reset-font">Reset</button>
+                    </div>
+                    <a href="contractor-profile.html" class="sub-menu-link">
+                      <img src="images/profile images/profile.png"alt="Logo" />
+                      <p>Edit Profile</p>
+                      <span></span>
+                    </a>
+                    <a href="" class="sub-menu-link">
+                      <img src="images/profile images/help.png" alt="Logo"/>
+                      <p>help</p>
+                      <span>></span>
+                    </a>
+                    <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                      <img src="images/profile images/logout.png"alt="Logo" />
+                      <p>Logout</p>
+                      <span>></span>
+                    </a>
+                  </div>
                 </div>
                 <hr />
-                <a href="customer-profile.html" class="sub-menu-link">
-                  <img src="images/profile images/profile.png" alt="Logo"/>
+                <a href="contractor-profile.html" class="sub-menu-link">
+                    <img src="images/profile images/profile.png" alt="Logo"/>
                   <p>Edit Profile</p>
                   <span>></span>
                 </a>
@@ -53,8 +71,6 @@
                 </a>
                 </a>
               </div>
-            </div>
-          </div>
     
           
     </header>
@@ -522,9 +538,6 @@ ${
         alert("Error downloading project as text: " + error.message);
     }
 }
-
-
-
 
     </script>
     <script src="accessability.js"></script>

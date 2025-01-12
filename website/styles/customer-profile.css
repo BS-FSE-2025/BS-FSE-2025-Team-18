@@ -2,8 +2,10 @@
 body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
+    background: url('../images/rrrr.jpg') no-repeat center center fixed;
     background-color: #f9f9f9;
     color: #333;
+    background-size: cover;
 }
 
 /* עיצוב ל-header */
@@ -19,7 +21,10 @@ header {
 .logo img {
     height: 100px;
 }
-
+.cart-icon img{
+    width: 24px;
+    height: 24px;
+}
 .header-content {
     display: flex;
     align-items: center;
@@ -130,7 +135,32 @@ nav a.active, nav a:hover {
 }
 
 
-
+#accessibility-tools {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+  }
+  
+  
+  #accessibility-tools button {
+    background-color: #007BFF;
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #accessibility-tools button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
 
 .logout-btn {
     background-color: #28a745;
