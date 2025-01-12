@@ -14,24 +14,20 @@
     <header>
       <div class="logo">
         <img src="../images/IMG_6583.png" alt="LOGO" />
-        <div id="accessibility-tools">
-          <button id="increase-font">A+</button>
-          <button id="decrease-font">A-</button>
-          <button id="reset-font">Reset</button>
-        </div>
       </div>
 
       <div class="header-content">
         <nav class="buttons">
-          <a href="Admin.html">Home</a>
+          <a href="Admin.html" >Home</a>
           <a href="UsersList.html">Users</a>
-          <a href="WebsiteStats.html">Website Stats</a>
-          <a href="EditCatalog.html" class="active">Edit Catalog</a>
-          <a href="AdminGallery.html">Edit Gallery</a>
+          <a href="WebsiteStats.html"   >Website Stats</a>
+          <a href="EditCatalog.html" class="active" >Edit Catalog</a>
+          <a href="AdminGallery.html" >Edit Gallery</a>
+
         </nav>
 
         <div class="profile-menu">
-          <img src="../images/avatar-logo.jpg" onclick="toggleMenu()" />
+          <img src="../images/avatar-logo.jpg"  onclick="toggleMenu()" />
           <div class="sub-menu-wrap" id="subMenu">
             <div class="sub-menu">
               <div class="user-info">
@@ -39,11 +35,12 @@
                 <h2><span id="username2"></span></h2>
               </div>
               <hr />
-              <a
-                href="../main_page.html"
-                class="sub-menu-link"
-                onclick="logout()"
-              >
+              <div id="accessibility-tools">
+                <button id="increase-font">A+</button>
+                <button id="decrease-font">A-</button>
+                <button id="reset-font">Reset</button>
+              </div>
+              <a href="../main_page.html" class="sub-menu-link" onclick="logout()">
                 <img src="../images/profile images/logout.png" />
                 <p>Logout</p>
                 <span>></span>
@@ -82,8 +79,14 @@
             <option value="Roofing">Roofing</option>
             <option value="Flooring">Flooring</option>
             <option value="Lighting">Lighting</option>
-            <option value="Kitchens">Kitchens</option>
-            <option value="Outdoor">Outdoor</option>
+            <option value="Kitchen-countertops">Kitchen countertops</option>
+            <option value="Kitchen-faucets">Kitchen faucets</option>
+            <option value="Kitchen-sinks">Kitchen sinks</option>
+            <option value="bathroom-sinks">bathroom sinks</option>
+            <option value="bathroom-showers">bathroom shower</option>
+            <option value="bathroom-toilets">bathroom toilets</option>
+            <option value="Drywall">Drywall</option>
+
           </select>
 
           <label for="item-image">Upload Picture:</label>
