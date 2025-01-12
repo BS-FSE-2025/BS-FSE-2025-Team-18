@@ -79,12 +79,14 @@
       
         <!-- סיכום העגלה -->
         <section id="cart-summary">
-          <h2>Order Summary</h2>
+          <h2> Summary</h2>
           <p>Total Items: <span id="total-items">0</span></p>
           <p>Total Price: $<span id="total-price">0.00</span></p>
           <p>Total Time Estimation: <span id="total-time">0</span> hours</p>
         </section>
       
+
+
         <!-- מוצרים מומלצים -->
         <section id="recommended-products">
           <h2>Check Out Another Products</h2>
@@ -206,6 +208,11 @@
         const subMenu = document.getElementById("subMenu");
         subMenu.classList.toggle("open-menu");
       }
+      const username = localStorage.getItem('username');
+          if(username){
+              document.getElementById("username").innerText = username;
+          }
+
 
       async function addToCart(productId, pricePerMeter) {
   const userEmail = localStorage.getItem("Useremail");
@@ -332,6 +339,8 @@ function updateCartCount() {
       document.getElementById("cart-count").innerText = "0";
     });
 }
+
+
 
 // טוען את כמות המוצרים בעת פתיחת העמוד
 document.addEventListener("DOMContentLoaded", updateCartCount);

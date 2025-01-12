@@ -1,4 +1,5 @@
 body {
+  background-image: url('../images/roller.jpg');
   margin: 0;
   font-family: 'Nunito', sans-serif;
   background-color: #f9f9f9;
@@ -293,40 +294,53 @@ main {
 /* בסיסי */
 /* עיצוב כללי לדף */
 body {
-    font-family: 'Nunito', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-    background-image: url('./images/cart-b.png'); /* הנתיב לתמונה */
-  background-size: cover; /* התאמה מלאה לגודל המסך */
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-image: url('../images/rrrr.jpg'); /* הנתיב לתמונה החדשה */
+  background-size: 100%; /* הקטנת גודל התמונה ל-90% מהרוחב */
   background-position: center; /* מיקום התמונה במרכז */
   background-attachment: fixed; /* קיבוע התמונה בעת גלילה */
-  color: #333;
-  }
-  
+  background-repeat: no-repeat; /* ללא חזרה על התמונה */
+
+  color: #333; /* צבע טקסט */
+}
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0); /* צבע כהה עם שקיפות */
+  z-index: -1; /* ודא שהשכבה נמצאת מאחורי התוכן */
+}
+
+
   main {
     display: flex;
     flex-direction: column; /* סידור הקונטיינרים אנכית */
     align-items: center; /* מרכוז כל הקונטיינרים */
     gap: 20px; /* מרווח בין הקונטיינרים */
+    position: relative; /* כדי לשמור על התוכן מעל הרקע */
+  z-index: 1; /* ודא שהתוכן יופיע מעל שכבת הרקע */
+  color: #000000; /* צבע טקסט לבן כדי להיראות בבירור על רקע כהה */
   }
 
   
   section {
-    width: 100%; /* התאמת הקונטיינר לגודל מלא */
-    max-width: 670px; /* שמירה על רוחב קבוע */
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.8); /* רקע לבן עם שקיפות */
     border-radius: 10px; /* פינות מעוגלות */
-    padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* הצללה קלה */
+    padding: 20px; /* מרווח פנימי */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* הצללה */
+    margin: 20px auto; /* ריווח חיצוני ומרכוז */
+    max-width: 900px; /* מגבלת רוחב */
   }
-  
   
   /* עיצוב לעמודת העגלה */
   #cart-items {
-    max-width: 900px; /* קביעת רוחב מקסימלי קטן יותר */
+    max-width: 610px; /* קביעת רוחב מקסימלי קטן יותר */
     margin: 20px auto; /* מרכז הקונטיינר */
     background-color: #fff;
     border: 1px solid #ccc;
@@ -406,11 +420,12 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 100%;
+    max-width: 610px;
     
   }
   
   #cart-summary h2 {
-    text-align: left;
+    text-align: center;
     font-size: 1.8rem;
     font-weight: bold;
     color: #4a4a4a;
@@ -447,6 +462,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    max-width: 900px;
   }
   
   #recommended-products h2 {
@@ -465,6 +481,7 @@ body {
     border: 1px solid #eaeaea;
     border-radius: 10px;
     background-color: #fafafa;
+    max-width: 1000px;
   }
   
   .recommended-item img {
@@ -515,3 +532,4 @@ body {
     margin-right: 10px;
   }
   
+

@@ -1,8 +1,11 @@
 body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
-    background-color: #f9f9f9;
     color: #333;
+    background: url('../images/rrrr.jpg') no-repeat center center fixed;
+    background-size: cover;
+
+
 }
 
 a {
@@ -10,6 +13,7 @@ a {
 }
 
 header {
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -194,13 +198,20 @@ main {
 }
 
 footer {
-    background-color: #ffffff;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 0.9rem;
-    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 400px;
+    width: 100%;
+    height: 50px; /* Adjust the height if needed */
+    background-color: #232324;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-} 
+    font-size: 14px;
+    color: #ffffff; /* Footer text is black */
+    text-align: center;
+    z-index: 1000;
+}
 
 .features {
     display: flex;

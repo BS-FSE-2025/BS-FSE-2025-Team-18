@@ -3,10 +3,25 @@ body {
     font-family: 'Nunito', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-}
-
+    position: relative;
+    background-image: url('../images/rrrr.jpg'); /* הנתיב לתמונה החדשה */
+    background-size: cover; /* הקטנת גודל התמונה ל-90% מהרוחב */
+    background-position: center; /* מיקום התמונה במרכז */
+    background-attachment: fixed; /* קיבוע התמונה בעת גלילה */
+    background-repeat: no-repeat; /* ללא חזרה על התמונה */
+  
+    color: #333; /* צבע טקסט */
+  }
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0); /* צבע כהה עם שקיפות */
+    z-index: -1; /* ודא שהשכבה נמצאת מאחורי התוכן */
+  }
 header {
     display: flex;
     justify-content: space-between;
@@ -15,7 +30,21 @@ header {
     padding: 20px 50px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 50px; /* Adjust the height if needed */
+    background-color: #232324;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #ffffff; /* Footer text is black */
+    text-align: center;
+    z-index: 1000;
+}
 .logo img {
     height: 100px;
 }
@@ -175,13 +204,16 @@ nav a.active, nav a:hover {
   }
   
 
-main {
-    padding: 20px;
+  main {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f9f9f9;
-}
+    flex-direction: column; /* סידור הקונטיינרים אנכית */
+    align-items: center; /* מרכוז כל הקונטיינרים */
+    gap: 20px; /* מרווח בין הקונטיינרים */
+    position: relative; /* כדי לשמור על התוכן מעל הרקע */
+  z-index: 1; /* ודא שהתוכן יופיע מעל שכבת הרקע */
+  color: #000000; /* צבע טקסט לבן כדי להיראות בבירור על רקע כהה */
+  }
+
 
 h1 {
     font-size: 2.4rem;
@@ -274,13 +306,4 @@ h1 {
 }
 
 /* עיצוב footer */
-footer {
-    margin-top: 20px;
-    text-align: center;
-    padding: 10px 20px;
-    background-color: #ffffff;
-    color: #555;
-    border-top: 1px solid #ccc;
-    font-size: 0.9rem;
-}
 
