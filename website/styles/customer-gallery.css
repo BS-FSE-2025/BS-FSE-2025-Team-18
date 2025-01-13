@@ -3,8 +3,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Nunito", sans-serif;
-    background: url('../images/pexels-orlovamaria-4947007.jpg') no-repeat center center fixed;
-    background-size: cover; /* Ensures the image covers the entire background */
+    background: url('../images/rrrr.jpg') no-repeat center center fixed;    background-size: cover; /* Ensures the image covers the entire background */
+    background-size: cover; 
     color: #000; /* Changed text color to black */
     overflow-x: hidden; /* Prevent horizontal scrolling */
 

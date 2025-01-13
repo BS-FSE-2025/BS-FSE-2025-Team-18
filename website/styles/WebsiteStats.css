@@ -241,8 +241,8 @@ main {
   justify-content: center;
   align-items:start;
   padding: 20px;
-  background-image: url('../images/123123.jpg');
-  min-height: 100vh;
+  background: url('../images/rrrr.jpg') no-repeat center center fixed;
+  background-size: cover;   min-height: 100vh;
   font-family: 'Nunito', sans-serif;
 }
 
