@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/help.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="../images/IMG_6583.png" alt="LOGO" />
+        </div>
+          <div class="header-content">
+              <nav>
+                <a href="homepage-customer.html" class="active">Home</a>
+                <a href="cart.html" class="cart-icon">
+                  <img src="images/carrt.png" alt="Cart Icon" />
+                  <span id="cart-count">0</span>
+                </a>              
+                <a href="products.html">Catalog</a>
+                
+                <a href="customer-gallery.html">Gallery</a>
+                <a href="checklest.html">Chicklist</a>
+                <a href="myworks.html">my works</a>
+              </nav>
+              <div class="profile-menu">
+                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
+                <div class="sub-menu-wrap" id="subMenu">
+                  <div class="sub-menu">
+                    <div class="user-info">
+                      <img src="images/avatar-logo.jpg" alt="Logo"/>
+                      <h2><span id="username"></span></h2>
+                    </div>
+                    <hr />
+                    <div id="accessibility-tools">
+                      <button id="increase-font">A+</button>
+                      <button id="decrease-font">A-</button>
+                      <button id="reset-font">Reset</button>
+                    </div>
+                    <a href="customer-profile.html" class="sub-menu-link">
+                      <img src="images/profile images/profile.png" alt="Logo"/>
+                      <p>Edit Profile</p>
+                      <span>></span>
+                    </a>
+                    <a href="" class="sub-menu-link">
+                      <img src="images/profile images/help.png"alt="Logo" />
+                      <p>help</p>
+                      <span>></span>
+                    </a>
+                    <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                      <img src="images/profile images/logout.png"alt="Logo" />
+                      <p>Logout</p>
+                      <span>></span>
+                    </a>
+                  
+                  </div>
+                </div>
+              </div>
+          </div>
+          
+  
+      </header>
+
+    <main>
+        <section>
+            <h1>Help Page</h1>
+            <p>Welcome to our renovation project management site! Below are detailed instructions on how to navigate and use the various features of our site.</p>
+
+            <ul>
+                <li>
+                    <h2><a href="homepage-customer.html">Home Page</a></h2>
+                    <p>Start here to access all features of the website and view an overview of the site.</p>
+                </li>
+                <li>
+                    <h2><a href="products.html">Product Catalog</a></h2>
+                    <p>Explore and filter through our wide range of products for your renovation needs.</p>
+                </li>
+                <li>
+                    <h2><a href="cart.html">Cart</a></h2>
+                    <p>View and manage the items you have added to your cart, and save your cart as a project in "My Works."</p>
+                </li>
+                <li>
+                    <h2><a href="myworks.html">My Works</a></h2>
+                    <p>Manage and view your saved projects, share them to the gallery, or delete them.</p>
+                </li>
+                <li>
+                    <h2><a href="checklest.html">Checklist</a></h2>
+                    <p>Organize tasks and keep track of your project progress. Update statuses like "Pending," "In Progress," or "Completed."</p>
+                </li>
+                <li>
+                    <h2><a href="customer-gallery.html">Gallery</a></h2>
+                    <p>Explore renovation projects shared by other users. Filter by budget or browse freely for inspiration.</p>
+                </li>
+            </ul>
+
+            <h2>Additional Features</h2>
+            <p><strong>Profile Menu:</strong> Access profile settings, logout, and toggle accessibility options.</p>
+            <p><strong>Accessibility Tools:</strong> Adjust font sizes for better readability.</p>
+            <h2>Contact Us</h2>
+            <p>If you encounter any issues or need assistance, please contact us at: <a href="mailto:renovacalc@gmail.com">renovacalc@gmail.com</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
+    </footer>
+    <script>
+        // Simulate logged-in user name
+           // שליפת שם המשתמש מה-LocalStorage
+           
+           const username = localStorage.getItem('username');
+          
+          if(username){
+              document.getElementById("username").innerText = username;
+          }
+          
+
+
+
+
+        function logout() {
+          localStorage.clear();
+          alert('You have been logged out.');
+            window.location.href = 'main_page.html';
+        }
+        let subMenu = document.getElementById("subMenu");
+        function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+        
+        }
+
+    </script>
+    <script src="accessability.js"></script>
+    <script src="cartcount.js"></script>
+</body>
+</html>
