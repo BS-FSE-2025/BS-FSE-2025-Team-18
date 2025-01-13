@@ -7,11 +7,30 @@ router.use(express.json());
 
 // קבלת עגלה לפי דוא"ל
 // Get cart by email
+// קבלת עגלה לפי דוא"ל
 router.get('/:email', async (req, res) => {
     try {
-        const cart = await Cart.findOne({ email: req.params.email })
-            .populate('items.productId'); // Make sure `productId` is a reference to the `Product` model
-        res.status(200).json(cart || { items: [] });
+        const cart = await Cart.findOne({ email: req.params.email }).populate('items.productId');
+
+        if (!cart) {
+            return res.status(200).json({ items: [] });
+        }
+
+        // בדיקה אם הפריטים עדיין קיימים בקטלוג
+        const validItems = [];
+        for (const item of cart.items) {
+            if (item.productId) { // רק פריטים שעדיין קיימים בקטלוג
+                validItems.push(item);
+            }
+        }
+
+        // עדכון העגלה אם יש פריטים לא קיימים
+        if (validItems.length !== cart.items.length) {
+            cart.items = validItems;
+            await cart.save();
+        }
+
+        res.status(200).json(cart);
     } catch (error) {
         console.error('Error fetching cart:', error);
         res.status(500).json({ message: 'Failed to fetch cart', error });

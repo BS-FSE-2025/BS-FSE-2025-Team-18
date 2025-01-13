@@ -111,23 +111,31 @@
       <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
     </footer>
     <script>
-      async function loadCart() {
-        const userEmail = localStorage.getItem("Useremail");
-        if (!userEmail) {
-          alert("Please log in to view your cart.");
-          return;
+async function loadCart() {
+    const userEmail = localStorage.getItem("Useremail");
+    if (!userEmail) {
+        alert("Please log in to view your cart.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/cart/${userEmail}`);
+        const cart = await response.json();
+
+        // בדיקה אם העגלה ריקה או לא
+        if (!cart || cart.items.length === 0) {
+            document.getElementById("cart-list").innerHTML = "<p>Your cart is empty.</p>";
+            document.getElementById("total-items").innerText = "0";
+            document.getElementById("total-price").innerText = "0.00";
+            return;
         }
 
-        try {
-          const response = await fetch(
-            `http://localhost:3000/api/cart/${userEmail}`
-          );
-          const cart = await response.json();
-          displayCart(cart);
-        } catch (error) {
-          console.error("Error fetching cart:", error);
-        }
-      }
+        displayCart(cart); // הצגת העגלה אם הכל תקין
+    } catch (error) {
+        console.error("Error fetching cart:", error);
+    }
+}
+
 
       async function displayCart(cart) {
     const cartList = document.getElementById("cart-list");
