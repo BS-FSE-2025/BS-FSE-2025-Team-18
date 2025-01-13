@@ -409,7 +409,7 @@ body::before {
   .cart-item-details {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: left;
   }
   
   .cart-item-details h3 {
@@ -417,12 +417,14 @@ body::before {
     font-size: 1.2rem;
     font-weight: bold;
     color: #333;
+    justify-content: left;
   }
   
   .cart-item-details p {
     margin: 5px 0;
     font-size: 0.9rem;
     color: #666;
+    justify-content: left;
   }
   
   .remove-btn {
@@ -432,6 +434,7 @@ body::before {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    max-width: 200px;
   }
   
   .remove-btn:hover {
@@ -487,7 +490,7 @@ body::before {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 900px;
+    max-width: 600px;
   }
   
   #recommended-products h2 {
@@ -542,6 +545,7 @@ body::before {
     cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s;
+    max-width: 100px;
   }
   
   .recommended-item button:hover {

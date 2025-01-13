@@ -26,6 +26,8 @@
 
           <a href="customer-gallery.html">Gallery</a>
           <a href="checklest.html">Checklist</a>
+          <a href="myworks.html">my works</a>
+
         </nav>
         <div class="profile-menu">
           <img
@@ -128,61 +130,66 @@
       }
 
       async function displayCart(cart) {
-        const cartList = document.getElementById("cart-list");
-        const totalItems = document.getElementById("total-items");
-        const totalPrice = document.getElementById("total-price");
-        const totalTime = document.getElementById("total-time");
+    const cartList = document.getElementById("cart-list");
+    const totalItems = document.getElementById("total-items");
+    const totalPrice = document.getElementById("total-price");
+    const totalTime = document.getElementById("total-time");
 
-        cartList.innerHTML = ""; // Clear previous items
-        let total = 0;
-        let totalTimeEst = 0;
+    cartList.innerHTML = ""; // ניקוי תוכן קודם
+    let total = 0;
+    let totalTimeEst = 0;
 
-        if (!cart || !cart.items || cart.items.length === 0) {
-          cartList.innerHTML = "<p>Your cart is empty.</p>";
-          totalItems.innerText = "0";
-          totalPrice.innerText = "0.00";
-          return;
-        }
+    if (!cart || !cart.items || cart.items.length === 0) {
+        cartList.innerHTML = "<p>Your cart is empty.</p>";
+        totalItems.innerText = "0";
+        totalPrice.innerText = "0.00";
+        totalTime.innerText = "0.00";
+        return;
+    }
 
-        cart.items.forEach((item, index) => {
-          const { productId, quantity } = item;
-          const { name, image, pricePerMeter, totalTime } = productId;
+    cart.items.forEach((item, index) => {
+        const { productId, quantity } = item;
+        const { name, image, pricePerMeter, totalTime } = productId;
 
-          const totalPriceForItem = pricePerMeter * quantity;
-          const totalTimeEstimation = (totalTime * quantity) / 60;
+        const totalPriceForItem = pricePerMeter * quantity;
+        const totalTimeEstimation = (totalTime * quantity) / 60;
 
-          const itemDiv = document.createElement("div");
-          itemDiv.classList.add("cart-item");
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("cart-item");
 
-          itemDiv.innerHTML = `
+        itemDiv.innerHTML = `
             <div class="cart-item-content">
-              <img src="${image || "default-image.png"}" alt="${
+                <img src="${image || "default-image.png"}" alt="${
             name || "Unnamed Product"
-          }" />
-              <div class="cart-item-details">
-                <h3>${name || "Unnamed Product"}</h3>
-                <p>${quantity || 0} × $${pricePerMeter || 0} = $${(
+        }" class="cart-item-image" />
+                <div class="cart-item-details">
+                    <p><strong>Name:</strong> ${name || "Unnamed Product"}</p>
+                    <p><strong>Quantity:</strong> ${quantity || 0}</p>
+                    <p><strong>Price per unit:</strong> $${pricePerMeter || 0}</p>
+                    <p><strong>Total Price:</strong> $${(
             totalPriceForItem || 0
-          ).toFixed(2)}</p>
-                <p>Time Estimation: ${(totalTimeEstimation || 0).toFixed(
-                  2
-                )} hours</p>
-              </div>
+        ).toFixed(2)}</p>
+                    <p><strong>Time Estimation:</strong> ${(
+                        totalTimeEstimation || 0
+                    ).toFixed(2)} hours</p>
+                </div>
             </div>
             <button class="remove-btn" onclick="removeItemFromCart(${index})">
-              Remove
+                Remove
             </button>
-          `;
+        `;
 
-          cartList.appendChild(itemDiv);
-          total += totalPriceForItem;
-          totalTimeEst += totalTimeEstimation;
-        });
+        cartList.appendChild(itemDiv);
+        total += totalPriceForItem;
+        totalTimeEst += totalTimeEstimation;
+    });
 
-        totalItems.innerText = cart.items.length;
-        totalPrice.innerText = total.toFixed(2);
-        totalTime.innerText = totalTimeEst.toFixed(2);
-      }
+    // עדכון הסכומים הכוללים
+    totalItems.innerText = cart.items.length;
+    totalPrice.innerText = total.toFixed(2);
+    totalTime.innerText = totalTimeEst.toFixed(2);
+}
+
 
       async function removeItemFromCart(index) {
         const userEmail = localStorage.getItem("Useremail");
