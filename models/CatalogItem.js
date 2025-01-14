@@ -18,6 +18,7 @@ const catalogItemSchema = new mongoose.Schema({
     pricePerMeter: { type: Number, required: true },
     category: { type: String, required: true },
     image: { type: String, required: true }, // Path or URL for the image
+    totalTime: { type: Number, required: true },
 });
 
 module.exports = mongoose.model("CatalogItem", catalogItemSchema);

@@ -4,8 +4,12 @@
 body {
   margin: 0;
   font-family: "Nunito", sans-serif;
+  background: url('../images/pexels-orlovamaria-4947007.jpg') no-repeat center center fixed;
   background-color: #f9f9f9;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the body spans the full viewport height */
 }
 
 a {
@@ -131,6 +135,10 @@ a {
   text-decoration: none;
 }
 
+header a.active, nav a:hover {
+  color: #28a745;
+}
+
 header nav a {
   color: #000000;
   font-weight: 600;
@@ -138,11 +146,11 @@ header nav a {
 }
 
 header nav a:hover {
-  color: #f76c6c;
+  color: #28a745;
 }
 
 header .btn {
-  background-color: #007bff;
+  background-color: #28a745;
   color: #ffffff;
   padding: 10px 15px;
   border: none;
@@ -152,7 +160,33 @@ header .btn {
 }
 
 header .btn:hover {
-  background-color: #007bff;
+  background-color: #28a745;
+}
+
+#accessibility-tools {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px;
+}
+
+
+#accessibility-tools button {
+  background-color: #007BFF;
+  color: #fff; 
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#accessibility-tools button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
 /* Welcome User Section */
@@ -168,6 +202,7 @@ header .btn:hover {
 
 /* Main Section */
 main {
+  flex: 1; /* Makes the main content take up remaining space */
   text-align: center;
   padding: 40px 20px;
 }
@@ -196,7 +231,7 @@ main {
 
 .feature-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px #28a745;
   cursor: pointer;
 }
 
@@ -207,10 +242,11 @@ main {
 
 /* Footer */
 footer {
-  background-color: #ffffff;
+  background-color: #232324;
   text-align: center;
   padding: 15px 0;
   font-size: 0.9rem;
-  color: #333;
+  color: #ffffff;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Prevents the footer from shrinking */
 }

@@ -42,6 +42,7 @@
         </div>
     </div>
     <script>
+        
         document.getElementById('customerSignupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             // שולף מידע שהמשתמש הזין
@@ -50,6 +51,7 @@
             const password = document.getElementById('signupPassword').value;
             const gender = document.querySelector('input[name="gender"]:checked').value;
             localStorage.setItem('gender',gender);
+            
             
             // שליחת בקשה HTTP 
             const response = await fetch('/api/auth/signup/customer', {

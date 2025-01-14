@@ -4,6 +4,9 @@ const CatalogItem = require('../models/CatalogItem');  // Catalog Item Model
 const { verifyToken } = require('./authMiddleware'); // Middleware for JWT token validation
 const router = express.Router();
 const mongoose = require('mongoose');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); // תיקיית העלאות התמונות
+
 
 
 // Create a new project
@@ -83,28 +86,73 @@ router.put('/:projectId/addProductToProject', verifyToken, async (req, res) => {
 });
 
 
+router.put('/updateProductStatus', verifyToken, async (req, res) => {
+  const { itemId, status } = req.body;
+
+  // בדיקה אם itemId ו-status קיימים
+  if (!itemId || !status) {
+      return res.status(400).json({ message: "ItemId ו-Status הם שדות חובה" });
+  }
+
+  // בדיקה אם הסטטוס חוקי
+  const allowedStatuses = ["To Do", "In Progress", "Done"];
+  if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({ message: "סטטוס לא חוקי" });
+  }
+
+  // בדיקה אם ה-itemId הוא ObjectId חוקי
+  if (!mongoose.Types.ObjectId.isValid(itemId)) {
+      return res.status(400).json({ message: "פורמט itemId לא חוקי" });
+  }
+
+  try {
+      const project = await Project.findOneAndUpdate(
+          { "products.itemId": itemId },
+          { $set: { "products.$.status": status } },
+          { new: true }
+      );
+
+      if (!project) {
+          return res.status(404).json({ message: "מוצר לא נמצא" });
+      }
+
+      res.json({ message: "סטטוס המוצר עודכן בהצלחה", project });
+  } catch (error) {
+      console.error("שגיאה בעדכון סטטוס המוצר:", error);
+      res.status(500).json({ error: error.message });
+  }
+});
 
 
 // Update a project
-router.put('/:id', verifyToken, async (req, res) => {
+router.put('/:id', verifyToken, upload.single('image'), async (req, res) => {
   try {
-    const email = req.user.email;  // Get email from the authenticated user (JWT token)
-    
-    // Ensure the project belongs to the authenticated user by matching the email
-    const project = await Project.findOneAndUpdate(
-      { _id: req.params.id, email: email },  // Ensure the project is owned by the authenticated user
-      req.body,
-      { new: true }
-    );
-    
-    if (!project) {
-      return res.status(404).json({ message: 'Project not found or you are not authorized to update this project' });
-    }
+      const email = req.user.email; // אימות משתמש
+      const updateData = {
+          name: req.body.name,
+          description: req.body.description,
+          status: req.body.status
+      };
 
-    res.json(project);  // Return the updated project
+      // שמירת נתיב התמונה אם הועלתה
+      if (req.file) {
+          updateData.image = `/uploads/${req.file.filename}`;
+      }
+
+      const project = await Project.findOneAndUpdate(
+          { _id: req.params.id, email: email },
+          updateData,
+          { new: true }
+      );
+
+      if (!project) {
+          return res.status(404).json({ message: 'לא נמצא פרויקט או שאין לך הרשאה לערוך אותו.' });
+      }
+
+      res.json(project); // החזרת הפרויקט המעודכן
   } catch (error) {
-    console.error("Error updating project:", error);
-    res.status(400).json({ error: error.message });  // Bad request error
+      console.error("שגיאה בעדכון פרויקט:", error);
+      res.status(400).json({ error: error.message });
   }
 });
 
@@ -150,6 +198,94 @@ router.put('/:projectId/removeProduct', verifyToken, async (req, res) => {
       res.status(500).json({ error: error.message });
   }
 });
+
+
+const GalleryProject = require('../models/GalleryProject');
+
+// Share a project to the gallery
+router.post('/:id/share', verifyToken, async (req, res) => {
+  try {
+      const project = await Project.findById(req.params.id);
+      if (!project) return res.status(404).json({ message: "Project not found" });
+
+      if (project.sharedToGallery) {
+          return res.status(400).json({ message: "Project is already shared to the gallery." });
+      }
+
+      const image = project.products.length > 0 ? project.products[0].image : 'default-image-path';
+
+
+      const galleryProject = new GalleryProject({
+          name: project.name,
+          description: project.description,
+          image: project.image,
+          products: project.products.map(product => ({
+              productId: product.productId,
+              name: product.name,
+              price: product.price,
+              quantity: product.quantity,
+              category: product.category || 'Uncategorized',
+              image: product.image,
+          })),
+      });
+
+      await galleryProject.save();
+      project.sharedToGallery = true;
+      await project.save();
+
+      res.status(201).json({ message: "Project shared to gallery successfully!" });
+  } catch (error) {
+      console.error("Error sharing project to gallery:", error);
+      res.status(500).json({ message: "Failed to share project to gallery", error: error.message });
+  }
+});
+
+
+
+// Generate PDF for a project
+// Get details of a single project
+router.get('/:id', verifyToken, async (req, res) => {
+  try {
+      const project = await Project.findById(req.params.id).populate('products.productId', '_id name image pricePerMeter');
+      if (!project) {
+          return res.status(404).json({ message: "Project not found" });
+      }
+      res.status(200).json(project);
+  } catch (error) {
+      console.error("Error fetching project:", error.message);
+      res.status(500).json({ message: "Failed to fetch project details", error: error.message });
+  }
+});
+
+
+
+
+
+
+// Get project details by projectId
+router.get('/:projectId', verifyToken, async (req, res) => {
+  const { projectId } = req.params;
+
+  try {
+      // בדיקה שה-ID הוא תקין בפורמט ObjectId
+      if (!mongoose.Types.ObjectId.isValid(projectId)) {
+          return res.status(400).json({ message: "Invalid project ID" });
+      }
+
+      const project = await Project.findById(projectId).populate('products.productId', '_id name image pricePerMeter');
+
+      if (!project) {
+          return res.status(404).json({ message: "Project not found" });
+      }
+
+      res.json(project); // מחזיר את פרטי הפרויקט
+  } catch (error) {
+      console.error("Error fetching project details:", error);
+      res.status(500).json({ message: "Failed to fetch project details" });
+  }
+});
+
+
 
 
 
