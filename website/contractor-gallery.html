@@ -56,6 +56,17 @@
     </header>
 
     <main>
+      <div id="budget-filter">
+        <h2>Budget Section</h2>
+        <label for="budgetInput">Enter you budget:</label>
+        <input
+          type="number"
+          id="budgetInput"
+          min="0"
+          placeholder="Enter budget"
+        />
+        <button onclick="applyBudgetFilter()">Submit</button>
+      </div>
       </div>
       <section id="gallery-projects" class="gallery-grid"></section>
       <!-- Modal to display project details -->
@@ -199,6 +210,49 @@
       if (username) {
         document.getElementById("username").innerText = username;
       }
+
+
+
+      async function applyBudgetFilter() {
+        const budget = parseFloat(document.getElementById("budgetInput").value);
+        if (isNaN(budget) || budget <= 0) {
+          alert("Invalid Budget");
+          return;
+        }
+
+        try {
+          const response = await fetch(API_URL);
+          const projects = await response.json();
+
+          // Filter projects within the budget
+          const withinBudget = projects.filter((project) => {
+            const totalCost = project.products.reduce(
+              (sum, item) => sum + item.price * item.quantity,
+              0
+            );
+            return totalCost <= budget;
+          });
+
+          // Sort projects by total cost
+          withinBudget.sort((a, b) => {
+            const costA = a.products.reduce(
+              (sum, item) => sum + item.price * item.quantity,
+              0
+            );
+            const costB = b.products.reduce(
+              (sum, item) => sum + item.price * item.quantity,
+              0
+            );
+            return costA - costB; // Ascending order
+          });
+
+          // Display sorted projects
+          displayGalleryProjects(withinBudget);
+        } catch (error) {
+          console.error("Error applying budget filter:", error);
+        }
+      }
+
     </script>
     <script src="accessability.js"></script>
   </body>
