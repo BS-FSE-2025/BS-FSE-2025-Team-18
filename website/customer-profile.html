@@ -14,45 +14,51 @@
             <img src="images/IMG_6583.png" alt="RenovaCalc Logo">
         </div>
         <div class="header-content">
-            <nav>
-                <a href="homepage-customer.html">Home</a>
-                <a href="products.html">My Products</a>
-                <a href="aboutus.html">About Us</a>
-                <a href="CheckList/CheckList.html">CheckList</a>
+                <nav>
+              <a href="homepage-customer.html" class="active">Home</a>
+              <a href="cart.html" class="cart-icon">
+                <img src="images/carrt.png" alt="Cart Icon" width="23px"/>
+                <span id="cart-count">0</span>
+              </a>              <a href="products.html">Catalog</a>
+              
+              <a href="customer-gallery.html">Gallery</a>
+              <a href="checklest.html">Checklist</a>
+              <a href="myworks.html">my works</a>
+
             </nav>
-        
-        <div class="profile-menu">
-            <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" />
-            <div class="sub-menu-wrap" id="subMenu">
-              <div class="sub-menu">
-                <div class="user-info">
-                  <img src="images/avatar-logo.jpg" />
-                  <p><strong>Username:</strong> <span id="username"></span></p>
+            <div class="profile-menu">
+                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
+                <div class="sub-menu-wrap" id="subMenu">
+                  <div class="sub-menu">
+                    <div class="user-info">
+                      <img src="images/avatar-logo.jpg" alt="Logo"/>
+                      <h2><span id="username"></span></h2>
+                    </div>
+                    <hr />
+                    <div id="accessibility-tools">
+                      <button id="increase-font">A+</button>
+                      <button id="decrease-font">A-</button>
+                      <button id="reset-font">Reset</button>
+                    </div>
+                    <a href="customer-profile.html" class="sub-menu-link">
+                      <img src="images/profile images/profile.png" alt="Logo"/>
+                      <p>Edit Profile</p>
+                      <span>></span>
+                    </a>
+                    <a href="help_customer.html" class="sub-menu-link">
+                      <img src="images/profile images/help.png"alt="Logo" />
+                      <p>help</p>
+                      <span>></span>
+                    </a>
+                    <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                      <img src="images/profile images/logout.png"alt="Logo" />
+                      <p>Logout</p>
+                      <span>></span>
+                    </a>
+                  
+                  </div>
                 </div>
-                <hr />
-                <a href="customer-profile.html" class="sub-menu-link">
-                  <img src="images/profile images/profile.png" />
-                  <p>Edit Profile</p>
-                  <span>></span>
-                </a>
-                <a href="" class="sub-menu-link">
-                  <img src="images/profile images/setting.png" />
-                  <p>Settings</p>
-                  <span>></span>
-                </a>
-                <a href="" class="sub-menu-link">
-                  <img src="images/profile images/help.png" />
-                  <p>help</p>
-                  <span>></span>
-                </a>
-                <a href="main_page.html" class="sub-menu-link" onclick="logout()">
-                  <img src="images/profile images/logout.png" />
-                  <p>Logout</p>
-                  <span>></span>
-                </a>
               </div>
-            </div>
-          </div>
         </div>
         
     </header>
@@ -69,7 +75,7 @@
                   <strong>Password: ********</strong>
                   <a class="edit-btn" href="reset-password.html">edit</a>
               </p>                <p><strong>Account Type:</strong> <span id="accountType"></span></p>
-              <p><strong>Gender: </strong><span id="gender"></span></p>
+              
 
             </div>
             
@@ -90,15 +96,30 @@
 
     <!-- Script Section -->
     <script>
+
+async function fetchUserProfile() {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:3000/api/profile', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+    const data = await response.json();
+    console.log(data); // בדוק אם gender מחזיר ערך
+    return data;
+}
+
         // קבלת פרטי המשתמש מה-Local Storage
         const username = localStorage.getItem('username') || "Guest";
         const username1 = localStorage.getItem('username') || "Guest";
         const accountType = localStorage.getItem('accountType') || "Customer";
         const email = localStorage.getItem('Useremail') || "Not Available"; // שליפת המייל
-        const gender = localStorage.getItem('gender');
+       
 
         // הצגת הנתונים בדף
-        document.getElementById('gender').innerText=gender;
+        
         document.getElementById('username').innerText = username;
         document.getElementById('username1').innerText = username1;
         document.getElementById('accountType').innerText = accountType;
@@ -172,6 +193,8 @@ async function updateUserData() {
 }
 
     </script>
+        <script src="cartcount.js"></script>
+
 
 </body>
 </html>

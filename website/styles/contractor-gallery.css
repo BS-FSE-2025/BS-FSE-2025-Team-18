@@ -3,10 +3,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Nunito", sans-serif;
-    background: url('../images/pexels-orlovamaria-4947007.jpg') no-repeat center center fixed;
-    background-size: cover; /* Ensures the image covers the entire background */
+    background: url('../images/rrrr.jpg') no-repeat center center fixed;    background-size: cover; /* Ensures the image covers the entire background */
     color: #000; /* Changed text color to black */
     overflow-x: hidden; /* Prevent horizontal scrolling */
+    background-size: cover;
 
 }
 
@@ -115,6 +115,32 @@ header .logo img {
     border-radius: 50%;
     cursor: pointer;
 }
+#accessibility-tools {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+  }
+  
+  
+  #accessibility-tools button {
+    background-color: #007BFF;
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #accessibility-tools button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
 
 .header-content {
     display: flex;
@@ -136,12 +162,12 @@ header nav a {
 
 header a.active,
 header nav a:hover {
-    color: #dd0505; /* Orange for active or hover links */
+    color: #28a745; /* Orange for active or hover links */
 }
 
 /* Accessibility Buttons */
 header .btn {
-    background-color: #dd0505; /* Button background color */
+    background-color: #28a745; /* Button background color */
     color: #ffffff; /* Text color */
     padding: 5px 10px; /* Smaller padding for smaller buttons */
     border: none;
@@ -155,7 +181,7 @@ header .btn {
 }
 
 header .btn:hover {
-    background-color: #b50404; /* Darker shade on hover */
+    background-color: #28a745; /* Darker shade on hover */
     transform: scale(1.05); /* Slight zoom effect */
 }
 
@@ -172,6 +198,8 @@ main {
     margin: 20px auto;
     padding: 20px;
     position: relative;
+    padding-bottom: 80px; /* Ensure enough space for the fixed footer */
+
 }
 
 /* Gallery Grid */
@@ -180,6 +208,8 @@ main {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    margin-bottom: 80px; /* Space for the fixed footer */
+
 }
 
 .gallery-card {
@@ -194,7 +224,7 @@ main {
 
 .gallery-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px #dd0505;
+    box-shadow: 0 8px 16px #28a745;
 }
 
 .gallery-card img {
@@ -206,7 +236,7 @@ main {
 
 .gallery-card h3 {
     margin-top: 10px;
-    color: #dd0505; /* Orange title */
+    color: #28a745; /* Orange title */
     font-size: 1.2rem;
 }
 
@@ -266,7 +296,7 @@ main {
 }
 
 .product-item button {
-    background-color: #dd0505;
+    background-color: #28a745;
     color: #fff;
     padding: 8px 12px;
     font-size: 14px;
@@ -278,7 +308,7 @@ main {
 }
 
 .product-item button:hover {
-    background-color: #b50404;
+    background-color: #28a745;
     transform: scale(1.05);
 }
 /* Modal */
@@ -321,7 +351,7 @@ main {
 .modal-content h2 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #dd0505;
+    color: #28a745;
     font-weight: bold;
 }
 
@@ -351,7 +381,7 @@ main {
 }
 
 .modal-content .close:hover {
-    color: #ff5a5a;
+    color: #28a745;
 }
 
 .modal-products {
@@ -362,7 +392,7 @@ main {
 
 .close-modal-button {
     margin-top: 20px;
-    background-color: #dd0505;
+    background-color: #28a745;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -373,7 +403,7 @@ main {
 }
 
 .close-modal-button:hover {
-    background-color: #b50404;
+    background-color: #28a745;
     transform: scale(1.05);
 }
 
@@ -384,7 +414,7 @@ main {
 /* General Buttons */
 button {
     padding: 10px 20px;
-    background-color: #dd0505; /* Orange buttons */
+    background-color: #28a745; /* Orange buttons */
     color: white;
     border: none;
     border-radius: 5px;
@@ -394,7 +424,7 @@ button {
 }
 
 button:hover {
-    background-color: #dd0505; /* Darker orange on hover */
+    background-color: #28a745; /* Darker orange on hover */
     transform: scale(1.05);
 }
 
@@ -407,14 +437,14 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: 100%;
     height: 50px; /* Adjust the height if needed */
-    background-color: #ffffff;
+    background-color: #232324;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     font-size: 14px;
-    color: #000000; /* Footer text is black */
+    color: #ffffff; /* Footer text is black */
     text-align: center;
     z-index: 1000;
 }

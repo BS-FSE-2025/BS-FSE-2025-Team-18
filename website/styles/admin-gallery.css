@@ -104,6 +104,31 @@ body {
   .sub-menu-link:hover p {
     font-weight: 600;
   }
+  #accessibility-tools {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+  }
+  
+  
+  #accessibility-tools button {
+    background-color: #007BFF;
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #accessibility-tools button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
   
   /* Profile icon styling */
   .profile-menu img {
@@ -227,7 +252,7 @@ body {
   
   .gallery-card h3 {
     font-size: 1rem;
-    color: #000000;
+    color: #28a745;
     margin: 10px 0 0;
   }
   
@@ -358,13 +383,14 @@ body {
     background-color: #bd2130;
   }
   
-  /* Footer */
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #232324;
-  color: #ffffff;
-  font-size: 0.9rem;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0; /* Prevents the footer from shrinking */
+
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #232324;
+    color: #ffffff;
+    font-size: 0.9rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
 }

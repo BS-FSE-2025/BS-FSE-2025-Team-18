@@ -3,73 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
-    <link rel="stylesheet" href="styles/products.css">
+    <title>Customer Catalog</title>
+    <link rel="stylesheet" href="styles/contractor-catalog.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
-
 </head>
-
 <body>
     <header>
         <div class="logo">
             <img src="../images/IMG_6583.png" alt="LOGO" />
-            <div id="accessibility-tools">
-              <button id="increase-font">A+</button>
-              <button id="decrease-font">A-</button>
-              <button id="reset-font">Reset</button>
-            </div>
-          </div>
+            
+        </div>
         <div class="header-content">
             <nav>
-              <a href="homepage-customer.html">Home</a>
-              <a href="cart.html">Cart</a>
-              <a href="products.html">Catalog</a>
-              <a href="CheckList/CheckList.html">CheckList</a>
-              <a href="customer-gallery.html">Gallery</a>
+                <a href="homepage-customer.html" >Home</a>
+                <a href="cart.html" class="cart-icon">
+                  <img src="images/carrt.png" alt="Cart Icon" />
+                  <span id="cart-count">0</span>
+                </a>              
+                <a href="products.html" class="active">Catalog</a>
+                <a href="customer-gallery.html">Gallery</a>
+                <a href="checklest.html">Checklist</a>
+                <a href="myworks.html">my works</a>
 
-            </nav>
-            <div class="profile-menu">
-                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Logo" />
+              </nav>
+              <div class="profile-menu">
+                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
                 <div class="sub-menu-wrap" id="subMenu">
-                    <div class="sub-menu">
-                        <div class="user-info">
-                            <img src="images/avatar-logo.jpg" alt="Logo"/>
-                            <h2><span id="username"></span></h2>
-                        </div>
-                        <hr />
-                        <a href="customer-profile.html" class="sub-menu-link">
-                            <img src="images/profile images/profile.png" alt="Logo"/>
-                            <p>Edit Profile</p>
-                            <span>></span>
-                        </a>
-                        <a href="" class="sub-menu-link">
-                            <img src="images/profile images/setting.png" alt="Logo" />
-                            <p>Settings</p>
-                            <span>></span>
-                        </a>
-                        <a href="" class="sub-menu-link">
-                            <img src="images/profile images/help.png" alt="Logo" />
-                            <p>Help</p>
-                            <span>></span>
-                        </a>
-                        <a href="main_page.html" class="sub-menu-link" onclick="logout()">
-                            <img src="images/profile images/logout.png" alt="Logo" />
-                            <p>Logout</p>
-                            <span>></span>
-                        </a>
+                  <div class="sub-menu">
+                    <div class="user-info">
+                      <img src="images/avatar-logo.jpg" alt="Logo"/>
+                      <h2><span id="username"></span></h2>
                     </div>
+                    <hr />
+                    <div id="accessibility-tools">
+                      <button id="increase-font">A+</button>
+                      <button id="decrease-font">A-</button>
+                      <button id="reset-font">Reset</button>
+                    </div>
+                    <a href="customer-profile.html" class="sub-menu-link">
+                      <img src="images/profile images/profile.png" alt="Logo"/>
+                      <p>Edit Profile</p>
+                      <span>></span>
+                    </a>
+                    <a href="help_customer.html" class="sub-menu-link">
+                      <img src="images/profile images/help.png"alt="Logo" />
+                      <p>help</p>
+                      <span>></span>
+                    </a>
+                    <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                      <img src="images/profile images/logout.png"alt="Logo" />
+                      <p>Logout</p>
+                      <span>></span>
+                    </a>
+                  
+                  </div>
                 </div>
-            </div>
+              </div>
         </div>
     </header>
-
     <main>
         <section class="welcome-user">
             <h1>Products</h1>
         </section>
+        <section id="filter-buttons">
+            <button class="filter-btn" data-category="all">All</button>
+            <button class="filter-btn" data-category="Painting">Painting</button>
+            <button class="filter-btn" data-category="Woodwork">Woodwork</button>
+            <button class="filter-btn" data-category="Roofing">Roofing</button>
+            <button class="filter-btn" data-category="Flooring">Flooring</button>
+            <button class="filter-btn" data-category="Lighting">Lighting</button>
+            <button class="filter-btn" data-category="Kitchen-sinks">Kitchen sinks</button>
+            <button class="filter-btn" data-category="bathroom-sinks">bathroom sinks</button>
+            <button class="filter-btn" data-category="bathroom-showers">bathroom shower</button>
+            <button class="filter-btn" data-category="bathroom-toilets">bathroom toilets</button>
+            <button class="filter-btn" data-category="Drywall">Drywall</button>
+            
+        </section>
         <section id="catalog">
             <div id="catalog-categories">
-                <!-- קטגוריות ומוצרים ייטענו דינמית -->
+                <!-- Products and projects will load dynamically here -->
             </div>
         </section>
     </main>
@@ -89,88 +101,125 @@
         }
 
         // Render products on the page
-        async function displayProducts() {
-            const catalogItems = await fetchProducts();
-            const catalogDiv = document.getElementById("catalog-categories");
-            catalogDiv.innerHTML = ""; // ניקוי תוכן קיים
+        async function displayProducts(selectedCategory = "all") {
+    const catalogItems = await fetchProducts();
+    const catalogDiv = document.getElementById("catalog-categories");
+    catalogDiv.innerHTML = ""; // ניקוי תוכן קיים
 
-            // יצירת רשימת קטגוריות ייחודיות
-            const categories = [...new Set(catalogItems.map(item => item.category))];
+    // סינון מוצרים לפי קטגוריה שנבחרה
+    const filteredItems = selectedCategory === "all"
+        ? catalogItems
+        : catalogItems.filter(item => item.category === selectedCategory);
 
-            // הצגת פריטים לפי קטגוריות
-            categories.forEach(category => {
-                const categoryDiv = document.createElement("div");
-                categoryDiv.classList.add("catalog-category");
-                categoryDiv.innerHTML = `<h3>${category}</h3><div class="category-items"></div>`;
-                const itemsDiv = categoryDiv.querySelector(".category-items");
+    // יצירת רשימת קטגוריות ייחודיות מהמוצרים המסוננים
+    const categories = [...new Set(filteredItems.map(item => item.category))];
 
-                catalogItems
-                    .filter(item => item.category === category)
-                    .forEach(item => {
-                        const itemDiv = document.createElement("div");
-                        itemDiv.classList.add("catalog-item");
-                        itemDiv.innerHTML = `
-                            <img src="${item.image}" alt="${item.name}" />
-                            <h4>${item.name}</h4>
-                            <p>${item.description}</p>
-                            <p>Price per meter: ${item.pricePerMeter}$</p>
-                            <label for="size-${item._id}">Enter size (m²):</label>
-                            <input type="number" id="size-${item._id}" min="1" placeholder="Enter size" />
-                            <span class="cart-message" style="display: block; margin-top: 5px;"></span>
-                            <button onclick="addToCart('${item._id}', ${item.pricePerMeter})">Add to Cart</button>
-                        `;
-                        itemsDiv.appendChild(itemDiv);
-                    });
+    // הצגת פריטים לפי קטגוריות
+    categories.forEach(category => {
+        const unit = getUnitByCategory(category); // Get the unit (e.g., "m²", "liters")
+        const categoryDiv = document.createElement("div");
+        categoryDiv.classList.add("catalog-category");
+        categoryDiv.innerHTML = `<h3>${category}</h3><div class="category-items"></div>`;
+        const itemsDiv = categoryDiv.querySelector(".category-items");
 
-                catalogDiv.appendChild(categoryDiv);
-            });
-        }
-
-        // Add product to cart
-        function addToCart(productId, pricePerMeter) {
-            const sizeInput = document.getElementById(`size-${productId}`);
-            if (!sizeInput) {
-                alert("Size input field not found.");
-                return;
-            }
-
-            const size = parseFloat(sizeInput.value);
-
-            if (isNaN(size) || size <= 0) {
-                alert("Please enter a valid size.");
-                return;
-            }
-
-            const totalPrice = size * pricePerMeter;
-
-            const cart = JSON.parse(localStorage.getItem("cart")) || [];
-            const productElement = sizeInput.closest(".catalog-item");
-            const productName = productElement.querySelector("h4").innerText;
-            const productImage = productElement.querySelector("img").src;
-
-            cart.push({
-                productId,
-                size,
-                totalPrice,
-                name: productName,
-                image: productImage,
+        filteredItems
+            .filter(item => item.category === category)
+            .forEach(item => {
+                const timerPerMinute = item.totalTime;
+                const itemDiv = document.createElement("div");
+                itemDiv.classList.add("catalog-item");
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" />
+                    <h4>${item.name}</h4>
+                    <p>${item.description}</p>
+                    <p>Price per ${unit}: ${item.pricePerMeter}$</p>
+                    <p>Time per ${unit}: ${timerPerMinute} minutes</p>
+                    <label for="size-${item._id}">Enter ${unit}:</label>
+                    <input type="number" id="size-${item._id}" min="1" placeholder="Enter ${unit}" />
+                    <span class="cart-message" style="display: block; margin-top: 5px;"></span>
+                    <button onclick="addToCart('${item._id}', ${item.pricePerMeter}, '${unit}')">Add to Cart</button>
+                `;
+                itemsDiv.appendChild(itemDiv);
             });
 
-            localStorage.setItem("cart", JSON.stringify(cart));
+        catalogDiv.appendChild(categoryDiv);
+    });
+}
 
-            // הצגת ההודעה "Added to cart"
-            const messageElement = productElement.querySelector(".cart-message");
-            messageElement.textContent = "Added to cart!";
-            messageElement.style.color = "green";
+function getUnitByCategory(category) {
+    switch (category) {
+        case "Painting":
+            return "liters";
+        case "Woodwork":
+        case "Flooring":
+            return "m²";
+        case "Lighting":
+        case "Kitchens":
+        case "Outdoor":
+            return "units";
+        default:
+            return "m²"; // Default unit
+    }
+}
 
-            // הסתרת ההודעה אחרי 3 שניות
-            setTimeout(() => {
-                messageElement.textContent = "";
-            }, 3000);
-        }
+
+
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+    button.addEventListener("click", () => {
+        const selectedCategory = button.getAttribute("data-category");
+        displayProducts(selectedCategory); // הצגת מוצרים לפי קטגוריה
+    });
+});
+
+        async function addToCart(productId, pricePerUnit,Unit, name, image) {
+    const email = localStorage.getItem('Useremail');
+    const sizeInput = document.getElementById(`size-${productId}`);
+    const size = sizeInput ? parseFloat(sizeInput.value) : 0;
+
+    if (!email) {
+        alert("Please log in to add items to the cart.");
+        return;
+    }
+
+    if (!size || size <= 0) {
+        alert("Please enter a valid size.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/cart/${email}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                productId: productId,
+                price: pricePerUnit,
+                name: name,
+                image: image,
+                quantity: size,
+                totalPrice: pricePerUnit * size
+            })
+        });
+
+        if (!response.ok) throw new Error('Failed to add item to cart.');
+
+        // עדכון ב-LocalStorage
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItems.push({ productId, price: pricePerUnit, name, image, quantity: size, totalPrice: pricePerUnit * size });
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+
+        alert("Item added to cart successfully!");
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+    }
+}
+document.addEventListener("DOMContentLoaded", () => {
+    displayProducts(); // טוען את כל המוצרים
+});
+
+
 
         // Load products on page load
-        document.addEventListener("DOMContentLoaded", displayProducts);
 
         function logout() {
             localStorage.clear();
@@ -182,7 +231,14 @@
             const subMenu = document.getElementById("subMenu");
             subMenu.classList.toggle("open-menu");
         }
+        const username = localStorage.getItem('username');
+          if(username){
+              document.getElementById("username").innerText = username;
+          }
+         
     </script>
     <script src="accessability.js"></script>
+    <script src="cartcount.js"></script>
+
 </body>
 </html>

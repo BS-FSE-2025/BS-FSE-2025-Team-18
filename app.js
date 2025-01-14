@@ -8,9 +8,14 @@ const cors = require("cors");
 const User = require("./models/user");
 
 
+
 dotenv.config();
 const app = express();
 app.use(cors());
+const cartRoutes = require('./routes/cart');
+app.use('/api/cart', cartRoutes);
+
+
 
 
 // Middleware
@@ -51,6 +56,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const projectRoutes = require("./routes/projects"); // חיבור לנתיב projects
 app.use("/api/projects", projectRoutes); // הוספת הנתיב
 
+
+const recommendedRoutes = require('./routes/recommended');
+
+// שימוש במסלול של המוצרים המומלצים
+app.use('/api/recommended', recommendedRoutes);
 
 
 //for UsersList in the admin page.
@@ -124,4 +134,6 @@ app.get("/api/gallery/:projectId", async (req, res) => {
     res.status(500).json({ message: "Error fetching project", error: error.message });
   }
 });
+const myWorksRouter = require("./routes/myworks");
+app.use("/api/myworks", myWorksRouter);
 
