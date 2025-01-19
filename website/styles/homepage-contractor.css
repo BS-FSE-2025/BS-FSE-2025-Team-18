@@ -6,8 +6,7 @@ body {
 
     background: url('../images/pexels-thatguycraig000-1917849.jpg') no-repeat center center fixed;
 
-    background: url('../images/pexels-reneterp-3990359.jpg') no-repeat center center fixed;
-
+    
     background-size: cover;
     color: #333;
 }
@@ -119,7 +118,32 @@ header .logo img {
     border-radius: 50%;
     cursor: pointer;
 }
-
+#accessibility-tools {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+  }
+  
+  
+  #accessibility-tools button {
+    background-color: #007BFF;
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #accessibility-tools button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
 
 .header-content {
     display: flex;
@@ -142,7 +166,7 @@ header nav a:hover {
 
     color: #28a745;
 
-    color: #dd0505;
+    
 
 }
 
@@ -151,7 +175,7 @@ header nav a:hover {
 
     color: #28a745;
 
-    color: #dd0505;
+    
 
 }
 
@@ -160,7 +184,7 @@ header .btn {
 
     background-color: #28a745;
 
-    background-color: #dd0505;
+    
 
     color: #ffffff;
     padding: 10px 15px;
@@ -174,8 +198,7 @@ header .btn:hover {
 
     background-color: #28a745;
 
-    background-color: #dd0505;
-
+    
 }
 
 /* Welcome User Section */
@@ -226,7 +249,7 @@ main {
 
     box-shadow: 0 8px 16px #28a745;
 
-    box-shadow: 0 8px 16px #dd0505;
+    
 
     cursor: pointer;
 }
@@ -254,11 +277,4 @@ footer {
     z-index: 1000;
 }
 
-    background-color: #ffffff;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    color: #000000; /* Footer text is black */
-    text-align: center;
-    z-index: 1000;
-}
-
+    

@@ -11,55 +11,47 @@
     <header>
         <div class="logo">
             <img src="../images/IMG_6583.png" alt="LOGO" />
-            <div id="accessibility-tools">
-              <button id="increase-font">A+</button>
-              <button id="decrease-font">A-</button>
-              <button id="reset-font">Reset</button>
-            </div>
           </div>
     
         <div class="header-content">
-          <nav>
-            <a href="homepage-contractor.html">Home</a>
-            <a href="Contractor-Projects.html" class="active">My Projects</a>
-            <a href="contractor-catalog.html">Catalog</a>
-            <a href="contractor-checklist.html">CheckList</a>
-          </nav>
-          <div class="profile-menu">
-            <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
-            <div class="sub-menu-wrap" id="subMenu">
-              <div class="sub-menu">
-                <div class="user-info">
-                  <img src="images/avatar-logo.jpg" alt="Logo"/>
-                  <h2><span id="username"></span></h2>
+            <nav>
+                <a href="homepage-contractor.html" >Home</a>
+                <a href="Contractor-Projects.html" class="active">My Projects</a>
+                <a href="contractor-catalog.html">Catalog</a>
+                <a href="contractor-gallery.html">Gallery</a>
+                <a href="contractor-checklist.html">Checklist</a>
+            </nav>
+              <div class="profile-menu">
+                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Logo" />
+                <div class="sub-menu-wrap" id="subMenu">
+                  <div class="sub-menu">
+                    <div class="user-info">
+                      <img src="images/avatar-logo.jpg"alt="Logo" />
+                      <h2><span id="username2"></span></h2>
+                    </div>
+                    <hr />
+                    <div id="accessibility-tools">
+                      <button id="increase-font">A+</button>
+                      <button id="decrease-font">A-</button>
+                      <button id="reset-font">Reset</button>
+                    </div>
+                    <a href="contractor-profile.html" class="sub-menu-link">
+                      <img src="images/profile images/profile.png"alt="Logo" />
+                      <p>Edit Profile</p>
+                      <span></span>
+                    </a>
+                    <a href="help_contractor.html" class="sub-menu-link">
+                      <img src="images/profile images/help.png" alt="Logo"/>
+                      <p>help</p>
+                      <span>></span>
+                    </a>
+                    <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                      <img src="images/profile images/logout.png"alt="Logo" />
+                      <p>Logout</p>
+                      <span>></span>
+                    </a>
+                  </div>
                 </div>
-                <hr />
-                <a href="customer-profile.html" class="sub-menu-link">
-                  <img src="images/profile images/profile.png" alt="Logo"/>
-                  <p>Edit Profile</p>
-                  <span>></span>
-                </a>
-                <a href="" class="sub-menu-link">
-                  <img src="images/profile images/setting.png"alt="Logo" />
-                  <p>Settings</p>
-                  <span>></span>
-                </a>
-                <a href="" class="sub-menu-link">
-                  <img src="images/profile images/help.png"alt="Logo" />
-                  <p>help</p>
-                  <span>></span>
-                </a>
-                <a href="main_page.html" class="sub-menu-link" onclick="logout()">
-                  <img src="images/profile images/logout.png"alt="Logo" />
-                  <p>Logout</p>
-                  <span>></span>
-                </a>
-                </a>
-              </div>
-            </div>
-          </div>
-    
-          
     </header>
     
     <main>
@@ -91,7 +83,11 @@
                         <option value="In Progress">In Progress</option>
                         <option value="Completed">Completed</option>
                     </select>
+                    <div id="projectImageContainer" style="margin-top: 20px;"></div>
+                    <label for="editProjectImage">העלאת תמונה:</label>
+                    <input type="file" id="editProjectImage" accept="image/*" />
                     <button type="button" onclick="saveProjectChanges()">Save</button>
+
                 </form>
             </div>
         </div>
@@ -181,8 +177,7 @@
                     <h4>Total Cost: $${totalCost}</h4>
                 </div>
                 <div class="project-actions">
-
-                    <button class="edit-project" onclick="editProject('${project._id}')">Edit Project</button>
+                    <button class="edit-project" onclick="openEditModal('${project._id}', '${project.name}', '${project.description}', '${project.status}','${project.image}')">Edit Project</button>
                     <button class="delete-project" onclick="deleteProject('${project._id}')">Delete Project</button>
                     <button class="add-from-catalog" onclick="redirectToCatalog()">Add Product from Catalog</button>
                     <button class="share-project" onclick="shareProject('${project._id}')">Share to Gallery</button>
@@ -191,11 +186,7 @@
 
                 </div>
 
-    <button class="edit-project" onclick="openEditModal('${project._id}', '${project.name}', '${project.description}', '${project.status}')">
-        Edit Project
-    </button>
-    <button class="delete-project" onclick="deleteProject('${project._id}')">Delete Project</button>
-    <button class="add-from-catalog" onclick="redirectToCatalog()">Add Product from Catalog</button>
+   
 </div>
 
 
@@ -236,15 +227,23 @@ async function removeProductFromProject(projectId, itemId) {
 }
 let currentProjectId = null; // משתנה גלובלי לשמירת מזהה הפרויקט הנוכחי
 
-function openEditModal(projectId, projectName, projectDescription, projectStatus) {
+function openEditModal(projectId, projectName, projectDescription, projectStatus, projectImage = null) {
     currentProjectId = projectId;
 
-    // מילוי הנתונים הקיימים בשדות הטופס
+    // מילוי השדות עם הנתונים הקיימים
     document.getElementById('editProjectName').value = projectName;
     document.getElementById('editProjectDescription').value = projectDescription;
     document.getElementById('editProjectStatus').value = projectStatus;
 
-    // הצגת המודאל
+    // הצגת התמונה הקיימת
+    const imageContainer = document.getElementById('projectImageContainer');
+    if (projectImage) {
+        imageContainer.innerHTML = `<img src="${projectImage}" alt="Project Image" style="max-width: 100%; height: auto;">`;
+    } else {
+        imageContainer.innerHTML = `<p>לא הועלתה תמונה עבור פרויקט זה.</p>`;
+    }
+
+    // הצגת המודל
     document.getElementById('editProjectModal').style.display = 'block';
 }
 
@@ -257,34 +256,49 @@ async function saveProjectChanges() {
     const projectName = document.getElementById('editProjectName').value;
     const projectDescription = document.getElementById('editProjectDescription').value;
     const projectStatus = document.getElementById('editProjectStatus').value;
+    const imageInput = document.getElementById('editProjectImage'); // שדה התמונה
 
     if (!projectName || !projectDescription || !projectStatus) {
-        alert('Please fill in all fields.');
+        alert('יש למלא את כל השדות.');
         return;
     }
 
     const token = localStorage.getItem('token');
+    const formData = new FormData(); // שימוש ב-FormData
+    formData.append('name', projectName);
+    formData.append('description', projectDescription);
+    formData.append('status', projectStatus);
+
+    // הוספת קובץ התמונה אם נבחר
+    if (imageInput.files[0]) {
+        formData.append('image', imageInput.files[0]);
+    }
 
     try {
         const response = await fetch(`http://localhost:3000/api/projects/${currentProjectId}`, {
             method: 'PUT',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({
-                name: projectName,
-                description: projectDescription,
-                status: projectStatus,
-            }),
+            body: formData // שליחה של FormData
         });
 
-        if (!response.ok) throw new Error('Failed to update project.');
-        alert('Project updated successfully!');
+        if (!response.ok) throw new Error('שמירת הפרויקט נכשלה.');
+        const updatedProject = await response.json();
+
+        // עדכון התמונה במודל
+        const imageContainer = document.getElementById('projectImageContainer');
+        if (updatedProject.image) {
+            imageContainer.innerHTML = `<img src="${updatedProject.image}" alt="Project Image" style="max-width: 100%; height: auto;">`;
+        } else {
+            imageContainer.innerHTML = `<p>לא הועלתה תמונה עבור פרויקט זה.</p>`;
+        }
+
+        alert('הפרויקט נשמר בהצלחה!');
         closeEditModal();
-        await displayProjects(); // רענון הרשימה
+        await displayProjects(); // רענון רשימת הפרויקטים
     } catch (error) {
-        alert('Error updating project: ' + error.message);
+        alert('שגיאה בשמירת הפרויקט: ' + error.message);
     }
 }
 
@@ -422,10 +436,7 @@ async function saveProjectChanges() {
 
         alert("Project shared to gallery successfully!");
 
-        // Option to download as PDF
-        if (confirm("Would you like to download this project as a PDF?")) {
-            await downloadProjectAsPDF(projectId);
-        }
+        
 
         await displayProjects(); // Refresh the project list
     } catch (error) {
@@ -506,9 +517,6 @@ ${
         alert("Error downloading project as text: " + error.message);
     }
 }
-
-
-
 
     </script>
     <script src="accessability.js"></script>

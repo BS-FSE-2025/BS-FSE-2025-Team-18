@@ -11,54 +11,44 @@
     <header>
         <div class="logo">
             <img src="../images/IMG_6583.png" alt="LOGO" />
-            <div id="accessibility-tools">
-              <button id="increase-font">A+</button>
-              <button id="decrease-font">A-</button>
-              <button id="reset-font">Reset</button>
-            </div>
           </div>
         <div class="header-content">
             <nav>
                 <a href="homepage-contractor.html">Home</a>
                 <a href="Contractor-Projects.html">My Projects</a>
-                <a href="aboutus.html">About Us</a>
-                <a href="contractor-checklist.html" class="active">Checklist</a>
+                <a href="contractor-catalog.html">Catalog</a>
+                <a href="contractor-gallery.html">Gallery</a>
+                <a href="contractor-checklist.html">Checklist</a>
             </nav>
         
-        <div class="profile-menu">
-            <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" />
-            <div class="sub-menu-wrap" id="subMenu">
-              <div class="sub-menu">
-                <div class="user-info">
-                  <img src="images/avatar-logo.jpg" alt="Logo"/>
-                  <h2><span id="username"></span></h2>
+            <div class="profile-menu">
+                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Profile" />
+                <div class="sub-menu-wrap" id="subMenu">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img src="images/avatar-logo.jpg" alt="Profile" />
+                            <h2><span id="username"></span></h2>
+                        </div>
+                        <hr />
+                        <div id="accessibility-tools">
+                            <button id="increase-font">A+</button>
+                            <button id="decrease-font">A-</button>
+                            <button id="reset-font">Reset</button>
+                        </div>
+                        <a href="contractor-profile.html" class="sub-menu-link">
+                            <img src="images/profile images/profile.png" alt="Edit Profile" />
+                            <p>Edit Profile</p>
+                        </a>
+                        <a href="help_contractor.html" class="sub-menu-link">
+                            <img src="images/profile images/help.png" alt="Help" />
+                            <p>Help</p>
+                        </a>
+                        <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                            <img src="images/profile images/logout.png" alt="Logout" />
+                            <p>Logout</p>
+                        </a>
+                    </div>
                 </div>
-                <hr />
-                <a href="customer-profile.html" class="sub-menu-link">
-                  <img src="images/profile images/profile.png"alt="Logo" />
-                  <p>Edit Profile</p>
-                  <span>></span>
-                </a>
-                <a href="" class="sub-menu-link">
-                  <img src="images/profile images/setting.png"alt="Logo" />
-                  <p>Settings</p>
-                  <span>></span>
-                </a>
-                <a href="" class="sub-menu-link">
-                  <img src="images/profile images/help.png"alt="Logo" />
-                  <p>help</p>
-                  <span>></span>
-                </a>
-                <a href="main_page.html" class="sub-menu-link" onclick="logout()">
-                  <img src="images/profile images/logout.png"alt="Logo" />
-                  <p>Logout</p>
-                  <span>></span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
     </header>
     
 
@@ -73,8 +63,6 @@
                   <strong>Password: ********</strong>
                   <a class="edit-btn" href="reset-password.html">edit</a>
               </p>                <p><strong>Account Type:</strong> <span id="accountType"></span></p>
-              <p><strong>Gender: </strong><span id="gender"></span></p>
-
             </div>
             
 
@@ -98,11 +86,9 @@
         const username1 = localStorage.getItem('username') || "Guest";
         const accountType = localStorage.getItem('accountType') || "Contractor";
         const email = localStorage.getItem('Useremail') || "Not Available"; // שליפת המייל
-        const gender = localStorage.getItem('gender');
 
 
         // הצגת הנתונים בדף
-        document.getElementById('gender').innerText=gender;
         document.getElementById('username').innerText = username;
         document.getElementById('username1').innerText = username1;
         document.getElementById('accountType').innerText = accountType;

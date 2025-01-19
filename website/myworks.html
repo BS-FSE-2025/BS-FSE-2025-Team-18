@@ -1,0 +1,191 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Homepage</title>
+    <link rel="stylesheet" href="styles/myworks.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+      <div class="logo">
+        <img src="../images/IMG_6583.png" alt="LOGO" />
+        <div id="accessibility-tools">
+          <button id="increase-font">A+</button>
+          <button id="decrease-font">A-</button>
+          <button id="reset-font">Reset</button>
+        </div>
+      </div>
+        <div class="header-content">
+            <nav>
+              <a href="homepage-customer.html" >Home</a>
+              <a href="cart.html" class="cart-icon">
+                <img src="images/carrt.png" alt="Cart Icon" />
+                <span id="cart-count">0</span>
+              </a>              <a href="products.html">Catalog</a>
+              
+              <a href="customer-gallery.html">Gallery</a>
+              <a href="checklest.html">Chicklist</a>
+              <a href="myworks.html"  class="active">my works</a>
+
+            </nav>
+            <div class="profile-menu">
+              <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
+              <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                  <div class="user-info">
+                    <img src="images/avatar-logo.jpg" alt="Logo"/>
+                    <h2><span id="username"></span></h2>
+                  </div>
+                  <hr />
+                  <a href="customer-profile.html" class="sub-menu-link">
+                    <img src="images/profile images/profile.png" alt="Logo"/>
+                    <p>Edit Profile</p>
+                    <span>></span>
+                  </a>
+                  
+                  <a href="help_customer.html" class="sub-menu-link">
+                    <img src="images/profile images/help.png"alt="Logo" />
+                    <p>help</p>
+                    <span>></span>
+                  </a>
+                  <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                    <img src="images/profile images/logout.png"alt="Logo" />
+                    <p>Logout</p>
+                    <span>></span>
+                  </a>
+                  </a>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+
+    </header>
+  
+    <main>
+        <section id="myWorks">
+            <h1>My Works</h1>
+            <div id="worksContainer"></div>
+          </section> 
+             </main>
+    <footer>
+      <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
+    </footer>
+    <script>
+async function loadMyWorks() {
+    const email = localStorage.getItem('Useremail'); // שליפת הדוא"ל של המשתמש
+
+    if (!email) {
+        alert("Please log in to view your works."); // הודעה אם המשתמש לא מחובר
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/myworks/${email}`); // קריאה ל-API לקבלת הפרויקטים לפי הדוא"ל
+        const works = await response.json(); // המרת התגובה ל-JSON
+        const container = document.getElementById('worksContainer'); // מצביע למיכל הפרויקטים
+        container.innerHTML = ''; // ריקון התוכן הקודם במיכל
+
+        works.forEach(work => {
+            const workDiv = document.createElement('div'); // יצירת כרטיס פרויקט
+            workDiv.classList.add('work-card'); // הוספת class לכרטיס
+            let productsHTML = '';
+            let totalCost = 0; // משתנה לחישוב המחיר הכולל
+
+            // אם יש מוצרים בפרויקט
+            if (work.products && work.products.length > 0) {
+                productsHTML = '<div class="products-container"><h4>Products:</h4><ul>';
+                work.products.forEach(product => {
+                    const productTotal = product.price * product.quantity; // חישוב מחיר המוצר הכולל
+                    totalCost += productTotal; // הוספת המחיר הכולל של המוצר לסך הפרויקט
+
+                    productsHTML += `
+                        <li>
+                            <img src="${product.image}" alt="${product.name}">
+                            <div class="product-details">
+                                <p><strong>Name:</strong> ${product.name}</p>
+                                <p><strong>Quantity:</strong> ${product.quantity}</p>
+                                <p><strong>Price:</strong> $${product.price}</p>
+                                <p><strong>Total:</strong> $${productTotal.toFixed(2)}</p>
+                            </div>
+                        </li>
+                    `;
+                });
+                productsHTML += '</ul></div>';
+                productsHTML += `<p class="total-cost"><strong>Total Project Cost:</strong> $${totalCost.toFixed(2)}</p>`;
+            } else {
+                productsHTML = '<p>No products in this project.</p>'; // הודעה אם אין מוצרים
+            }
+
+            // יצירת התוכן של כרטיס הפרויקט
+            workDiv.innerHTML = `
+                <img src="${work.image}" alt="${work.name}">
+                <h3>${work.name}</h3>
+                <p>${work.description}</p>
+                ${productsHTML}
+                <button onclick="deleteWork('${work._id}')" class="delete-btn">Delete</button>
+                <button onclick="shareToGallery('${work._id}')" class="share-btn">Share to Gallery</button>
+            `;
+            container.appendChild(workDiv); // הוספת הכרטיס למיכל
+        });
+    } catch (error) {
+        console.error('Error loading works:', error); // טיפול בשגיאות
+    }
+}
+
+        loadMyWorks();
+      
+        async function deleteWork(workId) {
+          try {
+            await fetch(`/api/myworks/${workId}`, { method: 'DELETE' });
+            alert('Work deleted');
+            loadMyWorks();
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      
+        async function shareToGallery(workId) {
+  try {
+    const response = await fetch(`/api/myworks/${workId}/share`, {
+      method: 'POST',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to share work to gallery');
+    }
+
+    alert('Work shared to gallery');
+  } catch (error) {
+    console.error('Error sharing to gallery:', error);
+    alert('Error sharing to gallery');
+  }
+}
+const username = localStorage.getItem('username');
+          if(username){
+              document.getElementById("username").innerText = username;
+          }
+
+
+
+
+
+        function logout() {
+          localStorage.clear();
+          alert('You have been logged out.');
+            window.location.href = 'main_page.html';
+        }
+        let subMenu = document.getElementById("subMenu");
+        function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+        
+        }
+
+    </script>
+    <script src="accessability.js"></script>
+    <script src="cartcount.js"></script>
+
+      </script>
+  </body>
+</html>

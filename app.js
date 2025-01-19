@@ -57,6 +57,11 @@ const projectRoutes = require("./routes/projects"); // חיבור לנתיב pro
 app.use("/api/projects", projectRoutes); // הוספת הנתיב
 
 
+const recommendedRoutes = require('./routes/recommended');
+
+// שימוש במסלול של המוצרים המומלצים
+app.use('/api/recommended', recommendedRoutes);
+
 
 //for UsersList in the admin page.
 // Endpoint to fetch all users
@@ -129,4 +134,6 @@ app.get("/api/gallery/:projectId", async (req, res) => {
     res.status(500).json({ message: "Error fetching project", error: error.message });
   }
 });
+const myWorksRouter = require("./routes/myworks");
+app.use("/api/myworks", myWorksRouter);
 

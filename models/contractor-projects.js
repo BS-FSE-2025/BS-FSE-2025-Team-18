@@ -6,6 +6,8 @@ const projectSchema = new mongoose.Schema({
   email: { type: String, required: true },  // Store the contractor's email to associate the project with them
   status: { type: String, default: 'Pending' },
   sharedToGallery: { type: Boolean, default: false },
+  image: { type: String }, // נתיב התמונה
+
 
   products: [
     {
