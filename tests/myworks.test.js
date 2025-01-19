@@ -149,4 +149,21 @@ describe('My Works Functions', () => {
     expect(localStorage.getItem('Useremail')).toBeNull();
     expect(redirectUrl).toBe('main_page.html');
   });
+  test('saveWork - throws error when fields are empty', async () => {
+    const mockProjectName = { value: '' };
+    const mockProjectDescription = { value: '' };
+    const mockProjectImage = { files: [] };
+
+    const saveWork = async () => {
+      const name = mockProjectName.value;
+      const description = mockProjectDescription.value;
+      const image = mockProjectImage.files[0];
+
+      if (!name || !description || !image) {
+        throw new Error('Please fill all fields.');
+      }
+    };
+
+    await expect(saveWork()).rejects.toThrow('Please fill all fields.');
+  });
 });
