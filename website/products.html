@@ -147,21 +147,24 @@
 }
 
 function getUnitByCategory(category) {
-    switch (category) {
-        case "Painting":
+        switch (category) {
+          case "Painting":
             return "liters";
-        case "Woodwork":
-        case "Flooring":
+          case "Woodwork":
+          case "Flooring":
             return "m²";
-        case "Lighting":
-        case "Kitchens":
-        case "Outdoor":
+          case "Lighting":
+          case "Kitchen-sinks":
+          case "Kitchen-faucets":
+          case "bathroom-sinks":
+          case "bathroom-showers":
+          case "bathroom-toilets":
+          case "Outdoor":
             return "units";
-        default:
+          default:
             return "m²"; // Default unit
-    }
-}
-
+        }
+      }
 
 
 
