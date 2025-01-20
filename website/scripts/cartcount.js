@@ -21,3 +21,4 @@ function updateCartCount() {
   // Update the cart count on page load
   document.addEventListener("DOMContentLoaded", updateCartCount);
   
+  module.exports = { updateCartCount };
