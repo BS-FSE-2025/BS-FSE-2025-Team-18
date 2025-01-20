@@ -203,53 +203,7 @@
         modal.style.display = "none";
       }
 
-   function addToCart(productId, name, price, projectName) {
-    const quantityInput = document.getElementById(`quantity-${productId}`);
-    const quantity = quantityInput ? parseInt(quantityInput.value, 10) : 1;
-
-    if (!quantity || quantity <= 0) {
-        alert("Please enter a valid quantity.");
-        return;
-    }
-
-    const userEmail = localStorage.getItem("Useremail");
-    if (!userEmail) {
-        alert("Please log in to add items to the cart.");
-        return;
-    }
-
-    // ודא ש-productId הוא מחרוזת תקינה
-    if (typeof productId !== 'string' || productId.length !== 24) {
-        console.error('Invalid productId:', productId);
-        alert("Invalid product ID.");
-        return;
-    }
-
-    const totalPrice = price * quantity;
-
-    fetch(`http://localhost:3000/api/cart/${userEmail}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            productId,
-            price,
-            quantity,
-            totalPrice,
-            projectName,
-        }),
-    })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Failed to add item to cart.");
-            }
-            alert(`${name} has been added to the cart.`);
-            loadCart(); // רענן את העגלה
-        })
-        .catch((error) => {
-            console.error("Error adding to cart:", error);
-        });
-}
-
+  
       async function applyBudgetFilter() {
         const budget = parseFloat(document.getElementById("budgetInput").value);
         if (isNaN(budget) || budget <= 0) {
