@@ -225,11 +225,11 @@ main {
 }
 
 .content-table tbody tr:nth-of-type(even) {
-    background-color: #0c8f20;
+    background-color: #09d527;
 }
 
 .content-table tbody tr:nth-of-type(odd) {
-    background-color: #076c0c;
+    background-color: #04ab0c;
 }
 
 .content-table tbody tr:hover {
@@ -258,21 +258,7 @@ main {
     transform: scale(1.05);
 }
 
-/* Accessibility Tools */
-header #accessibility-tools button {
-    background-color: #00adb5;
-    color: #ffffff;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    margin-left: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
-header #accessibility-tools button:hover {
-    background-color: #007c8c;
-}
 .content-table img {
     border-radius: 50%; /* Optional for circular icons */
     display: block;

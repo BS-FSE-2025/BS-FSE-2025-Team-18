@@ -66,6 +66,7 @@ router.put('/:projectId/addProductToProject', verifyToken, async (req, res) => {
           name: product.name,
           image: product.image,
           price: product.pricePerMeter,
+          totalTime: product.totalTime,
       };
 
       const project = await Project.findOneAndUpdate(

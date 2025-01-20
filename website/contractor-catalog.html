@@ -71,6 +71,11 @@
                             <h2><span id="username"></span></h2>
                         </div>
                         <hr />
+                        <div id="accessibility-tools">
+                          <button id="increase-font">A+</button>
+                          <button id="decrease-font">A-</button>
+                          <button id="reset-font">Reset</button>
+                        </div>
                         <a href="contractor-profile.html" class="sub-menu-link">
                             <img src="images/profile images/profile.png" alt="Edit Profile" />
                             <p>Edit Profile</p>
@@ -202,6 +207,7 @@
           filteredItems
             .filter((item) => item.category === category)
             .forEach((item) => {
+              const timerPerMinute = item.totalTime;
               const itemDiv = document.createElement("div");
               itemDiv.classList.add("catalog-item");
               itemDiv.innerHTML = `
@@ -209,6 +215,7 @@
                             <h4>${item.name}</h4>
                             <p>${item.description}</p>
                             <p>Price per ${unit}: ${item.pricePerMeter}$</p>
+                            <p>Time per ${unit}: ${timerPerMinute} minutes</p>
                             <label for="size-${item._id}">Enter ${unit}:</label>
                             <input type="number" id="size-${
                               item._id
@@ -225,9 +232,7 @@
                                   )
                                   .join("")}
                             </select>
-                            <button onclick="addToProject('${item._id}', ${
-                item.pricePerUnit
-              }, '${unit}')">Add to Project</button>
+                            <button onclick="addToProject('${item._id}', ${item.pricePerUnit},'${unit}',${item.totalTime})">Add to Project</button>
                         `;
               itemsDiv.appendChild(itemDiv);
             });
@@ -243,7 +248,11 @@
           case "Flooring":
             return "m²";
           case "Lighting":
-          case "Kitchens":
+          case "Kitchen-sinks":
+          case "Kitchen-faucets":
+          case "bathroom-sinks":
+          case "bathroom-showers":
+          case "bathroom-toilets":
           case "Outdoor":
             return "units";
           default:
@@ -252,7 +261,7 @@
       }
 
       // Add product to a project
-      async function addToProject(productId, pricePerUnit, unit) {
+      async function addToProject(productId, pricePerUnit,unit, totalTime) {
         const sizeInput = document.getElementById(`size-${productId}`);
         const projectSelect = document.getElementById(`project-${productId}`);
 
@@ -282,6 +291,7 @@
           quantity,
           pricePerUnit,
           projectId,
+          totalTime,
         });
 
         try {
@@ -293,7 +303,7 @@
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ productId, quantity, pricePerUnit }),
+              body: JSON.stringify({ productId, quantity, pricePerUnit, totalTime }),
             }
           );
 
