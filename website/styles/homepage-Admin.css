@@ -244,7 +244,9 @@ main {
 footer {
   background-color: #232324;
   text-align: center;
-  padding: 15px 0;
+  padding: 20px;
+  background-color: #232324;
+  color: #ffffff;
   font-size: 0.9rem;
   color: #ffffff;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
