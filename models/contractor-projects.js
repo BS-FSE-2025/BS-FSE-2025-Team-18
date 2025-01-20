@@ -18,7 +18,7 @@ const projectSchema = new mongoose.Schema({
       quantity: { type: Number, required: true },
       price: { type: Number, required: true }, // שדה חדש למחיר ליחידה
       status: { type: String, default: "To Do" }, // ברירת מחדל
-
+      totalTime: { type: Number, required: true, default: 1 },
     },
   ],
   
