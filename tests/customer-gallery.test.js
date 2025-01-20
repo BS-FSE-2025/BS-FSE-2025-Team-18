@@ -157,4 +157,230 @@ describe('Customer Gallery Page', () => {
     expect(document.getElementById('modalProjectName').textContent).toBe('Project 1');
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  test('applyBudgetFilter - filters and sorts projects within budget', async () => {
+    const mockProjects = [
+      {
+        name: 'Project A',
+        products: [
+          { price: 50, quantity: 1 },
+          { price: 20, quantity: 1 },
+        ],
+      },
+      {
+        name: 'Project B',
+        products: [{ price: 1000, quantity: 1 }],
+      },
+      {
+        name: 'Project C',
+        products: [{ price: 30, quantity: 2 }],
+      },
+    ];
+  
+    fetchMock.mockResponseOnce(JSON.stringify(mockProjects));
+  
+    const applyBudgetFilter = async () => {
+      const budget = parseFloat(document.getElementById('budgetInput').value);
+      if (isNaN(budget) || budget <= 0) {
+        alert('Invalid Budget');
+        return;
+      }
+  
+      try {
+        const response = await fetch('http://localhost:3000/api/gallery');
+        const projects = await response.json();
+  
+        const withinBudget = projects.filter((project) => {
+          const totalCost = project.products.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          return totalCost <= budget;
+        });
+  
+        withinBudget.sort((a, b) => {
+          const costA = a.products.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          const costB = b.products.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          return costA - costB;
+        });
+  
+        displayGalleryProjects(withinBudget);
+      } catch (error) {
+        console.error('Error applying budget filter:', error);
+      }
+    };
+  
+    const displayGalleryProjects = (projects) => {
+      const galleryContainer = document.getElementById('gallery-projects');
+      galleryContainer.innerHTML = '';
+  
+      projects.forEach((project) => {
+        const totalCost = project.products.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+  
+        const projectCard = document.createElement('div');
+        projectCard.classList.add('gallery-card');
+        projectCard.innerHTML = `
+          <h3>${project.name}</h3>
+          <p>Total Cost: $${totalCost.toFixed(2)}</p>
+        `;
+  
+        galleryContainer.appendChild(projectCard);
+      });
+    };
+  
+    document.getElementById('budgetInput').value = '100'; // Set budget to $100
+    await applyBudgetFilter();
+  
+    const galleryContainer = document.getElementById('gallery-projects');
+    expect(fetch).toHaveBeenCalledWith('http://localhost:3000/api/gallery');
+    expect(galleryContainer.children.length).toBe(2);
+    expect(galleryContainer.children[0].querySelector('h3').textContent).toBe('Project C'); 
+    expect(galleryContainer.children[1].querySelector('h3').textContent).toBe('Project A');
+  });
+  
+  test('applyBudgetFilter - shows alert for invalid budget', async () => {
+    document.getElementById('budgetInput').value = '-50'; // Invalid budget
+  
+    const applyBudgetFilter = async () => {
+      const budget = parseFloat(document.getElementById('budgetInput').value);
+      if (isNaN(budget) || budget <= 0) {
+        alert('Invalid Budget');
+        return;
+      }
+    };
+  
+    await applyBudgetFilter();
+  
+    expect(alertMock).toHaveBeenCalledWith('Invalid Budget');
+  });
+
+
+  test('applyBudgetFilter - includes projects exactly matching the budget', async () => {
+    const mockProjects = [
+      {
+        name: 'Project D',
+        products: [
+          { price: 40, quantity: 1 },
+          { price: 60, quantity: 1 },
+        ],
+      },
+      {
+        name: 'Project E',
+        products: [{ price: 100, quantity: 1 }],
+      },
+    ];
+  
+    fetchMock.mockResponseOnce(JSON.stringify(mockProjects));
+  
+    const applyBudgetFilter = async () => {
+      const budget = parseFloat(document.getElementById('budgetInput').value);
+      if (isNaN(budget) || budget <= 0) {
+        alert('Invalid Budget');
+        return;
+      }
+  
+      try {
+        const response = await fetch('http://localhost:3000/api/gallery');
+        const projects = await response.json();
+  
+        const withinBudget = projects.filter((project) => {
+          const totalCost = project.products.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          return totalCost <= budget;
+        });
+  
+        withinBudget.sort((a, b) => {
+          const costA = a.products.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          const costB = b.products.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+          );
+          return costA - costB;
+        });
+  
+        displayGalleryProjects(withinBudget);
+      } catch (error) {
+        console.error('Error applying budget filter:', error);
+      }
+    };
+  
+    const displayGalleryProjects = (projects) => {
+      const galleryContainer = document.getElementById('gallery-projects');
+      galleryContainer.innerHTML = '';
+  
+      projects.forEach((project) => {
+        const totalCost = project.products.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+  
+        const projectCard = document.createElement('div');
+        projectCard.classList.add('gallery-card');
+        projectCard.innerHTML = `
+          <h3>${project.name}</h3>
+          <p>Total Cost: $${totalCost.toFixed(2)}</p>
+        `;
+  
+        galleryContainer.appendChild(projectCard);
+      });
+    };
+  
+    document.getElementById('budgetInput').value = '100'; // Set budget to $100
+    await applyBudgetFilter();
+  
+    const galleryContainer = document.getElementById('gallery-projects');
+    expect(fetch).toHaveBeenCalledWith('http://localhost:3000/api/gallery');
+    expect(galleryContainer.children.length).toBe(2); // Both projects are within budget
+    expect(galleryContainer.children[0].querySelector('h3').textContent).toBe('Project D'); // Sorted by cost
+    expect(galleryContainer.children[1].querySelector('h3').textContent).toBe('Project E');
+  });
+  
+
 });
+
+
+
+
