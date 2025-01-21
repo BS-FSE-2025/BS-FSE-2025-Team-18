@@ -17,23 +17,27 @@
       </div>
       <div class="header-content">
         <nav>
-          <a href="homepage-customer.html" >Home</a>
+          <a href="homepage-customer.html">Home</a>
           <a href="cart.html" class="cart-icon">
             <img src="images/carrt.png" alt="Cart Icon" />
             <span id="cart-count">0</span>
-          </a>              
+          </a>
           <a href="products.html">Catalog</a>
           <a href="customer-gallery.html" class="active">Gallery</a>
           <a href="checklest.html">Checklist</a>
           <a href="myworks.html">my works</a>
-
         </nav>
         <div class="profile-menu">
-          <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()"alt="Logo" />
+          <img
+            src="images/avatar-logo.jpg"
+            width="50"
+            onclick="toggleMenu()"
+            alt="Logo"
+          />
           <div class="sub-menu-wrap" id="subMenu">
             <div class="sub-menu">
               <div class="user-info">
-                <img src="images/avatar-logo.jpg" alt="Logo"/>
+                <img src="images/avatar-logo.jpg" alt="Logo" />
                 <h2><span id="username"></span></h2>
               </div>
               <hr />
@@ -43,7 +47,7 @@
                 <button id="reset-font">Reset</button>
               </div>
               <a href="customer-profile.html" class="sub-menu-link">
-                <img src="images/profile images/profile.png" alt="Logo"/>
+                <img src="images/profile images/profile.png" alt="Logo" />
                 <p>Edit Profile</p>
                 <span>></span>
               </a>
@@ -53,11 +57,10 @@
                 <span>></span>
               </a>
               <a href="main_page.html" class="sub-menu-link" onclick="logout()">
-                <img src="images/profile images/logout.png"alt="Logo" />
+                <img src="images/profile images/logout.png" alt="Logo" />
                 <p>Logout</p>
                 <span>></span>
               </a>
-            
             </div>
           </div>
         </div>
@@ -166,8 +169,8 @@
           );
           if (project.products && project.products.length > 0) {
             productsContainer.innerHTML = project.products
-    .map(
-        (item) => `
+              .map(
+                (item) => `
         <div class="product-item">
           <img src="${item.image}" alt="${item.name}">
           <h3>${item.name}</h3>
@@ -175,8 +178,8 @@
           <p> Quantity: ${item.quantity}</p>
         </div>
       `
-    )
-    .join("");
+              )
+              .join("");
           } else {
             productsContainer.innerHTML =
               "<p>No products available for this project.</p>";
@@ -203,7 +206,6 @@
         modal.style.display = "none";
       }
 
-  
       async function applyBudgetFilter() {
         const budget = parseFloat(document.getElementById("budgetInput").value);
         if (isNaN(budget) || budget <= 0) {
@@ -243,7 +245,11 @@
           console.error("Error applying budget filter:", error);
         }
       }
+      
+      window.applyBudgetFilter = applyBudgetFilter;
 
+
+      
       function logout() {
         localStorage.clear();
         alert("You have been logged out.");
@@ -260,7 +266,7 @@
         document.getElementById("username").innerText = username2;
       }
     </script>
-    <script src="accessability.js"></script>
+    <script src="scripts/accessability.js"></script>
     <script src="scripts/cartcount.js"></script>
   </body>
 </html>
