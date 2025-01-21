@@ -271,10 +271,9 @@ main {
     background-color: #fff;
     gap: 15px;
 }
-
 .product-item img {
-    width: 70px;
-    height: 70px;
+    width: 75%;
+    height: 220px;
     border-radius: 8px;
     object-fit: cover;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
