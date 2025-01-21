@@ -208,14 +208,20 @@ main {
     font-weight: 800;
 }
 
-/* Footer */
 footer {
-    text-align: center;
-    padding: 15px 0;
-    background-color: #fff;
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    height: 50px;
+    background-color: #232324;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+    z-index: 1000;
 }
 .edit-btn {
     background-color: #28a745;
