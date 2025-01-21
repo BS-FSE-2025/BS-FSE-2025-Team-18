@@ -294,13 +294,20 @@ header .btn {
     font-weight: bold;
 }
 
-/* Footer */
 footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #232324;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #ffffff;
     text-align: center;
-    padding: 20px;
-    background: #232324;
-    color: #fff;
-    font-size: 0.9rem;
+    z-index: 1000;
 }
 
 .btn-primary {
