@@ -1,7 +1,7 @@
 // Fetch users from the API
 async function fetchUsers() {
   try {
-    const response = await fetch('http://localhost:3000/api/users'); // Ensure this URL matches your API route
+    const response = await fetch('http://localhost:3000/api/users');
     if (response.ok) {
 
       const users = await response.json();
