@@ -1,142 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Projects</title>
-  <link rel="stylesheet" href="styles/contractor-projects.css">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Projects</title>
+    <link rel="stylesheet" href="styles/contractor-projects.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header>
-        <div class="logo">
-            <img src="../images/IMG_6583.png" alt="LOGO" />
-          </div>
-    
-        <div class="header-content">
-            <nav>
-                <a href="homepage-contractor.html" >Home</a>
-                <a href="Contractor-Projects.html" class="active">My Projects</a>
-                <a href="contractor-catalog.html">Catalog</a>
-                <a href="contractor-gallery.html">Gallery</a>
-                <a href="contractor-checklist.html">Checklist</a>
-            </nav>
-              <div class="profile-menu">
-                <img src="images/avatar-logo.jpg" width="50" onclick="toggleMenu()" alt="Logo" />
-                <div class="sub-menu-wrap" id="subMenu">
-                  <div class="sub-menu">
-                    <div class="user-info">
-                      <img src="images/avatar-logo.jpg"alt="Logo" />
-                      <h2><span id="username"></span></h2>
-                    </div>
-                    <hr />
-                    <div id="accessibility-tools">
-                      <button id="increase-font">A+</button>
-                      <button id="decrease-font">A-</button>
-                      <button id="reset-font">Reset</button>
-                    </div>
-                    <a href="contractor-profile.html" class="sub-menu-link">
-                      <img src="images/profile images/profile.png"alt="Logo" />
-                      <p>Edit Profile</p>
-                      <span></span>
-                    </a>
-                    <a href="help_contractor.html" class="sub-menu-link">
-                      <img src="images/profile images/help.png" alt="Logo"/>
-                      <p>help</p>
-                      <span>></span>
-                    </a>
-                    <a href="main_page.html" class="sub-menu-link" onclick="logout()">
-                      <img src="images/profile images/logout.png"alt="Logo" />
-                      <p>Logout</p>
-                      <span>></span>
-                    </a>
-                  </div>
-                </div>
-    </header>
-    
-    <main>
-        <section id="projects">
-            <div class="add-project">
-                <h2>Add a New Project</h2>
-                <form id="addProjectForm">
-                    <input type="text" id="projectName" placeholder="Project Name" required />
-                    <textarea id="projectDescription" placeholder="Project Description" required></textarea>
-                    <button type="submit">Add Project</button>
-                </form>
-            </div>
-            <div id="project-list"></div>
-        </section>
-    </main>
-        <!-- Edit Project Modal -->
-        <div id="editProjectModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeEditModal()">&times;</span>
-                <h2>Edit Project</h2>
-                <form id="editProjectForm">
-                    <label for="editProjectName">Project Name:</label>
-                    <input type="text" id="editProjectName" required />
-                    <label for="editProjectDescription">Project Description:</label>
-                    <textarea id="editProjectDescription" required></textarea>
-                    <label for="editProjectStatus">Project Status:</label>
-                    <select id="editProjectStatus">
-                        <option value="Pending">Pending</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Completed">Completed</option>
-                    </select>
-                    <div id="projectImageContainer" style="margin-top: 20px;"></div>
-                    <label for="editProjectImage">העלאת תמונה:</label>
-                    <input type="file" id="editProjectImage" accept="image/*" />
-                    <button type="button" onclick="saveProjectChanges()">Save</button>
+      <div class="logo">
+        <img src="../images/IMG_6583.png" alt="LOGO" />
+      </div>
 
-                </form>
+      <div class="header-content">
+        <nav>
+          <a href="homepage-contractor.html">Home</a>
+          <a href="Contractor-Projects.html" class="active">My Projects</a>
+          <a href="contractor-catalog.html">Catalog</a>
+          <a href="contractor-gallery.html">Gallery</a>
+          <a href="contractor-checklist.html">Checklist</a>
+        </nav>
+        <div class="profile-menu">
+          <img
+            src="images/avatar-logo.jpg"
+            width="50"
+            onclick="toggleMenu()"
+            alt="Logo"
+          />
+          <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+              <div class="user-info">
+                <img src="images/avatar-logo.jpg" alt="Logo" />
+                <h2><span id="username"></span></h2>
+              </div>
+              <hr />
+              <div id="accessibility-tools">
+                <button id="increase-font">A+</button>
+                <button id="decrease-font">A-</button>
+                <button id="reset-font">Reset</button>
+              </div>
+              <a href="contractor-profile.html" class="sub-menu-link">
+                <img src="images/profile images/profile.png" alt="Logo" />
+                <p>Edit Profile</p>
+                <span></span>
+              </a>
+              <a href="help_contractor.html" class="sub-menu-link">
+                <img src="images/profile images/help.png" alt="Logo" />
+                <p>help</p>
+                <span>></span>
+              </a>
+              <a href="main_page.html" class="sub-menu-link" onclick="logout()">
+                <img src="images/profile images/logout.png" alt="Logo" />
+                <p>Logout</p>
+                <span>></span>
+              </a>
             </div>
+          </div>
         </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="projects">
+        <div class="add-project">
+          <h2>Add a New Project</h2>
+          <form id="addProjectForm">
+            <input
+              type="text"
+              id="projectName"
+              placeholder="Project Name"
+              required
+            />
+            <textarea
+              id="projectDescription"
+              placeholder="Project Description"
+              required
+            ></textarea>
+            <button type="submit">Add Project</button>
+          </form>
+        </div>
+        <div id="project-list"></div>
+      </section>
+    </main>
+    <!-- Edit Project Modal -->
+    <div id="editProjectModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Edit Project</h2>
+        <form id="editProjectForm">
+          <label for="editProjectName">Project Name:</label>
+          <input type="text" id="editProjectName" required />
+          <label for="editProjectDescription">Project Description:</label>
+          <textarea id="editProjectDescription" required></textarea>
+          <label for="editProjectStatus">Project Status:</label>
+          <select id="editProjectStatus">
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+          <div id="projectImageContainer" style="margin-top: 20px"></div>
+          <label for="editProjectImage">העלאת תמונה:</label>
+          <input type="file" id="editProjectImage" accept="image/*" />
+          <button type="button" onclick="saveProjectChanges()">Save</button>
+        </form>
+      </div>
+    </div>
 
     <footer>
-        <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
+      <p>&copy; 2024 RenovaCalc. All rights reserved.</p>
     </footer>
 
     <script>
-        const API_URL = "http://localhost:3000/api/projects";
+      const API_URL = "http://localhost:3000/api/projects";
 
-        document.addEventListener("DOMContentLoaded", () => {
-            displayProjects();
-        });
+      document.addEventListener("DOMContentLoaded", () => {
+        displayProjects();
+      });
 
-       async function fetchProjects() {
-            const token = localStorage.getItem("token");
+      async function fetchProjects() {
+        const token = localStorage.getItem("token");
 
-            if (!token) {
-                alert("You must be logged in to view your projects.");
-                return [];
-            }
-
-            try {
-                const response = await fetch(API_URL, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    }
-                });
-
-                if (!response.ok) throw new Error("Failed to fetch projects.");
-
-                return await response.json();
-            } catch (error) {
-                alert("Error fetching projects: " + error.message);
-                return [];
-            }
+        if (!token) {
+          alert("You must be logged in to view your projects.");
+          return [];
         }
 
-        async function displayProjects() {
+        try {
+          const response = await fetch(API_URL, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          });
+
+          if (!response.ok) throw new Error("Failed to fetch projects.");
+
+          return await response.json();
+        } catch (error) {
+          alert("Error fetching projects: " + error.message);
+          return [];
+        }
+      }
+
+      async function displayProjects() {
     const projects = await fetchProjects();
     const projectList = document.getElementById("project-list");
     projectList.innerHTML = "";
 
-    projects.forEach(project => {
+    projects.forEach((project) => {
         let totalCost = 0;
         let totalTime = 0;
+
         const projectCard = document.createElement("div");
         projectCard.classList.add("project-card");
         projectCard.innerHTML = `
@@ -150,335 +169,366 @@
                 <div class="product-list">
                     ${
                         project.products.length > 0
-                            ? project.products.map(product => {
-                                console.log(`Product: ${product.name}, TotalTime: ${product.totalTime}`);
-                                const productCost = product.price ? product.quantity * product.price : 0;
-                                const productTime = product.totalTime ? (product.quantity * product.totalTime) : "N/A";
-                                
-                                totalTime += productTime;
-                                totalCost += productCost;
-                               
-                                
+                            ? project.products
+                                .map((product) => {
+                                    console.log(`Product: ${product.name}, TotalTime: ${product.totalTime}`);
+                                    const productCost = product.price ? product.quantity * product.price : 0;
+                                    const productTime = product.totalTime ? product.quantity * product.totalTime : "N/A";
 
-                                return `
-                                    <div class="product-item">
-    <img src="${product.image}" alt="${product.name}" />
-    <div>
-        <p><strong>Product Name:</strong> ${product.name || "Unknown"}</p>
-        <p><strong>Quantity:</strong> ${product.quantity}</p>
-        <p><strong>Price:</strong> $${product.price}</p>
-        <p><strong>Time:</strong> ${(productTime/60).toFixed(2)} hours</p>
-        <p><strong>Cost:</strong> $${product.quantity * product.price}</p>
-    </div>
-    <button onclick="removeProductFromProject('${project._id}', '${product.itemId}')">
-        Delete Product
-    </button>
-</div>
+                                    totalTime += productTime;
+                                    totalCost += productCost;
 
-                                `;
-                            }).join("")
+                                    return `
+                                        <div class="product-item">
+                                            <img src="${product.image}" alt="${product.name}" />
+                                            <div>
+                                                <p><strong>Product Name:</strong> ${product.name || "Unknown"}</p>
+                                                <p><strong>Quantity:</strong> ${product.quantity}</p>
+                                                <p><strong>Price:</strong> $${product.price}</p>
+                                                <p><strong>Time:</strong> ${(productTime / 60).toFixed(2)} hours</p>
+                                                <p><strong>Cost:</strong> $${productCost}</p>
+                                            </div>
+                                            <button onclick="removeProductFromProject('${project._id}', '${product.itemId}')">
+                                                Delete Product
+                                            </button>
+                                        </div>
+                                    `;
+                                })
+                                .join("")
                             : "<p>No products added.</p>"
                     }
                 </div>
                 <div class="project-total">
                     <h4>Total Cost: $${totalCost}</h4>
-                    <h4>Total Time: ${(totalTime/60).toFixed(2)} hours</h4>
+                    <h4>Total Time: ${(totalTime / 60).toFixed(2)} hours</h4>
                 </div>
                 <div class="project-actions">
-                    <button class="edit-project" onclick="openEditModal('${project._id}', '${project.name}', '${project.description}', '${project.status}','${project.image}')">Edit Project</button>
+                    <button class="edit-project" onclick="openEditModal('${project._id}', '${project.name}', '${project.description}', '${project.status}', '${project.image}')">Edit Project</button>
                     <button class="delete-project" onclick="deleteProject('${project._id}')">Delete Project</button>
                     <button class="add-from-catalog" onclick="redirectToCatalog()">Add Product from Catalog</button>
                     <button class="share-project" onclick="shareProject('${project._id}')">Share to Gallery</button>
                     <button class="download-txt" onclick="downloadProjectAsText('${project._id}')">Download as TXT</button>
-
-
                 </div>
-
-   
-</div>
-
-
             </div>
         `;
         projectList.appendChild(projectCard);
     });
 }
 
+  
+      function redirectToCatalog() {
+        window.location.href = "contractor-catalog.html";
+      }
 
+      async function removeProductFromProject(projectId, itemId) {
+        if (!confirm("Are you sure you want to delete this product?")) return;
 
-        function redirectToCatalog() {
-    window.location.href = "contractor-catalog.html";
-}
+        const token = localStorage.getItem("token");
 
-
-async function removeProductFromProject(projectId, itemId) {
-    if (!confirm("Are you sure you want to delete this product?")) return;
-
-    const token = localStorage.getItem("token");
-
-    try {
-        const response = await fetch(`http://localhost:3000/api/projects/${projectId}/removeProduct`, {
-            method: "PUT",
-            headers: {
-                "Authorization": `Bearer ${token}`,
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/projects/${projectId}/removeProduct`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ itemId }), // שולח את itemId למחיקה
-        });
+              },
+              body: JSON.stringify({ itemId }), // שולח את itemId למחיקה
+            }
+          );
 
-        if (!response.ok) throw new Error("Failed to delete product.");
-        alert("Product deleted successfully!");
-        await displayProjects(); // רענון הרשימה לאחר המחיקה
-    } catch (error) {
-        alert("Error deleting product: " + error.message);
-    }
-}
-let currentProjectId = null; // משתנה גלובלי לשמירת מזהה הפרויקט הנוכחי
+          if (!response.ok) throw new Error("Failed to delete product.");
+          alert("Product deleted successfully!");
+          await displayProjects(); // רענון הרשימה לאחר המחיקה
+        } catch (error) {
+          alert("Error deleting product: " + error.message);
+        }
+      }
+      let currentProjectId = null; // משתנה גלובלי לשמירת מזהה הפרויקט הנוכחי
 
-function openEditModal(projectId, projectName, projectDescription, projectStatus, projectImage = null) {
-    currentProjectId = projectId;
+      function openEditModal(
+        projectId,
+        projectName,
+        projectDescription,
+        projectStatus,
+        projectImage = null
+      ) {
+        currentProjectId = projectId;
 
-    // מילוי השדות עם הנתונים הקיימים
-    document.getElementById('editProjectName').value = projectName;
-    document.getElementById('editProjectDescription').value = projectDescription;
-    document.getElementById('editProjectStatus').value = projectStatus;
+        // מילוי השדות עם הנתונים הקיימים
+        document.getElementById("editProjectName").value = projectName;
+        document.getElementById("editProjectDescription").value =
+          projectDescription;
+        document.getElementById("editProjectStatus").value = projectStatus;
 
-    // הצגת התמונה הקיימת
-    const imageContainer = document.getElementById('projectImageContainer');
-    if (projectImage) {
-        imageContainer.innerHTML = `<img src="${projectImage}" alt="Project Image" style="max-width: 100%; height: auto;">`;
-    } else {
-        imageContainer.innerHTML = `<p>לא הועלתה תמונה עבור פרויקט זה.</p>`;
-    }
-
-    // הצגת המודל
-    document.getElementById('editProjectModal').style.display = 'block';
-}
-
-function closeEditModal() {
-    // הסתרת המודאל
-    document.getElementById('editProjectModal').style.display = 'none';
-}
-
-async function saveProjectChanges() {
-    const projectName = document.getElementById('editProjectName').value;
-    const projectDescription = document.getElementById('editProjectDescription').value;
-    const projectStatus = document.getElementById('editProjectStatus').value;
-    const imageInput = document.getElementById('editProjectImage'); // שדה התמונה
-
-    if (!projectName || !projectDescription || !projectStatus) {
-        alert('יש למלא את כל השדות.');
-        return;
-    }
-
-    const token = localStorage.getItem('token');
-    const formData = new FormData(); // שימוש ב-FormData
-    formData.append('name', projectName);
-    formData.append('description', projectDescription);
-    formData.append('status', projectStatus);
-
-    // הוספת קובץ התמונה אם נבחר
-    if (imageInput.files[0]) {
-        formData.append('image', imageInput.files[0]);
-    }
-
-    try {
-        const response = await fetch(`http://localhost:3000/api/projects/${currentProjectId}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData // שליחה של FormData
-        });
-
-        if (!response.ok) throw new Error('שמירת הפרויקט נכשלה.');
-        const updatedProject = await response.json();
-
-        // עדכון התמונה במודל
-        const imageContainer = document.getElementById('projectImageContainer');
-        if (updatedProject.image) {
-            imageContainer.innerHTML = `<img src="${updatedProject.image}" alt="Project Image" style="max-width: 100%; height: auto;">`;
+        // הצגת התמונה הקיימת
+        const imageContainer = document.getElementById("projectImageContainer");
+        if (projectImage) {
+          imageContainer.innerHTML = `<img src="${projectImage}" alt="Project Image" style="max-width: 100%; height: auto;">`;
         } else {
+          imageContainer.innerHTML = `<p>לא הועלתה תמונה עבור פרויקט זה.</p>`;
+        }
+
+        // הצגת המודל
+        document.getElementById("editProjectModal").style.display = "block";
+      }
+
+      function closeEditModal() {
+        // הסתרת המודאל
+        document.getElementById("editProjectModal").style.display = "none";
+      }
+
+      async function saveProjectChanges() {
+        const projectName = document.getElementById("editProjectName").value;
+        const projectDescription = document.getElementById(
+          "editProjectDescription"
+        ).value;
+        const projectStatus =
+          document.getElementById("editProjectStatus").value;
+        const imageInput = document.getElementById("editProjectImage"); // שדה התמונה
+
+        if (!projectName || !projectDescription || !projectStatus) {
+          alert("יש למלא את כל השדות.");
+          return;
+        }
+
+        const token = localStorage.getItem("token");
+        const formData = new FormData(); // שימוש ב-FormData
+        formData.append("name", projectName);
+        formData.append("description", projectDescription);
+        formData.append("status", projectStatus);
+
+        // הוספת קובץ התמונה אם נבחר
+        if (imageInput.files[0]) {
+          formData.append("image", imageInput.files[0]);
+        }
+
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/projects/${currentProjectId}`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              body: formData, // שליחה של FormData
+            }
+          );
+
+          if (!response.ok) throw new Error("שמירת הפרויקט נכשלה.");
+          const updatedProject = await response.json();
+
+          // עדכון התמונה במודל
+          const imageContainer = document.getElementById(
+            "projectImageContainer"
+          );
+          if (updatedProject.image) {
+            imageContainer.innerHTML = `<img src="${updatedProject.image}" alt="Project Image" style="max-width: 100%; height: auto;">`;
+          } else {
             imageContainer.innerHTML = `<p>לא הועלתה תמונה עבור פרויקט זה.</p>`;
-        }
-
-        alert('הפרויקט נשמר בהצלחה!');
-        closeEditModal();
-        await displayProjects(); // רענון רשימת הפרויקטים
-    } catch (error) {
-        alert('שגיאה בשמירת הפרויקט: ' + error.message);
-    }
-}
-
-
-        function toggleDetails(projectId) {
-            const details = document.getElementById(`details-${projectId}`);
-            if (details.style.display === "none" || !details.style.display) {
-                details.style.display = "block";
-            } else {
-                details.style.display = "none";
-            }
-        }
-
-        document.getElementById("addProjectForm").addEventListener("submit", async function (event) {
-            event.preventDefault();
-
-            const projectName = document.getElementById("projectName").value;
-            const projectDescription = document.getElementById("projectDescription").value;
-            const token = localStorage.getItem("token");
-
-            if (!projectName || !projectDescription) {
-                alert("Please fill all fields.");
-                return;
-            }
-
-            if (!token) {
-                alert("Token not found, please log in again.");
-                return;
-            }
-
-            try {
-                const response = await fetch(API_URL, {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ name: projectName, description: projectDescription }),
-                });
-
-                if (!response.ok) throw new Error("Failed to add project.");
-                alert("Project added successfully!");
-                document.getElementById("addProjectForm").reset();
-                await displayProjects();
-            } catch (error) {
-                alert("Error adding project: " + error.message);
-            }
-        });
-
-        async function deleteProject(projectId) {
-            if (!confirm("Are you sure you want to delete this project?")) return;
-
-            const token = localStorage.getItem("token");
-
-            try {
-                const response = await fetch(`http://localhost:3000/api/projects/${projectId}`, {
-                    method: "DELETE",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
-                });
-
-                if (!response.ok) throw new Error("Failed to delete project.");
-                alert("Project deleted successfully!");
-                await displayProjects();
-            } catch (error) {
-                alert("Error deleting project: " + error.message);
-            }
-        }
-
-        async function editProject(projectId) {
-            const newName = prompt("Enter the new project name:");
-            const newDescription = prompt("Enter the new project description:");
-            const newStatus = prompt("Enter the new status (Pending/In Progress/Completed):");
-
-            if (!newName || !newDescription || !newStatus) {
-                alert("Please fill all fields.");
-                return;
-            }
-
-            const token = localStorage.getItem("token");
-
-            try {
-                const response = await fetch(`http://localhost:3000/api/projects/${projectId}`, {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        name: newName,
-                        description: newDescription,
-                        status: newStatus,
-                    }),
-                });
-
-                if (!response.ok) throw new Error("Failed to update project.");
-                alert("Project updated successfully!");
-                await displayProjects();
-            } catch (error) {
-                alert("Error updating project: " + error.message);
-            }
-        }
-        const username = localStorage.getItem('username');
-          if(username){
-              document.getElementById("username").innerText = username;
           }
-         
-        function logout() {
-            localStorage.clear();
-            alert("You have been logged out.");
-            window.location.href = "main_page.html";
+
+          alert("הפרויקט נשמר בהצלחה!");
+          closeEditModal();
+          await displayProjects(); // רענון רשימת הפרויקטים
+        } catch (error) {
+          alert("שגיאה בשמירת הפרויקט: " + error.message);
         }
+      }
 
-        function toggleMenu() {
-            const subMenu = document.getElementById("subMenu");
-            subMenu.classList.toggle("open-menu");
+      function toggleDetails(projectId) {
+        const details = document.getElementById(`details-${projectId}`);
+        if (details.style.display === "none" || !details.style.display) {
+          details.style.display = "block";
+        } else {
+          details.style.display = "none";
         }
-        async function shareProject(projectId) {
-    if (!confirm("Are you sure you want to share this project to the gallery?")) return;
+      }
 
-    const token = localStorage.getItem("token");
+      // add Project
+      document.getElementById("addProjectForm").addEventListener("submit", async function (event) {
+          event.preventDefault();
 
-    try {
-        const response = await fetch(`http://localhost:3000/api/projects/${projectId}/share`, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${token}`,
+          const projectName = document.getElementById("projectName").value;
+          const projectDescription =
+            document.getElementById("projectDescription").value;
+          const token = localStorage.getItem("token");
+
+          if (!projectName || !projectDescription) {
+            alert("Please fill all fields.");
+            return;
+          }
+
+          if (!token) {
+            alert("Token not found, please log in again.");
+            return;
+          }
+
+          try {
+            const response = await fetch(API_URL, {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
-            },
+              },
+              body: JSON.stringify({
+                name: projectName,
+                description: projectDescription,
+              }),
+            });
+
+            if (!response.ok) throw new Error("Failed to add project.");
+            alert("Project added successfully!");
+            document.getElementById("addProjectForm").reset();
+            await displayProjects();
+          } catch (error) {
+            alert("Error adding project: " + error.message);
+          }
         });
 
-        if (!response.ok) throw new Error("Failed to share project.");
+      async function deleteProject(projectId) {
+        if (!confirm("Are you sure you want to delete this project?")) return;
 
-        alert("Project shared to gallery successfully!");
+        const token = localStorage.getItem("token");
 
-        
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/projects/${projectId}`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
 
-        await displayProjects(); // Refresh the project list
-    } catch (error) {
-        alert("Error sharing project: " + error.message);
-    }
-}
+          if (!response.ok) throw new Error("Failed to delete project.");
+          alert("Project deleted successfully!");
+          await displayProjects();
+        } catch (error) {
+          alert("Error deleting project: " + error.message);
+        }
+      }
 
-async function downloadProjectAsText(projectId) {
-    const token = localStorage.getItem("token");
+      async function editProject(projectId) {
+        const newName = prompt("Enter the new project name:");
+        const newDescription = prompt("Enter the new project description:");
+        const newStatus = prompt(
+          "Enter the new status (Pending/In Progress/Completed):"
+        );
 
-    try {
-        console.log("Fetching project details for ID:", projectId);
+        if (!newName || !newDescription || !newStatus) {
+          alert("Please fill all fields.");
+          return;
+        }
 
-        const response = await fetch(`http://localhost:3000/api/projects/${projectId}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-            },
-        });
+        const token = localStorage.getItem("token");
 
-        if (!response.ok) {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/projects/${projectId}`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name: newName,
+                description: newDescription,
+                status: newStatus,
+              }),
+            }
+          );
+
+          if (!response.ok) throw new Error("Failed to update project.");
+          alert("Project updated successfully!");
+          await displayProjects();
+        } catch (error) {
+          alert("Error updating project: " + error.message);
+        }
+      }
+      const username = localStorage.getItem("username");
+      if (username) {
+        document.getElementById("username").innerText = username;
+      }
+
+      function logout() {
+        localStorage.clear();
+        alert("You have been logged out.");
+        window.location.href = "main_page.html";
+      }
+
+      function toggleMenu() {
+        const subMenu = document.getElementById("subMenu");
+        subMenu.classList.toggle("open-menu");
+      }
+
+      
+      async function shareProject(projectId) {
+        if (
+          !confirm(
+            "Are you sure you want to share this project to the gallery?"
+          )
+        )
+          return;
+
+        const token = localStorage.getItem("token");
+
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/projects/${projectId}/share`,
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (!response.ok) throw new Error("Failed to share project.");
+
+          alert("Project shared to gallery successfully!");
+
+          await displayProjects(); // Refresh the project list
+        } catch (error) {
+          alert("Error sharing project: " + error.message);
+        }
+      }
+
+      async function downloadProjectAsText(projectId) {
+        const token = localStorage.getItem("token");
+
+        try {
+          console.log("Fetching project details for ID:", projectId);
+
+          const response = await fetch(
+            `http://localhost:3000/api/projects/${projectId}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
             const errorDetails = await response.text();
             throw new Error(`Failed to fetch project details: ${errorDetails}`);
-        }
+          }
 
-        const project = await response.json();
+          const project = await response.json();
 
-        // בדיקה אם יש נתונים לפרויקט
-        if (!project || !project.name || !project.products) {
+          // בדיקה אם יש נתונים לפרויקט
+          if (!project || !project.name || !project.products) {
             throw new Error("Project details are incomplete.");
-        }
+          }
 
-        // יצירת תוכן הטקסט עם עיצוב מסודר
-        const content = `
+          // יצירת תוכן הטקסט עם עיצוב מסודר
+          const content = `
 ==========================================================
                      Project Details
 ==========================================================
@@ -492,8 +542,10 @@ Status           : ${project.status || "No status provided"}
 ==========================================================
 
 ${
-    project.products.length > 0
-        ? project.products.map((product, index) => `
+  project.products.length > 0
+    ? project.products
+        .map(
+          (product, index) => `
 ----------------------------------------------------------
  Product ${index + 1}
 ----------------------------------------------------------
@@ -501,8 +553,10 @@ ${
  Quantity        : ${product.quantity || 0}
  Price per Unit  : $${product.price || 0}
  Total Cost      : $${(product.quantity || 0) * (product.price || 0)}
-`).join("\n")
-        : "No products added.\n"
+`
+        )
+        .join("\n")
+    : "No products added.\n"
 }
 
 ==========================================================
@@ -510,23 +564,22 @@ ${
 ==========================================================
         `;
 
-        // יצירת קובץ טקסט להורדה
-        const blob = new Blob([content], { type: "text/plain" });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.style.display = "none";
-        a.href = url;
-        a.download = `${project.name}.txt`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-    } catch (error) {
-        console.error("Error downloading project as text:", error.message);
-        alert("Error downloading project as text: " + error.message);
-    }
-}
-
+          // יצירת קובץ טקסט להורדה
+          const blob = new Blob([content], { type: "text/plain" });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = `${project.name}.txt`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        } catch (error) {
+          console.error("Error downloading project as text:", error.message);
+          alert("Error downloading project as text: " + error.message);
+        }
+      }
     </script>
     <script src="scripts/accessability.js"></script>
-</body>
+  </body>
 </html>

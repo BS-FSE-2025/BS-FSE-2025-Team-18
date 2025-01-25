@@ -95,32 +95,6 @@ app.delete("/api/users/:id", async (req, res) => {
 });
 
 
-//Website stats
-
-
-// // Mock database models (replace with actual models)
-// const User1 = { countDocuments: async () => 123 }; // Mock user count
-// const Project = { countDocuments: async () => 45 }; // Mock project count
-// const Product = { countDocuments: async () => 78 }; // Mock product count
-// // Define the /api/stats route
-// app.get('/api/stats', async (req, res) => {
-//   try {
-//     const userCount = await User1.countDocuments(); // Replace with your DB query
-//     const projectCount = await Project.countDocuments(); // Replace with your DB query
-//     const productCount = await Product.countDocuments(); // Replace with your DB query
-
-//     res.json({
-//       users: userCount,
-//       projects: projectCount,
-//       products: productCount,
-//     });
-//   } catch (error) {
-//     console.error('Error fetching stats:', error);
-//     res.status(500).json({ error: 'Failed to fetch stats' });
-//   }
-// });
-
-
 const galleryRoutes = require("./routes/gallery");  // Admin Projects Routes
 app.use("/api/gallery", galleryRoutes);  // Link to the admin-created projects route
 
