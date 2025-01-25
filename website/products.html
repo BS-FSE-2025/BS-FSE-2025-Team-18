@@ -72,6 +72,7 @@
             <button class="filter-btn" data-category="Roofing">Roofing</button>
             <button class="filter-btn" data-category="Flooring">Flooring</button>
             <button class="filter-btn" data-category="Lighting">Lighting</button>
+            <button class="filter-btn" data-category="Kitchen-countertops">Kitchen countertops</button>
             <button class="filter-btn" data-category="Kitchen-sinks">Kitchen sinks</button>
             <button class="filter-btn" data-category="bathroom-sinks">bathroom sinks</button>
             <button class="filter-btn" data-category="bathroom-showers">bathroom shower</button>
@@ -149,7 +150,7 @@
 function getUnitByCategory(category) {
         switch (category) {
           case "Painting":
-            return "liters";
+            return "unit";
           case "Woodwork":
           case "Flooring":
             return "m²";
@@ -160,6 +161,7 @@ function getUnitByCategory(category) {
           case "bathroom-showers":
           case "bathroom-toilets":
           case "Outdoor":
+          case "Kitchen-countertops":
             return "units";
           default:
             return "m²"; // Default unit
