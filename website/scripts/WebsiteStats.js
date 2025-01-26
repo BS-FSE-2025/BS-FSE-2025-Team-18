@@ -23,7 +23,7 @@ async function fetchUserCount() {
 
 
 async function fetchGalleryCount() {
-    const API_URL = "http://localhost:3000/api/gallery"; // Update this URL if needed
+    const API_URL = "http://localhost:3000/api/gallery";
 
     try {
         const response = await fetch(API_URL);
@@ -41,7 +41,7 @@ async function fetchGalleryCount() {
 
 // Fetch the product count from the API
 async function fetchProductCount() {
-    const API_URL = "http://localhost:3000/api/catalog"; // Update this URL if needed
+    const API_URL = "http://localhost:3000/api/catalog";
 
     try {
         const response = await fetch(API_URL);
